@@ -8,11 +8,6 @@
     "preview": "vite preview",
     "lint": "eslint ./"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pnpm lint"
-    }
-  },
   "dependencies": {
     "vue": "^3.2.25"
   },
