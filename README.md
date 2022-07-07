@@ -5,6 +5,17 @@ Realtime chat room app.
 ## To start the project
 
 ```
-pnpm install
-docker-compose up
+$ docker-compose up
+```
+
+## To start the project in developer mode
+
+```
+$ pnpm install
+$ cd ./frontend
+$ pnpm install
+$ cd ../backend
+$ pnpm install
+$ cd ../
+$ docker-compose up
 ```

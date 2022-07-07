@@ -28,7 +28,6 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-require-sort": "^1.2.2",
     "eslint-plugin-vue": "^9.2.0",
-    "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "vite": "^2.9.9"
   }
