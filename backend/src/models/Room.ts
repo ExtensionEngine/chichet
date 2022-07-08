@@ -1,8 +1,8 @@
 import { DataType, Model, Sequelize } from 'sequelize';
 
 module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
-  class User extends Model {}
-  User.init(
+  class Room extends Model {}
+  Room.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -10,35 +10,24 @@ module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) 
         autoIncrement: true,
       },
 
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-
-      nickame: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
       },
 
-      password: {
+      description: {
         type: DataTypes.STRING,
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: 'User',
-      tableName: 'users',
+      modelName: 'Room',
+      tableName: 'rooms',
       timestamps: false,
       underscored: true,
     },
   );
 
-  return User;
+  return Room;
 };
