@@ -1,31 +1,25 @@
-import { DataTypes } from 'sequelize/types';
-import sequelize from 'db';
+import { DataType, Model, Sequelize } from 'sequelize';
 
-const User = sequelize.define(
-  'User',
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
+module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
+  class User extends Model {}
+  User.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      lastName: DataTypes.STRING,
+      email: DataTypes.STRING,
     },
+    {
+      sequelize,
+      modelName: 'User',
+      tableName: 'users',
+      timestamps: false,
+      underscored: true,
+    },
+  );
 
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-
-    nickame: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    timestamps: false,
-  },
-);
+  return User;
+};

@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize/types';
-import sequelize from 'db';
+import { DataTypes } from 'sequelize';
+import sequelize from 'models';
 
 const Room = sequelize.define(
   'Room',
@@ -21,6 +21,10 @@ const Room = sequelize.define(
     },
   },
   {
+    tableName: 'rooms',
     timestamps: false,
+    underscored: true,
   },
 );
+
+export default Room;

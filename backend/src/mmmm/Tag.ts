@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize/types';
-import sequelize from 'db';
+import { DataTypes } from 'sequelize';
+import sequelize from 'models';
 
 const Tag = sequelize.define(
   'Tag',
@@ -16,6 +16,10 @@ const Tag = sequelize.define(
     },
   },
   {
+    tableName: 'tags',
     timestamps: false,
+    underscored: true,
   },
 );
+
+export default Tag;
