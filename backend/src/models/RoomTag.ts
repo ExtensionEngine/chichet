@@ -1,8 +1,8 @@
 import { DataType, Model, Sequelize } from 'sequelize';
 
 module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
-  class Tag extends Model {}
-  Tag.init(
+  class RoomTag extends Model {}
+  RoomTag.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -10,18 +10,23 @@ module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) 
         autoIncrement: true,
       },
 
-      label: {
-        type: DataTypes.STRING,
+      roomId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+
+      tagId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: 'Tag',
-      tableName: 'tags',
+      modelName: 'RoomTag',
+      tableName: 'roomTags',
       timestamps: false,
     },
   );
 
-  return Tag;
+  return RoomTag;
 };

@@ -25,7 +25,6 @@ module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) 
       modelName: 'Room',
       tableName: 'rooms',
       timestamps: false,
-      underscored: true,
     },
   );
 

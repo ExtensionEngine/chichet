@@ -1,4 +1,4 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
 import fs from 'fs';
 import path from 'path';
 
@@ -12,9 +12,19 @@ const sequelize = new Sequelize(
   },
 );
 
+type IModelKey = 'Message' | 'Room' | 'RoomTag' | 'Tag' | 'User' | 'UserRoomInteraction' | 'UserTag';
+
+type IModel = {
+  associate: (db: { [key in IModelKey]?: IModel }) => void;
+} & ModelStatic<Model>;
+
+type IModels = {
+  [key in IModelKey]?: IModel;
+};
+
 const basename = path.basename(__filename);
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const db: { [key: string]: any } = {};
+const db: IModels = {};
 
 fs.readdirSync(__dirname)
   .filter(file => {
@@ -22,15 +32,16 @@ fs.readdirSync(__dirname)
   })
   .forEach(file => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const model = require(path.join(__dirname, file))(sequelize, DataTypes);
-    db[model.name] = model;
+    const model: IModel = require(path.join(__dirname, file))(sequelize, DataTypes);
+    db[model.name as IModelKey] = model;
   });
 
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+let modelName: IModelKey;
+for (modelName in db) {
+  if (db[modelName]?.associate) {
+    db[modelName]?.associate(db);
   }
-});
+}
 
-export { sequelize };
+export { sequelize, IModels, IModel };
 export default db;

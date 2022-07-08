@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -r tsconfig-paths/register src/app.ts",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "model:add": "npx sequelize-cli model:generate --name",
+    "migration:run": "npx sequelize-cli db:migrate",
+    "migration:undo": "npx sequelize-cli db:migrate:undo",
+    "migration:undo:all": "npx sequelize-cli db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",
