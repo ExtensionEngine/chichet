@@ -10,8 +10,8 @@ export default {
   props: {
     modelValue: { type: String, default: '' },
   },
-  setup(_props, context) {
-    const { updateModelValue } = useModelValue(context);
+  setup(_props, { emit }) {
+    const { updateModelValue } = useModelValue(emit);
     return { updateModelValue };
   },
 };
