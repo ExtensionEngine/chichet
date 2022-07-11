@@ -1,4 +1,4 @@
-import { IFields } from 'shared/database/types';
+import { IFields, IModels } from 'shared/database/types';
 import { Model } from 'sequelize';
 
 class User extends Model {
@@ -31,6 +31,16 @@ class User extends Model {
         allowNull: false,
       },
     };
+  }
+
+  static associate({ Tag, UserTag }: IModels) {
+    this.hasMany(UserTag, {
+      foreignKey: { name: 'userId', field: 'userId' },
+    });
+    this.belongsToMany(Tag, {
+      through: UserTag,
+      foreignKey: { name: 'tagId', field: 'tagId' },
+    });
   }
 
   static scopes() {

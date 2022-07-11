@@ -1,6 +1,5 @@
+import sequelize, { User, UserTag } from 'shared/database';
 import express from 'express';
-import sequelize from 'shared/database';
-import User from 'user/user.model';
 
 const app = express();
 
@@ -8,7 +7,7 @@ const port = 3001;
 
 // test route
 app.get('/', async (req, res) => {
-  const users = await User.findAll();
+  const users = await User.findAll({ include: UserTag });
   res.json(users);
 });
 

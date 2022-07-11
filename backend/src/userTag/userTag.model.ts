@@ -1,4 +1,4 @@
-import { IFields } from 'shared/database/types';
+import { IFields, IModels } from 'shared/database/types';
 import { Model } from 'sequelize';
 
 class UserTag extends Model {
@@ -20,6 +20,15 @@ class UserTag extends Model {
         allowNull: false,
       },
     };
+  }
+
+  static associate({ Tag, User }: IModels) {
+    this.belongsTo(Tag, {
+      foreignKey: { name: 'tagId', field: 'tagId' },
+    });
+    this.belongsTo(User, {
+      foreignKey: { name: 'userId', field: 'userId' },
+    });
   }
 
   static dbOptions() {

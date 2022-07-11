@@ -1,4 +1,4 @@
-import { IFields } from 'shared/database/types';
+import { IFields, IModels } from 'shared/database/types';
 import { Model } from 'sequelize';
 
 class Room extends Model {
@@ -20,6 +20,10 @@ class Room extends Model {
         allowNull: false,
       },
     };
+  }
+
+  static associate({ Tag }: IModels) {
+    this.belongsToMany(Tag, { through: 'roomTags' });
   }
 
   static dbOptions() {
