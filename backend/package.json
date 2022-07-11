@@ -6,10 +6,14 @@
   "scripts": {
     "dev": "nodemon -r tsconfig-paths/register src/app.ts",
     "lint": "eslint ./",
-    "model:add": "npx sequelize-cli model:generate --name",
+    "model:create": "npx sequelize-cli model:generate --name",
     "migration:run": "npx sequelize-cli db:migrate",
     "migration:undo": "npx sequelize-cli db:migrate:undo",
-    "migration:undo:all": "npx sequelize-cli db:migrate:undo:all"
+    "migration:undo:all": "npx sequelize-cli db:migrate:undo:all",
+    "seed:create": "npx sequelize-cli seed:generate --name",
+    "seed:run": "npx sequelize-cli db:seed:all",
+    "seed:undo": "npx sequelize-cli db:seed:undo",
+    "seed:undo:all": "npx sequelize-cli db:seed:undo:all"
   },
   "keywords": [],
   "author": "",

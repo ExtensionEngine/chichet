@@ -20,7 +20,7 @@ class User extends Model {
         allowNull: true,
       },
 
-      nickame: {
+      nickname: {
         type: STRING,
         allowNull: false,
         unique: true,
