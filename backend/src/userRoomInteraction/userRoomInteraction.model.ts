@@ -1,4 +1,4 @@
-import { IFields } from 'shared/database/types';
+import { IFields, IModels } from 'shared/database/types';
 import { Model } from 'sequelize';
 
 class UserRoomInteraction extends Model {
@@ -30,6 +30,15 @@ class UserRoomInteraction extends Model {
         allowNull: false,
       },
     };
+  }
+
+  static associate({ Room, User }: IModels) {
+    this.belongsTo(Room, {
+      foreignKey: { name: 'roomId', field: 'roomId' },
+    });
+    this.belongsTo(User, {
+      foreignKey: { name: 'userId', field: 'userId' },
+    });
   }
 
   static dbOptions() {

@@ -33,12 +33,28 @@ class User extends Model {
     };
   }
 
-  static associate({ Tag, UserTag }: IModels) {
+  static associate({ Message, Tag, Room, UserRoomInteraction, UserTag }: IModels) {
     this.hasMany(UserTag, {
       foreignKey: { name: 'userId', field: 'userId' },
     });
     this.belongsToMany(Tag, {
       through: UserTag,
+      foreignKey: { name: 'userId', field: 'userId' },
+    });
+
+    this.hasMany(Message, {
+      foreignKey: { name: 'userId', field: 'userId' },
+    });
+    this.belongsToMany(Room, {
+      through: Message,
+      foreignKey: { name: 'userId', field: 'userId' },
+    });
+
+    this.hasMany(UserRoomInteraction, {
+      foreignKey: { name: 'userId', field: 'userId' },
+    });
+    this.belongsToMany(Room, {
+      through: UserRoomInteraction,
       foreignKey: { name: 'userId', field: 'userId' },
     });
   }

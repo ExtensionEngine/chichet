@@ -22,12 +22,28 @@ class Room extends Model {
     };
   }
 
-  static associate({ RoomTag, Tag }: IModels) {
+  static associate({ Message, RoomTag, Tag, User, UserRoomInteraction }: IModels) {
     this.hasMany(RoomTag, {
       foreignKey: { name: 'roomId', field: 'roomId' },
     });
     this.belongsToMany(Tag, {
       through: RoomTag,
+      foreignKey: { name: 'roomId', field: 'roomId' },
+    });
+
+    this.hasMany(Message, {
+      foreignKey: { name: 'roomId', field: 'roomId' },
+    });
+    this.belongsToMany(User, {
+      through: Message,
+      foreignKey: { name: 'roomId', field: 'roomId' },
+    });
+
+    this.hasMany(UserRoomInteraction, {
+      foreignKey: { name: 'roomId', field: 'roomId' },
+    });
+    this.belongsToMany(User, {
+      through: UserRoomInteraction,
       foreignKey: { name: 'roomId', field: 'roomId' },
     });
   }
