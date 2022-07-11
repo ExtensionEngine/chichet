@@ -1,15 +1,20 @@
-import sequelize, { User, UserTag } from 'shared/database';
 import express from 'express';
+import sequelize from 'shared/database';
+
+// eslint-disable-next-line sort-imports
+import message from 'message';
+import room from 'room';
+import tag from 'tag';
+import user from 'user';
 
 const app = express();
 
 const port = 3001;
 
-// test route
-app.get('/', async (req, res) => {
-  const users = await User.findAll({ include: UserTag });
-  res.json(users);
-});
+app.use(message.path, message.router);
+app.use(room.path, room.router);
+app.use(tag.path, tag.router);
+app.use(user.path, user.router);
 
 // test database connection
 (async () => {
