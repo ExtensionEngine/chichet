@@ -11,6 +11,7 @@ import vInput from './vInput.vue';
 
 export default {
   name: 'v-field',
+  inheritAttrs: false,
   props: {
     label: { type: String, default: '' },
     error: { type: String, default: '' },
