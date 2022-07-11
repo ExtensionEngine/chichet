@@ -9,7 +9,7 @@ import user from 'user';
 
 const app = express();
 
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(message.path, message.router);
 app.use(room.path, room.router);

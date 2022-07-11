@@ -9,7 +9,7 @@ module.exports = {
     ]);
   },
 
-  async down(queryInterface) {
+  down(queryInterface) {
     return queryInterface.bulkDelete('rooms', null, {});
   },
 };
