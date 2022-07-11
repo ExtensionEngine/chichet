@@ -1,8 +1,8 @@
-import { IFields } from 'models/types';
+import { IFields } from 'shared/database/types';
 import { Model } from 'sequelize';
 
-class UserTag extends Model {
-  static fields({ INTEGER }: IFields) {
+class Room extends Model {
+  static fields({ INTEGER, STRING }: IFields) {
     return {
       id: {
         type: INTEGER,
@@ -10,13 +10,13 @@ class UserTag extends Model {
         autoIncrement: true,
       },
 
-      userId: {
-        type: INTEGER,
+      title: {
+        type: STRING,
         allowNull: false,
       },
 
-      tagId: {
-        type: INTEGER,
+      description: {
+        type: STRING,
         allowNull: false,
       },
     };
@@ -24,11 +24,11 @@ class UserTag extends Model {
 
   static dbOptions() {
     return {
-      modelName: 'UserTag',
-      tableName: 'userTags',
+      modelName: 'Room',
+      tableName: 'rooms',
       timestamps: false,
     };
   }
 }
 
-export default UserTag;
+export default Room;

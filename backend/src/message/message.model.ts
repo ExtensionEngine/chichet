@@ -1,4 +1,4 @@
-import { IFields } from 'models/types';
+import { IFields } from 'shared/database/types';
 import { Model } from 'sequelize';
 
 class Message extends Model {

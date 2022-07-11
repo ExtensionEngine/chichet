@@ -2,13 +2,13 @@ import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
 import { forEach, invoke } from 'lodash';
 import { IModels } from './types';
 
-import MessageModel from './Message';
-import RoomModel from './Room';
-import RoomTagModel from './RoomTag';
-import TagModel from './Tag';
-import UserModel from './User';
-import UserRoomInteractionModel from './UserRoomInteraction';
-import UserTagModel from './UserTag';
+import MessageModel from 'message/message.model';
+import RoomModel from 'room/room.model';
+import RoomTagModel from 'roomTag/roomTag.model';
+import TagModel from 'tag/tag.model';
+import UserModel from 'user/user.model';
+import UserRoomInteractionModel from 'userRoomInteraction/userRoomInteraction.model';
+import UserTagModel from 'userTag/userTag.model';
 
 const sequelize = new Sequelize(
   process.env.POSTGRES_DB || '',

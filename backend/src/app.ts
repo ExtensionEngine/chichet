@@ -1,5 +1,6 @@
-import sequelize, { User } from 'models';
 import express from 'express';
+import sequelize from 'shared/database';
+import User from 'user/user.model';
 
 const app = express();
 
