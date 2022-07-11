@@ -13,6 +13,7 @@ class Tag extends Model {
       label: {
         type: STRING,
         allowNull: false,
+        unique: true,
       },
     };
   }
