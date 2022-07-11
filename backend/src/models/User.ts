@@ -1,43 +1,53 @@
-import { DataType, Model, Sequelize } from 'sequelize';
+import { IFields } from 'models/types';
+import { Model } from 'sequelize';
 
-module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
-  class User extends Model {}
-  User.init(
-    {
+class User extends Model {
+  static fields({ INTEGER, STRING }: IFields) {
+    return {
       id: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
 
       firstName: {
-        type: DataTypes.STRING,
+        type: STRING,
         allowNull: true,
       },
 
       lastName: {
-        type: DataTypes.STRING,
+        type: STRING,
         allowNull: true,
       },
 
       nickame: {
-        type: DataTypes.STRING,
+        type: STRING,
         allowNull: false,
         unique: true,
       },
 
       password: {
-        type: DataTypes.STRING,
+        type: STRING,
         allowNull: false,
       },
-    },
-    {
-      sequelize,
+    };
+  }
+
+  static scopes() {
+    return {
+      defaultScope: {
+        attributes: { exclude: ['password'] },
+      },
+    };
+  }
+
+  static dbOptions() {
+    return {
       modelName: 'User',
       tableName: 'users',
       timestamps: false,
-    },
-  );
+    };
+  }
+}
 
-  return User;
-};
+export default User;

@@ -1,32 +1,34 @@
-import { DataType, Model, Sequelize } from 'sequelize';
+import { IFields } from 'models/types';
+import { Model } from 'sequelize';
 
-module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
-  class UserTag extends Model {}
-  UserTag.init(
-    {
+class UserTag extends Model {
+  static fields({ INTEGER }: IFields) {
+    return {
       id: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
 
       userId: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         allowNull: false,
       },
 
       tagId: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         allowNull: false,
       },
-    },
-    {
-      sequelize,
+    };
+  }
+
+  static dbOptions() {
+    return {
       modelName: 'UserTag',
       tableName: 'userTags',
       timestamps: false,
-    },
-  );
+    };
+  }
+}
 
-  return UserTag;
-};
+export default UserTag;

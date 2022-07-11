@@ -8,4 +8,5 @@ shift
 cd $dir
 pnpm $@
 docker-compose down || true
-docker image remove rasporedar_$dir || true
+docker image remove chichet_$dir || true
+docker-compose up

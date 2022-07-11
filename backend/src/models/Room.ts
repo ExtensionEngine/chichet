@@ -1,32 +1,34 @@
-import { DataType, Model, Sequelize } from 'sequelize';
+import { IFields } from 'models/types';
+import { Model } from 'sequelize';
 
-module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
-  class Room extends Model {}
-  Room.init(
-    {
+class Room extends Model {
+  static fields({ INTEGER, STRING }: IFields) {
+    return {
       id: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
 
       title: {
-        type: DataTypes.STRING,
+        type: STRING,
         allowNull: false,
       },
 
       description: {
-        type: DataTypes.STRING,
+        type: STRING,
         allowNull: false,
       },
-    },
-    {
-      sequelize,
+    };
+  }
+
+  static dbOptions() {
+    return {
       modelName: 'Room',
       tableName: 'rooms',
       timestamps: false,
-    },
-  );
+    };
+  }
+}
 
-  return Room;
-};
+export default Room;

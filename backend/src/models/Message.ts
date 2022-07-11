@@ -1,47 +1,52 @@
-import { DataType, Model, Sequelize } from 'sequelize';
-import { IModel } from './types/models';
+import { IFields } from 'models/types';
+import { Model } from 'sequelize';
 
-module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
-  class Message extends Model {
-    static associate({ User, Room }: { User: IModel; Room: IModel }) {
-      User.belongsToMany(Room, { through: 'Message' });
-    }
-  }
-  Message.init(
-    {
+class Message extends Model {
+  static fields({ DATE, INTEGER, STRING }: IFields) {
+    return {
       id: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
 
       userId: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         allowNull: false,
       },
 
       roomId: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         allowNull: false,
       },
 
       content: {
-        type: DataTypes.STRING,
+        type: STRING,
         allowNull: false,
       },
 
       createdAt: {
-        type: DataTypes.DATE,
+        type: DATE,
         allowNull: false,
       },
-    },
-    {
-      sequelize,
+    };
+  }
+
+  static scopes() {
+    return {
+      defaultScope: {
+        attributes: { exclude: ['roomId'] },
+      },
+    };
+  }
+
+  static dbOptions() {
+    return {
       modelName: 'Message',
       tableName: 'messages',
       timestamps: false,
-    },
-  );
+    };
+  }
+}
 
-  return Message;
-};
+export default Message;

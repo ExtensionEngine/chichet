@@ -1,42 +1,44 @@
-import { DataType, Model, Sequelize } from 'sequelize';
+import { IFields } from 'models/types';
+import { Model } from 'sequelize';
 
-module.exports = (sequelize: Sequelize, DataTypes: { [key: string]: DataType }) => {
-  class UserRoomInteraction extends Model {}
-  UserRoomInteraction.init(
-    {
+class UserRoomInteraction extends Model {
+  static fields({ DATE, INTEGER }: IFields) {
+    return {
       id: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
 
       userId: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         allowNull: false,
       },
 
       roomId: {
-        type: DataTypes.INTEGER,
+        type: INTEGER,
         allowNull: false,
       },
 
       joinedAt: {
-        type: DataTypes.DATE,
+        type: DATE,
         allowNull: false,
       },
 
       leftAt: {
-        type: DataTypes.DATE,
+        type: DATE,
         allowNull: false,
       },
-    },
-    {
-      sequelize,
+    };
+  }
+
+  static dbOptions() {
+    return {
       modelName: 'UserRoomInteraction',
       tableName: 'userRoomInteractions',
       timestamps: false,
-    },
-  );
+    };
+  }
+}
 
-  return UserRoomInteraction;
-};
+export default UserRoomInteraction;

@@ -1,6 +1,14 @@
 import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
-import fs from 'fs';
-import path from 'path';
+import { forEach, invoke } from 'lodash';
+import { IModels } from './types';
+
+import MessageModel from './Message';
+import RoomModel from './Room';
+import RoomTagModel from './RoomTag';
+import TagModel from './Tag';
+import UserModel from './User';
+import UserRoomInteractionModel from './UserRoomInteraction';
+import UserTagModel from './UserTag';
 
 const sequelize = new Sequelize(
   process.env.POSTGRES_DB || '',
@@ -12,36 +20,35 @@ const sequelize = new Sequelize(
   },
 );
 
-type IModelKey = 'Message' | 'Room' | 'RoomTag' | 'Tag' | 'User' | 'UserRoomInteraction' | 'UserTag';
-
-type IModel = {
-  associate: (db: { [key in IModelKey]?: IModel }) => void;
-} & ModelStatic<Model>;
-
-type IModels = {
-  [key in IModelKey]?: IModel;
+const models: IModels = {
+  Message: defineModel(MessageModel),
+  Room: defineModel(RoomModel),
+  RoomTag: defineModel(RoomTagModel),
+  Tag: defineModel(TagModel),
+  User: defineModel(UserModel),
+  UserRoomInteraction: defineModel(UserRoomInteractionModel),
+  UserTag: defineModel(UserTagModel),
 };
 
-const basename = path.basename(__filename);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const db: IModels = {};
-
-fs.readdirSync(__dirname)
-  .filter(file => {
-    return file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.ts';
-  })
-  .forEach(file => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const model: IModel = require(path.join(__dirname, file))(sequelize, DataTypes);
-    db[model.name as IModelKey] = model;
-  });
-
-let modelName: IModelKey;
-for (modelName in db) {
-  if (db[modelName]?.associate) {
-    db[modelName]?.associate(db);
-  }
+function defineModel(Model: ModelStatic<Model>) {
+  const fields = invoke(Model, 'fields', DataTypes, sequelize) || {};
+  const dbOptions = invoke(Model, 'dbOptions') || {};
+  Object.assign(dbOptions, { sequelize });
+  return Model.init(fields, dbOptions);
 }
 
-export { sequelize, IModels, IModel };
-export default db;
+forEach(models, model => {
+  invoke(model, 'associate', models);
+  addScopes(model);
+});
+
+function addScopes(model: ModelStatic<Model>) {
+  const scopes = invoke(model, 'scopes', models);
+  forEach(scopes, (scope, name) => model.addScope(name, scope, { override: true }));
+}
+
+const { Message, Room, RoomTag, Tag, User, UserRoomInteraction, UserTag } = models;
+
+export { Message, Room, RoomTag, Tag, User, UserRoomInteraction, UserTag };
+
+export default sequelize;
