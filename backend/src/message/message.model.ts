@@ -42,7 +42,7 @@ class Message extends Model {
 
   static dbOptions() {
     return {
-      modelName: 'Message',
+      modelName: 'message',
       tableName: 'messages',
       timestamps: false,
     };

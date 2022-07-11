@@ -18,7 +18,7 @@ class Tag extends Model {
     };
   }
 
-  static associate({ User, UserTag }: IModels) {
+  static associate({ Room, RoomTag, User, UserTag }: IModels) {
     this.hasMany(UserTag, {
       foreignKey: { name: 'tagId', field: 'tagId' },
     });
@@ -26,11 +26,18 @@ class Tag extends Model {
       through: UserTag,
       foreignKey: { name: 'tagId', field: 'tagId' },
     });
+    this.hasMany(RoomTag, {
+      foreignKey: { name: 'tagId', field: 'tagId' },
+    });
+    this.belongsToMany(Room, {
+      through: RoomTag,
+      foreignKey: { name: 'tagId', field: 'tagId' },
+    });
   }
 
   static dbOptions() {
     return {
-      modelName: 'Tag',
+      modelName: 'tag',
       tableName: 'tags',
       timestamps: false,
     };

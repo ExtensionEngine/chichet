@@ -22,13 +22,19 @@ class Room extends Model {
     };
   }
 
-  static associate({ Tag }: IModels) {
-    this.belongsToMany(Tag, { through: 'roomTags' });
+  static associate({ RoomTag, Tag }: IModels) {
+    this.hasMany(RoomTag, {
+      foreignKey: { name: 'roomId', field: 'roomId' },
+    });
+    this.belongsToMany(Tag, {
+      through: RoomTag,
+      foreignKey: { name: 'roomId', field: 'roomId' },
+    });
   }
 
   static dbOptions() {
     return {
-      modelName: 'Room',
+      modelName: 'room',
       tableName: 'rooms',
       timestamps: false,
     };

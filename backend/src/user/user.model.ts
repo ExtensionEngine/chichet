@@ -39,7 +39,7 @@ class User extends Model {
     });
     this.belongsToMany(Tag, {
       through: UserTag,
-      foreignKey: { name: 'tagId', field: 'tagId' },
+      foreignKey: { name: 'userId', field: 'userId' },
     });
   }
 
@@ -53,7 +53,7 @@ class User extends Model {
 
   static dbOptions() {
     return {
-      modelName: 'User',
+      modelName: 'user',
       tableName: 'users',
       timestamps: false,
     };

@@ -33,7 +33,7 @@ class UserTag extends Model {
 
   static dbOptions() {
     return {
-      modelName: 'UserTag',
+      modelName: 'userTag',
       tableName: 'userTags',
       timestamps: false,
     };

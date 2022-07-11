@@ -34,7 +34,7 @@ class UserRoomInteraction extends Model {
 
   static dbOptions() {
     return {
-      modelName: 'UserRoomInteraction',
+      modelName: 'userRoomInteraction',
       tableName: 'userRoomInteractions',
       timestamps: false,
     };
