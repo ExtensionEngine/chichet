@@ -1,6 +1,6 @@
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('messages', {
+  up(queryInterface, Sequelize) {
+    queryInterface.createTable('messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -42,7 +42,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface) {
-    await queryInterface.dropTable('messages');
+  down(queryInterface) {
+    queryInterface.dropTable('messages');
   },
 };
