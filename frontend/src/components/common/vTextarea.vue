@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import useModelValue from '../../composables/useModelValue.js';
+import useModelValue from '@/composables/useModelValue.js';
 
 export default {
   name: 'base-input',
