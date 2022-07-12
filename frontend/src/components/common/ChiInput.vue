@@ -1,12 +1,12 @@
 <template>
-  <textarea @input="updateModelValue" :value="modelValue" class="textarea"></textarea>
+  <input @input="updateModelValue" :value="modelValue" class="input" />
 </template>
 
 <script>
 import useModelValue from '@/composables/useModelValue.js';
 
 export default {
-  name: 'base-input',
+  name: 'chi-input',
   props: {
     modelValue: { type: String, default: '' },
   },
@@ -18,11 +18,13 @@ export default {
 </script>
 
 <style>
-.textarea {
+.input {
   font-size: inherit;
   background: none;
   border: none;
+}
+
+.input:focus {
   outline: none;
-  resize: none;
 }
 </style>

@@ -1,22 +1,22 @@
 <template>
   <div class="field">
     <label v-if="label">{{ label }}</label>
-    <slot><v-input v-bind="$attrs" /></slot>
+    <slot><chi-input v-bind="$attrs" /></slot>
     <span class="error">{{ error }}</span>
   </div>
 </template>
 
 <script>
-import vInput from './vInput.vue';
+import ChiInput from './ChiInput.vue';
 
 export default {
-  name: 'v-field',
+  name: 'chi-field',
   inheritAttrs: false,
   props: {
     label: { type: String, default: '' },
     error: { type: String, default: '' },
   },
-  components: { vInput },
+  components: { ChiInput },
 };
 </script>
 
