@@ -1,5 +1,5 @@
 <template>
-  <textarea @input="updateModelValue" :value="modelValue" class="chi-textarea"></textarea>
+  <textarea v-bind="{ ...$attrs, onInput: updateModelValue }" :value="modelValue" class="chi-textarea"></textarea>
 </template>
 
 <script>

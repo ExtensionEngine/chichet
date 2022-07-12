@@ -1,5 +1,5 @@
 <template>
-  <input @input="updateModelValue" :value="modelValue" class="chi-input" />
+  <input v-bind="{ ...$attrs, onInput: updateModelValue }" :value="modelValue" class="chi-input" />
 </template>
 
 <script>
