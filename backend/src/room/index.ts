@@ -4,6 +4,6 @@ import { Router } from 'express';
 const router = Router();
 const path = '/rooms';
 
-router.get('', getAll);
+router.get('/', getAll);
 
 export default { router, path };

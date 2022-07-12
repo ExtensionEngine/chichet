@@ -11,6 +11,8 @@ const app = express();
 
 const port = process.env.PORT || 3001;
 
+app.use(express.json());
+
 app.use(message.path, message.router);
 app.use(room.path, room.router);
 app.use(tag.path, tag.router);
