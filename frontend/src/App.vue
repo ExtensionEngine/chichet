@@ -9,7 +9,8 @@ export default {
 </script>
 
 <style>
-@import './assets/stylesheets/main.css';
+@import 'normalize.css';
+@import '@/assets/stylesheets/main.css';
 
 #app {
   width: 100%;
