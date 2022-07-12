@@ -21,6 +21,7 @@ export default {
 .textarea {
   font-size: inherit;
   background: none;
+  border: none;
   outline: none;
   resize: none;
 }
