@@ -1,5 +1,5 @@
 <template>
-  <textarea @input="updateModelValue" :value="modelValue" class="textarea"></textarea>
+  <textarea @input="updateModelValue" :value="modelValue" class="chi-textarea"></textarea>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped>
-.textarea {
+.chi-textarea {
   font-size: inherit;
   background: none;
   border: none;

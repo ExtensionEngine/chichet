@@ -1,5 +1,5 @@
 <template>
-  <input @input="updateModelValue" :value="modelValue" class="input" />
+  <input @input="updateModelValue" :value="modelValue" class="chi-input" />
 </template>
 
 <script>
@@ -18,13 +18,13 @@ export default {
 </script>
 
 <style scoped>
-.input {
+.chi-input {
   font-size: inherit;
   background: none;
   border: none;
 }
 
-.input:focus {
+.chi-input:focus {
   outline: none;
 }
 </style>

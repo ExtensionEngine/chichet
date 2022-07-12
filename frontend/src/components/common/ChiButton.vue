@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button class="chi-button">
     <slot></slot>
   </button>
 </template>
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-.button {
+.chi-button {
   background: none;
   border: none;
   cursor: pointer;

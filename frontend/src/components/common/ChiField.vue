@@ -1,8 +1,8 @@
 <template>
-  <div class="field">
-    <label v-if="label">{{ label }}</label>
+  <div class="chi-field">
+    <label v-if="label" class="chi-field-label">{{ label }}</label>
     <slot><chi-input v-bind="$attrs" /></slot>
-    <span class="error">{{ error }}</span>
+    <span class="chi-field-error">{{ error }}</span>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.error::after {
+.chi-field-error::after {
   content: ' ';
   font-size: 0;
   white-space: pre;
