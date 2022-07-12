@@ -11,9 +11,4 @@ export default {
 <style>
 @import 'normalize.css';
 @import '@/assets/stylesheets/main.css';
-
-#app {
-  width: 100%;
-  height: 100%;
-}
 </style>
