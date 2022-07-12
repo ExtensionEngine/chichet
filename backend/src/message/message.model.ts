@@ -2,7 +2,7 @@ import { IFields, IModels } from 'shared/database/types';
 import { Model } from 'sequelize';
 
 class Message extends Model {
-  static fields({ DATE, INTEGER, STRING }: IFields) {
+  static fields({ DATE, INTEGER, TEXT }: IFields) {
     return {
       id: {
         type: INTEGER,
@@ -21,7 +21,7 @@ class Message extends Model {
       },
 
       content: {
-        type: STRING,
+        type: TEXT,
         allowNull: false,
       },
 

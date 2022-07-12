@@ -4,6 +4,7 @@ interface IFields {
   DATE?: DataType;
   INTEGER?: DataType;
   STRING?: DataType;
+  TEXT?: DataType;
   VIRTUAL?: DataType;
 }
 
