@@ -26,6 +26,7 @@ class UserTag extends Model {
     this.belongsTo(Tag, {
       foreignKey: { name: 'tagId', field: 'tagId' },
     });
+
     this.belongsTo(User, {
       foreignKey: { name: 'userId', field: 'userId' },
     });

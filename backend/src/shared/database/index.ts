@@ -32,7 +32,7 @@ const models: IModels = {
 
 function defineModel(Model: ModelStatic<Model>) {
   const fields = invoke(Model, 'fields', DataTypes, sequelize) || {};
-  const dbOptions = invoke(Model, 'dbOptions') || {};
+  const dbOptions = invoke(Model, 'dbOptions', sequelize) || {};
   Object.assign(dbOptions, { sequelize });
   return Model.init(fields, dbOptions);
 }

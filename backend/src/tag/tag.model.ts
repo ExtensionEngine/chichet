@@ -26,6 +26,7 @@ class Tag extends Model {
       through: UserTag,
       foreignKey: { name: 'tagId', field: 'tagId' },
     });
+
     this.hasMany(RoomTag, {
       foreignKey: { name: 'tagId', field: 'tagId' },
     });

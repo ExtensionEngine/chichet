@@ -26,6 +26,7 @@ class RoomTag extends Model {
     this.belongsTo(Room, {
       foreignKey: { name: 'roomId', field: 'roomId' },
     });
+
     this.belongsTo(Tag, {
       foreignKey: { name: 'tagId', field: 'tagId' },
     });

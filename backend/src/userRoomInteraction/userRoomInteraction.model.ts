@@ -36,6 +36,7 @@ class UserRoomInteraction extends Model {
     this.belongsTo(Room, {
       foreignKey: { name: 'roomId', field: 'roomId' },
     });
+
     this.belongsTo(User, {
       foreignKey: { name: 'userId', field: 'userId' },
     });
