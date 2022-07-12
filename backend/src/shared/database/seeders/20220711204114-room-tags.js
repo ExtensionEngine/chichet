@@ -1,5 +1,5 @@
 module.exports = {
-  async up(queryInterface) {
+  up(queryInterface) {
     return queryInterface.bulkInsert('roomTags', [
       { roomId: 1, tagId: 1 },
       { roomId: 1, tagId: 2 },
