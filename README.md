@@ -31,7 +31,7 @@ Server needs to be running (or local postgres)
 
 ```
 cd backend
-pnpm migrations:run
+pnpm migration:run
 pnpm seed:run
 ```
 
