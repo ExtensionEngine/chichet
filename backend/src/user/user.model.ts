@@ -1,7 +1,13 @@
 import { IFields, IModels } from 'shared/database/types';
+import bcrypt from 'bcrypt';
+import { IUser } from './types';
 import { Model } from 'sequelize';
 
-class User extends Model {
+class User extends Model implements IUser {
+  id!: number;
+  username!: string;
+  password!: string;
+
   static fields({ INTEGER, STRING }: IFields) {
     return {
       id: {
@@ -73,6 +79,10 @@ class User extends Model {
       tableName: 'users',
       timestamps: false,
     };
+  }
+
+  passwordCompare(password: string) {
+    return bcrypt.compare(password, this.password);
   }
 }
 
