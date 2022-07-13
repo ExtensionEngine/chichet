@@ -5,7 +5,7 @@ Realtime chat room app.
 ## To run the project
 
 ```
-$ docker-compose up
+$ docker compose up
 ```
 
 ## To start the project in developer mode
@@ -13,17 +13,20 @@ $ docker-compose up
 ```
 $ (cd frontend && pnpm install)
 $ (cd backend && pnpm install)
-$ docker-compose up
+$ docker compose up
 ```
 
-### To add/remove a package
+### To install/uninstall a package
 
 Stop local server!
 
 ```
-$ ./pnpm.sh <backend | frontend> add <package>
-$ ./pnpm.sh <backend | frontend> remove <package>
+$ cd frontend                   // or backend
+$ pnpm install package-name
+$ pnpm uninstall package-name
 ```
+
+Make sure not to use `pnpm add/remove`!!!!!
 
 ### Run migrations and seeders
 
