@@ -1,6 +1,6 @@
 module.exports = {
   up(queryInterface, Sequelize) {
-    queryInterface.createTable('userRoomInteractions', {
+    return queryInterface.createTable('userRoomInteractions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -43,6 +43,6 @@ module.exports = {
   },
 
   down(queryInterface) {
-    queryInterface.dropTable('userRoomInteractions');
+    return queryInterface.dropTable('userRoomInteractions');
   },
 };
