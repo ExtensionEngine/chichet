@@ -1,6 +1,7 @@
 import { IFields, IModels } from 'shared/database/types';
 import bcrypt from 'bcrypt';
 import { IUser } from './types';
+import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
 
 class User extends Model implements IUser {
@@ -81,8 +82,31 @@ class User extends Model implements IUser {
     };
   }
 
+  static hooks() {
+    return {
+      beforeCreate(user: User) {
+        return user._hashPassword();
+      },
+    };
+  }
+
   passwordCompare(password: string) {
     return bcrypt.compare(password, this.password);
+  }
+
+  generateAccessToken() {
+    const { id, username } = this;
+    const payload = { id, username };
+    const secret = process.env.ACCESS_TOKEN_SECRET || '';
+    const accessToken = jwt.sign(payload, secret);
+
+    return accessToken;
+  }
+
+  private async _hashPassword() {
+    const saltRounds = +(process.env.SALT_ROUNDS as string);
+    const hash = await bcrypt.hash(this.password, saltRounds);
+    this.password = hash;
   }
 }
 

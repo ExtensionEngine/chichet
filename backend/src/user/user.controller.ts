@@ -1,6 +1,5 @@
+import { ILoginRequest, IRegisterRequest } from './types';
 import { Request, Response } from 'express';
-import { ILoginRequest } from './types';
-import jwt from 'jsonwebtoken';
 import { LOGIN_ERROR } from 'shared/constants/errorMessages';
 import User from './user.model';
 
@@ -13,15 +12,17 @@ const login = async ({ body: { username, password } }: ILoginRequest, res: Respo
   const user = await User.unscoped().findOne({ where: { username } });
   if (!user) return res.status(401).json({ message: LOGIN_ERROR });
 
-  const isPasswordCorrect = await !user.passwordCompare(password);
+  const isPasswordCorrect = await user.passwordCompare(password);
   if (!isPasswordCorrect) return res.status(401).json({ message: LOGIN_ERROR });
 
-  const { id } = user;
-  const payload = { id, username };
-  const secret = process.env.ACCESS_TOKEN_SECRET || '';
-  const accessToken = jwt.sign(payload, secret);
-
-  return res.json(accessToken);
+  const data = { accessToken: user.generateAccessToken() };
+  return res.json(data);
 };
 
-export { getAll, login };
+const register = async ({ body }: IRegisterRequest, res: Response) => {
+  const user = await User.create(body);
+  const data = { accessToken: user.generateAccessToken() };
+  return res.status(201).json(data);
+};
+
+export { getAll, login, register };

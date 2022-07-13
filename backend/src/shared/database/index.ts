@@ -1,5 +1,6 @@
-import { DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
+import { Attributes, DataTypes, Model, ModelStatic, Sequelize } from 'sequelize';
 import { forEach, invoke } from 'lodash';
+import { Hooks } from 'sequelize/types/hooks';
 import { IModels } from './types';
 
 import MessageModel from 'message/message.model';
@@ -39,8 +40,14 @@ function defineModel(Model: ModelStatic<Model>) {
 
 forEach(models, model => {
   invoke(model, 'associate', models);
+  addHooks(model, models);
   addScopes(model);
 });
+
+function addHooks(model: ModelStatic<Model>, models: IModels) {
+  const hooks = invoke(model, 'hooks', models);
+  forEach(hooks, (hook, type) => model.addHook(type as Attributes<Hooks>, hook));
+}
 
 function addScopes(model: ModelStatic<Model>) {
   const scopes = invoke(model, 'scopes', models);
