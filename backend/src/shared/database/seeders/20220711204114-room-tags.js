@@ -1,0 +1,48 @@
+module.exports = {
+  up(queryInterface) {
+    return queryInterface.bulkInsert('roomTags', [
+      { roomId: 1, tagId: 1 },
+      { roomId: 1, tagId: 2 },
+      { roomId: 1, tagId: 3 },
+      { roomId: 1, tagId: 4 },
+      { roomId: 1, tagId: 5 },
+      { roomId: 1, tagId: 6 },
+      { roomId: 2, tagId: 1 },
+      { roomId: 2, tagId: 4 },
+      { roomId: 2, tagId: 7 },
+      { roomId: 2, tagId: 10 },
+      { roomId: 2, tagId: 13 },
+      { roomId: 2, tagId: 16 },
+      { roomId: 2, tagId: 19 },
+      { roomId: 2, tagId: 22 },
+      { roomId: 2, tagId: 25 },
+      { roomId: 2, tagId: 27 },
+      { roomId: 2, tagId: 28 },
+      { roomId: 2, tagId: 32 },
+      { roomId: 3, tagId: 7 },
+      { roomId: 3, tagId: 9 },
+      { roomId: 3, tagId: 10 },
+      { roomId: 3, tagId: 13 },
+      { roomId: 3, tagId: 14 },
+      { roomId: 3, tagId: 15 },
+      { roomId: 3, tagId: 16 },
+      { roomId: 3, tagId: 17 },
+      { roomId: 4, tagId: 1 },
+      { roomId: 4, tagId: 7 },
+      { roomId: 4, tagId: 9 },
+      { roomId: 4, tagId: 25 },
+      { roomId: 4, tagId: 31 },
+      { roomId: 5, tagId: 4 },
+      { roomId: 5, tagId: 9 },
+      { roomId: 5, tagId: 16 },
+      { roomId: 5, tagId: 17 },
+      { roomId: 5, tagId: 22 },
+      { roomId: 5, tagId: 26 },
+      { roomId: 5, tagId: 32 },
+    ]);
+  },
+
+  down(queryInterface) {
+    return queryInterface.bulkDelete('roomTags', null, {});
+  },
+};

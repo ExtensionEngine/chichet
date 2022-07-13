@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "chichet",
+    "password": "chichet",
+    "database": "chichet",
+    "host": "localhost",
+    "port": 3002,
+    "dialect": "postgres"
+  }
+}

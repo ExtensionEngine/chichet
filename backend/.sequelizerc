@@ -1,0 +1,6 @@
+module.exports = {
+  config: 'src/shared/database/config/config.json',
+  'seeders-path': 'src/shared/database/seeders',
+  'migrations-path': 'src/shared/database/migrations',
+  'models-path': 'src/',
+};

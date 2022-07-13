@@ -8,6 +8,8 @@ services:
       POSTGRES_DB: chichet
       POSTGRES_USER: chichet
       POSTGRES_PASSWORD: chichet
+    ports:
+      - 3002:5432
 
   backend:
     build: ./backend
@@ -20,6 +22,7 @@ services:
       POSTGRES_DB: chichet
       POSTGRES_USER: chichet
       POSTGRES_PASSWORD: chichet
+      PORT: 3001
     ports:
       - 3001:3001
     depends_on:
