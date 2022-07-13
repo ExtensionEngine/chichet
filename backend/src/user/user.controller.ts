@@ -29,7 +29,7 @@ const register = async ({ body }: IRegisterRequest, res: Response) => {
     if (err instanceof UniqueConstraintError) {
       return res.status(409).json({ message: REGISTER_ERROR });
     }
-    throw err;
+    return res.status(500).end();
   }
 };
 
