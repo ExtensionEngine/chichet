@@ -5,7 +5,7 @@ Realtime chat room app.
 ## To run the project
 
 ```
-$ docker compose up
+$ docker compose up --build
 ```
 
 ## To start the project in developer mode
@@ -13,7 +13,7 @@ $ docker compose up
 ```
 $ (cd frontend && pnpm install)
 $ (cd backend && pnpm install)
-$ docker compose up
+$ docker compose up --build
 ```
 
 ### To install/uninstall a package
