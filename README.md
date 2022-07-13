@@ -4,11 +4,15 @@ Realtime chat room app.
 
 ## To run the project
 
+Add the `.env` file to the root of the project following the example set in .env.example
+
 ```
 $ docker compose up --build
 ```
 
 ## To start the project in developer mode
+
+Add the `.env` file to the root of the project following the example set in .env.example
 
 ```
 $ (cd frontend && pnpm install)
