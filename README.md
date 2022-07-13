@@ -5,15 +5,14 @@ Realtime chat room app.
 ## To run the project
 
 ```
-$ docker compose up --build
+$ docker compose up
 ```
 
 ## To start the project in developer mode
 
 ```
-$ (cd frontend && pnpm install)
-$ (cd backend && pnpm install)
-$ docker compose up --build
+$ pnpm install && (cd backend && pnpm install) && (cd frontend && pnpm install)
+$ docker compose up
 ```
 
 ### To install/uninstall a package
@@ -21,7 +20,7 @@ $ docker compose up --build
 Stop local server!
 
 ```
-$ cd frontend                   // or backend
+$ cd backend    // or frontend
 $ pnpm install package-name
 $ pnpm uninstall package-name
 ```
@@ -44,6 +43,7 @@ Make sure to change model extension to `.ts`
 
 ```
 cd backend
+
 pnpm model:create <name>        // creates a new file in src. Change the extension and add it to the folder of the same name
 pnpm migrations:create <name>   // creates a new file in src/shared/database/migrations(look at current migrations for reference)
 pnpm seed:create                // creates a new file in src/shared/database/seeders (look at current seeders for reference)
