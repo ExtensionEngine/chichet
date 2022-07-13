@@ -2,6 +2,13 @@
   <div></div>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: 'app-main',
+};
+</script>
 
-<style></style>
+<style>
+@import 'normalize.css';
+@import '@/assets/stylesheets/main.css';
+</style>
