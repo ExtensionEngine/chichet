@@ -1,6 +1,7 @@
 import { ILoginRequest, IRegisterRequest } from './types';
+import { LOGIN_ERROR, REGISTER_ERROR } from 'shared/constants/errorMessages';
 import { Request, Response } from 'express';
-import { LOGIN_ERROR } from 'shared/constants/errorMessages';
+import { UniqueConstraintError } from 'sequelize';
 import User from './user.model';
 
 const getAll = async (req: Request, res: Response) => {
@@ -15,14 +16,21 @@ const login = async ({ body: { username, password } }: ILoginRequest, res: Respo
   const isPasswordCorrect = await user.passwordCompare(password);
   if (!isPasswordCorrect) return res.status(401).json({ message: LOGIN_ERROR });
 
-  const data = { accessToken: user.generateAccessToken() };
-  return res.json(data);
+  const token = { accessToken: user.generateAccessToken() };
+  return res.json(token);
 };
 
 const register = async ({ body }: IRegisterRequest, res: Response) => {
-  const user = await User.create(body);
-  const data = { accessToken: user.generateAccessToken() };
-  return res.status(201).json(data);
+  try {
+    const user = await User.create(body);
+    const token = { accessToken: user.generateAccessToken() };
+    return res.status(201).json(token);
+  } catch (err) {
+    if (err instanceof UniqueConstraintError) {
+      return res.status(409).json({ message: REGISTER_ERROR });
+    }
+    throw err;
+  }
 };
 
 export { getAll, login, register };
