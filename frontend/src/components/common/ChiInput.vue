@@ -22,6 +22,9 @@ export default {
   font-size: inherit;
   background: none;
   border: none;
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-text);
+  padding: 16px 8px;
 }
 
 .chi-input:focus {
