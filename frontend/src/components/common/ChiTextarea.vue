@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { onMounted, ref } from 'vue';
 import useModelValue from '@/composables/useModelValue.js';
 
 export default {
@@ -21,18 +22,19 @@ export default {
   },
   setup(_props, { emit }) {
     const { updateModelValue } = useModelValue(emit);
-    return { updateModelValue };
-  },
-  methods: {
-    resize() {
-      const { textarea } = this.$refs;
-      textarea.style.height = '0';
-      textarea.style.height = textarea.scrollHeight + 2 + 'px';
-      textarea.scrollTop = textarea.scrollHeight;
-    },
-  },
-  mounted() {
-    this.resize();
+
+    const textarea = ref(null);
+    const resize = () => {
+      textarea.value.style.height = '0';
+      textarea.value.style.height = textarea.value.scrollHeight + 2 + 'px';
+      textarea.value.scrollTop = textarea.value.scrollHeight;
+    };
+
+    onMounted(() => {
+      resize();
+    });
+
+    return { updateModelValue, resize, textarea };
   },
 };
 </script>
