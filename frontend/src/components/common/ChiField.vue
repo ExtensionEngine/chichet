@@ -21,6 +21,19 @@ export default {
 </script>
 
 <style scoped>
+.chi-field {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.chi-field-label {
+  margin-left: 0.25rem;
+  line-height: var(--font-size-small);
+  font-size: var(--font-size-small);
+  color: var(--color-text-light);
+}
+
 .chi-field-error::after {
   content: ' ';
   font-size: 0;

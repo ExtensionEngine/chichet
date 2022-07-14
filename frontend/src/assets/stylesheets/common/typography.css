@@ -11,6 +11,9 @@
 }
 
 :root {
-  --font-default: 300 1rem Roboto;
-  --font-accent: 800 1rem Raleway;
+  --font-size-normal: 1rem;
+  --font-size-small: 0.75rem;
+  --font-size-large: 1.5rem;
+  --font-default: 300 var(--font-size-normal) Roboto;
+  --font-accent: 800 var(--font-size-normal) Raleway;
 }
