@@ -104,7 +104,7 @@ class User extends Model implements IUser {
   }
 
   private async _hashPassword() {
-    const saltRounds = +(process.env.SALT_ROUNDS as string);
+    const saltRounds = Number(process.env.SALT_ROUNDS as string);
     const hash = await bcrypt.hash(this.password, saltRounds);
     this.password = hash;
   }
