@@ -4,7 +4,7 @@ module.exports = {
       {
         firstName: null,
         lastName: null,
-        nickname: 'system',
+        username: 'system',
         password: '',
       },
     ]);
