@@ -6,6 +6,9 @@
 
 body {
   background-color: var(--color-background);
+  font: var(--font-default);
+  color: var(--color-text);
+  letter-spacing: 0.1rem;
 }
 
 #app {
