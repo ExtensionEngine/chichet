@@ -25,6 +25,7 @@ export default {
   border-bottom: 2px solid var(--color-primary);
   color: var(--color-text);
   padding: 16px 8px;
+  letter-spacing: 0.1rem;
 }
 
 .chi-input:focus {
