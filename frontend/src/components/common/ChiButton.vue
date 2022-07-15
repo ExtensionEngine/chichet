@@ -20,8 +20,8 @@ export default {
   color: var(--color-secondary);
   font: var(--font-accent);
   text-transform: uppercase;
-  border-radius: 1.2rem;
-  padding: 1rem 1.5rem;
+  border-radius: 20px;
+  padding: 16px 24px;
   cursor: pointer;
 }
 

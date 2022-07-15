@@ -28,7 +28,7 @@ export default {
 }
 
 .chi-field-label {
-  margin-left: 0.25rem;
+  margin-left: 4px;
   line-height: var(--font-size-small);
   font-size: var(--font-size-small);
   color: var(--color-text-light);
