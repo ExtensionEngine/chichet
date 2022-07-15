@@ -1,14 +1,5 @@
-@font-face {
-  font-family: Roboto;
-  src: url(../../fonts/Roboto-Light.ttf);
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: Raleway;
-  src: url(../../fonts/raleway.extrabold.ttf);
-  font-weight: 800;
-}
+@import 'https://fonts.googleapis.com/css2?family=Roboto:wght@300';
+@import 'https://fonts.googleapis.com/css2?family=Raleway:wght@800';
 
 :root {
   --font-size-normal: 1rem;
