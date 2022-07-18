@@ -37,6 +37,11 @@ class User extends Model implements IUser {
         type: STRING,
         allowNull: false,
       },
+
+      refreshToken: {
+        type: STRING,
+        allowNull: true,
+      },
     };
   }
 
