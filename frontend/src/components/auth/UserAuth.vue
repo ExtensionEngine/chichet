@@ -1,12 +1,8 @@
 <template>
-  <main ref="majn" class="auth-main">
-    <span class="auth-slider" :class="{ 'auth-slider--shift': isRegisterActive }"></span>
-    <section class="auth-forms">
-      <user-register v-if="isRegisterActive" @swap-active="swapActive"></user-register>
-    </section>
-    <section class="auth-forms">
-      <user-sign-in v-if="!isRegisterActive" @swap-active="swapActive"></user-sign-in>
-    </section>
+  <main class="auth-main">
+    <span class="auth-slider"></span>
+    <user-register @swap-active="swapActive"></user-register>
+    <user-sign-in @swap-active="swapActive"></user-sign-in>
   </main>
 </template>
 
@@ -18,12 +14,15 @@ import UserSignIn from './UserSignIn.vue';
 export default {
   name: 'user-auth',
   setup() {
-    const isRegisterActive = ref(false);
+    const sliderRight = ref('55%');
+
+    const isLeftActive = ref(false);
     const swapActive = () => {
-      isRegisterActive.value = !isRegisterActive.value;
+      isLeftActive.value = !isLeftActive.value;
+      sliderRight.value = isLeftActive.value ? '55%' : '-10%';
     };
 
-    return { isRegisterActive, swapActive };
+    return { isLeftActive, swapActive, sliderRight };
   },
   components: {
     UserSignIn,
@@ -39,34 +38,16 @@ export default {
   width: calc(100% - 128px);
   height: calc(100% - 128px);
   display: flex;
-  justify-content: space-between;
   position: relative;
   overflow: hidden;
 }
 
 .auth-slider {
-  background-color: var(--color-primary);
   position: absolute;
-  height: 100%;
+  background-color: var(--color-primary);
   width: 55%;
-  right: 55%;
+  height: 100%;
+  right: v-bind(sliderRight);
   transition: right 1s ease-in-out;
-}
-
-.auth-slider--shift {
-  right: -10%;
-  transition: right 1s ease-in-out;
-}
-
-.auth-forms {
-  background-color: var(--color-secondary);
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.auth-forms--active {
-  width: 50%;
 }
 </style>

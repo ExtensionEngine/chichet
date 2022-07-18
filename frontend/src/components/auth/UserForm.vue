@@ -1,15 +1,17 @@
 <template>
-  <form class="user-form">
-    <fieldset>
-      <chi-field v-for="{ label, type } in inputs" :key="label" :label="label" :type="type"></chi-field>
-      <chi-button class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
+  <section class="user-section">
+    <form class="user-form">
+      <fieldset>
+        <chi-field v-for="{ label, type } in inputs" :key="label" :label="label" :type="type"></chi-field>
+        <chi-button class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
 
-      <p class="user-info">
-        {{ formSwitch.label }}
-        <chi-button @click="$emit('swap-active')" type="button" inline>{{ formSwitch.buttonText }}</chi-button>
-      </p>
-    </fieldset>
-  </form>
+        <p class="user-info">
+          {{ formSwitch.label }}
+          <chi-button @click="$emit('swap-active')" type="button" inline>{{ formSwitch.buttonText }}</chi-button>
+        </p>
+      </fieldset>
+    </form>
+  </section>
 </template>
 
 <script>
@@ -39,6 +41,13 @@ export default {
 </script>
 
 <style scoped>
+.user-section {
+  background-color: var(--color-secondary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .user-form {
   width: 50%;
 }
