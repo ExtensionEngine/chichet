@@ -14,10 +14,25 @@ interface IRegisterRequest {
   };
 }
 
+interface IJwtPayload {
+  id: number;
+  username: string;
+}
+
+interface IJwtOptions {
+  expiresIn?: string;
+}
+
 interface IUser {
   id: number;
   username: string;
   password: string;
+  refreshToken: string;
+  generateAccessToken(options: IJwtOptions): string;
 }
 
-export { ILoginRequest, IRegisterRequest, IUser };
+interface IGeneratedTokens {
+  accessToken: string;
+}
+
+export { ILoginRequest, IRegisterRequest, IJwtPayload, IJwtOptions, IUser, IGeneratedTokens };

@@ -1,6 +1,6 @@
 import { IFields, IModels } from 'shared/database/types';
+import { IJwtOptions, IJwtPayload, IUser } from './types';
 import bcrypt from 'bcrypt';
-import { IUser } from './types';
 import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
 
@@ -8,6 +8,7 @@ class User extends Model implements IUser {
   id!: number;
   username!: string;
   password!: string;
+  refreshToken!: string;
 
   static fields({ INTEGER, STRING }: IFields) {
     return {
@@ -99,19 +100,21 @@ class User extends Model implements IUser {
     return bcrypt.compare(password, this.password);
   }
 
-  generateAccessToken() {
+  generateAccessToken(options: IJwtOptions): string {
     const { id, username } = this;
     const payload = { id, username };
     const secret = process.env.ACCESS_TOKEN_SECRET || '';
-    const accessToken = jwt.sign(payload, secret);
-
-    return accessToken;
+    return this.generateToken(payload, secret, options);
   }
 
   private async _hashPassword() {
     const saltRounds = Number(process.env.SALT_ROUNDS as string);
     const hash = await bcrypt.hash(this.password, saltRounds);
     this.password = hash;
+  }
+
+  private generateToken(payload: IJwtPayload, secret: string, options: IJwtOptions): string {
+    return jwt.sign(payload, secret, options);
   }
 }
 
