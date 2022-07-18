@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import ChiButton from '../common/ChiButton.vue';
-import ChiField from '../common/ChiField.vue';
+import ChiButton from '@/common/ChiButton.vue';
+import ChiField from '@/common/ChiField.vue';
 
 export default {
   name: 'user-sign-in',
