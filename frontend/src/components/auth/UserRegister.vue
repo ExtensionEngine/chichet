@@ -24,5 +24,3 @@ export default {
   components: { UserForm },
 };
 </script>
-
-<style scoped></style>
