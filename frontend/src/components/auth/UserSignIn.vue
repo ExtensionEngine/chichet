@@ -1,30 +1,25 @@
 <template>
-  <section>
-    <form v-if="isActive" class="user-form">
-      <fieldset>
-        <chi-field label="Username" type="text" autofocus></chi-field>
-        <chi-field label="Password" type="password"></chi-field>
-        <chi-button class="user-submit" type="submit">Sign in</chi-button>
-
-        <p class="user-info">
-          Don't have and account?
-          <chi-button @click="$emit('swap-active')" type="button" inline>Click here to register!</chi-button>
-        </p>
-      </fieldset>
-    </form>
-  </section>
+  <user-form :inputs="formInputs" :button-label="formButtonLabel" :form-switch="formSwitch"></user-form>
 </template>
 
 <script>
-import ChiButton from '../common/ChiButton.vue';
-import ChiField from '../common/ChiField.vue';
+import UserForm from './UserForm.vue';
 
 export default {
   name: 'user-sign-in',
-  props: {
-    isActive: { type: Boolean, default: false },
+  setup() {
+    const formInputs = [
+      { label: 'Username', type: 'text' },
+      { label: 'Password', type: 'password' },
+    ];
+    const formButtonLabel = 'Sign in';
+    const formSwitch = {
+      label: "Don't have and account?",
+      buttonText: 'Click here to register!',
+    };
+    return { formInputs, formButtonLabel, formSwitch };
   },
-  components: { ChiField, ChiButton },
+  components: { UserForm },
 };
 </script>
 

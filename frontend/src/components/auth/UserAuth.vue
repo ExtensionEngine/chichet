@@ -1,18 +1,12 @@
 <template>
-  <main class="auth-main">
+  <main ref="majn" class="auth-main">
     <span class="auth-slider" :class="{ 'auth-slider--shift': isRegisterActive }"></span>
-    <user-register
-      @swap-active="swapActive"
-      class="auth-forms"
-      :class="{ 'auth-forms--active': isRegisterActive }"
-      :is-active="isRegisterActive"
-    ></user-register>
-    <user-sign-in
-      @swap-active="swapActive"
-      class="auth-forms"
-      :class="{ 'auth-forms--active': !isRegisterActive }"
-      :is-active="!isRegisterActive"
-    ></user-sign-in>
+    <section class="auth-forms">
+      <user-register v-if="isRegisterActive" @swap-active="swapActive"></user-register>
+    </section>
+    <section class="auth-forms">
+      <user-sign-in v-if="!isRegisterActive" @swap-active="swapActive"></user-sign-in>
+    </section>
   </main>
 </template>
 
@@ -66,43 +60,13 @@ export default {
 
 .auth-forms {
   background-color: var(--color-secondary);
-  width: 45%;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .auth-forms--active {
-  width: 55%;
-}
-</style>
-
-<style>
-.user-form {
   width: 50%;
-}
-
-.user-submit {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.user-info {
-  margin-top: 16px;
-  font-size: var(--font-size-small);
-  color: var(--color-text-light);
-  text-align: center;
-}
-
-.user-info--clickable {
-  color: var(--color-primary);
-  cursor: pointer;
-  text-align: center;
-}
-
-@media screen and (max-width: 1366px) {
-  .user-info--clickable {
-    display: block;
-  }
 }
 </style>
