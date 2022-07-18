@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import UserRegister from './UserRegister.vue';
 import UserSignIn from './UserSignIn.vue';
 
@@ -14,10 +14,10 @@ export default {
   name: 'user-auth',
   setup() {
     const componentIndex = ref(0);
-    const components = reactive([
+    const components = [
       { name: 'UserSignIn', position: 'flex-end', sliderRight: '55%' },
       { name: 'UserRegister', position: 'flex-start', sliderRight: '-10%' },
-    ]);
+    ];
 
     const swapActive = () => {
       componentIndex.value = (componentIndex.value + 1) % 2;
