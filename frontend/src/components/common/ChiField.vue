@@ -1,7 +1,7 @@
 <template>
   <div class="chi-field">
     <label v-if="label" class="chi-field-label">{{ label }}</label>
-    <slot><chi-input v-bind="$attrs" /></slot>
+    <slot><chi-input v-autofocus="autoFocus" v-bind="$attrs" /></slot>
     <span class="chi-field-error">{{ error }}</span>
   </div>
 </template>
@@ -15,6 +15,7 @@ export default {
   props: {
     label: { type: String, default: '' },
     error: { type: String, default: '' },
+    autoFocus: { type: Boolean, default: false },
   },
   components: { ChiInput },
 };
