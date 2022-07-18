@@ -42,10 +42,10 @@ export default {
 
 <style scoped>
 .user-section {
-  background-color: var(--color-secondary);
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 55%;
 }
 
 .user-form {

@@ -1,32 +1,33 @@
 <template>
   <main class="auth-main">
     <span class="auth-slider"></span>
-    <user-register @swap-active="swapActive"></user-register>
-    <user-sign-in @swap-active="swapActive"></user-sign-in>
+    <component :is="components[componentIndex].name" @swap-active="swapActive"></component>
   </main>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import UserRegister from './UserRegister.vue';
 import UserSignIn from './UserSignIn.vue';
 
 export default {
   name: 'user-auth',
   setup() {
-    const sliderRight = ref('55%');
+    const componentIndex = ref(0);
+    const components = reactive([
+      { name: 'UserSignIn', position: 'flex-end', sliderRight: '55%' },
+      { name: 'UserRegister', position: 'flex-start', sliderRight: '-10%' },
+    ]);
 
-    const isLeftActive = ref(false);
     const swapActive = () => {
-      isLeftActive.value = !isLeftActive.value;
-      sliderRight.value = isLeftActive.value ? '55%' : '-10%';
+      componentIndex.value = (componentIndex.value + 1) % 2;
     };
 
-    return { isLeftActive, swapActive, sliderRight };
+    return { componentIndex, components, swapActive };
   },
   components: {
-    UserSignIn,
     UserRegister,
+    UserSignIn,
   },
 };
 </script>
@@ -38,8 +39,10 @@ export default {
   width: calc(100% - 128px);
   height: calc(100% - 128px);
   display: flex;
+  justify-content: v-bind('components[componentIndex].position');
   position: relative;
   overflow: hidden;
+  background-color: var(--color-secondary);
 }
 
 .auth-slider {
@@ -47,7 +50,7 @@ export default {
   background-color: var(--color-primary);
   width: 55%;
   height: 100%;
-  right: v-bind(sliderRight);
+  right: v-bind('components[componentIndex].sliderRight');
   transition: right 1s ease-in-out;
 }
 </style>
