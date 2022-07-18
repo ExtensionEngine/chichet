@@ -1,8 +1,7 @@
 <template>
   <textarea
-    v-bind="{ ...$attrs, onInput: updateModelValue }"
+    v-bind="{ ...$attrs, onInput: [updateModelValue, resize] }"
     ref="textarea"
-    @input="resize"
     :value="modelValue"
     class="chi-textarea"
     maxlength="500"
