@@ -107,6 +107,13 @@ class User extends Model implements IUser {
     return this.generateToken(payload, secret, options);
   }
 
+  generateRefreshToken(options: IJwtOptions): string {
+    const { id, username } = this;
+    const payload = { id, username };
+    const secret = process.env.REFRESH_TOKEN_SECRET || '';
+    return this.generateToken(payload, secret, options);
+  }
+
   private async _hashPassword() {
     const saltRounds = Number(process.env.SALT_ROUNDS as string);
     const hash = await bcrypt.hash(this.password, saltRounds);

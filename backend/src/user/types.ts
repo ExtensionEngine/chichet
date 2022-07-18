@@ -29,10 +29,12 @@ interface IUser {
   password: string;
   refreshToken: string;
   generateAccessToken(options: IJwtOptions): string;
+  generateRefreshToken(options: IJwtOptions): string;
 }
 
 interface IGeneratedTokens {
   accessToken: string;
+  refreshToken: string;
 }
 
 export { ILoginRequest, IRegisterRequest, IJwtPayload, IJwtOptions, IUser, IGeneratedTokens };

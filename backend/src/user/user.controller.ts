@@ -37,5 +37,6 @@ export { getAll, login, register };
 
 function generateTokens(user: IUser): IGeneratedTokens {
   const accessToken = user.generateAccessToken({ expiresIn: process.env.ACCESS_TOKEN_DURATION });
-  return { accessToken };
+  const refreshToken = user.generateRefreshToken({ expiresIn: process.env.REFRESH_TOKEN_DURATION });
+  return { accessToken, refreshToken };
 }
