@@ -1,5 +1,5 @@
 import { IFields, IModels } from 'shared/database/types';
-import { IJwtOptions, IJwtPayload, IUser } from './types';
+import { IJwtOptions, IUser } from './types';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
@@ -101,17 +101,13 @@ class User extends Model implements IUser {
   }
 
   generateAccessToken(options: IJwtOptions): string {
-    const { id, username } = this;
-    const payload = { id, username };
     const secret = process.env.ACCESS_TOKEN_SECRET || '';
-    return this.generateToken(payload, secret, options);
+    return this.generateToken(secret, options);
   }
 
   generateRefreshToken(options: IJwtOptions): string {
-    const { id, username } = this;
-    const payload = { id, username };
     const secret = process.env.REFRESH_TOKEN_SECRET || '';
-    return this.generateToken(payload, secret, options);
+    return this.generateToken(secret, options);
   }
 
   private async _hashPassword() {
@@ -120,7 +116,9 @@ class User extends Model implements IUser {
     this.password = hash;
   }
 
-  private generateToken(payload: IJwtPayload, secret: string, options: IJwtOptions): string {
+  private generateToken(secret: string, options: IJwtOptions): string {
+    const { id, username } = this;
+    const payload = { id, username };
     return jwt.sign(payload, secret, options);
   }
 }

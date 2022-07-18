@@ -14,11 +14,6 @@ interface IRegisterRequest {
   };
 }
 
-interface IJwtPayload {
-  id: number;
-  username: string;
-}
-
 interface IJwtOptions {
   expiresIn?: string;
 }
@@ -37,4 +32,4 @@ interface IGeneratedTokens {
   refreshToken: string;
 }
 
-export { ILoginRequest, IRegisterRequest, IJwtPayload, IJwtOptions, IUser, IGeneratedTokens };
+export { ILoginRequest, IRegisterRequest, IJwtOptions, IUser, IGeneratedTokens };
