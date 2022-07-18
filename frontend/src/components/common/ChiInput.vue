@@ -1,5 +1,5 @@
 <template>
-  <input v-bind="{ ...$attrs, onInput: updateModelValue }" :value="modelValue" class="chi-input" />
+  <input v-bind="{ ...$attrs, onInput: updateModelValue }" :value="modelValue" class="chi-input" spellcheck="false" />
 </template>
 
 <script>
@@ -22,6 +22,9 @@ export default {
   font-size: inherit;
   background: none;
   border: none;
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-text);
+  padding: 16px 8px;
 }
 
 .chi-input:focus {
