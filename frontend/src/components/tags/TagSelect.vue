@@ -5,15 +5,16 @@
       <h3 class="select-subtitle">Tell us your favorite music genres so you see the rooms you want to visit first!</h3>
     </div>
 
-    <tag-list class="select-tags" :tags="tags"></tag-list>
-    <chi-button class="select-skip" inline>Skip for now >></chi-button>
+    <tag-list @select-tag="selectTag" class="select-tags" :tags="tags"></tag-list>
+    <chi-button v-if="!areAnySelected()" class="select-skip" inline>Skip for now >></chi-button>
+    <chi-button v-else class="select-skip" inline>Continue >></chi-button>
   </main>
 </template>
 
 <script>
 import { onMounted, reactive } from 'vue';
 import ChiButton from '../common/ChiButton.vue';
-import { tag } from '@/api';
+import { tag as tagApi } from '@/api';
 import TagList from './TagList.vue';
 
 export default {
@@ -22,13 +23,22 @@ export default {
     const tags = reactive([]);
 
     onMounted(async () => {
-      const tagsArray = await tag.fetch();
-      tagsArray.forEach(el => {
-        tags.push({ ...el, selected: false });
+      const tagsArray = await tagApi.fetch();
+      tagsArray.forEach(tag => {
+        tags.push({ ...tag, selected: false });
       });
     });
 
-    return { tags };
+    const selectTag = tagId => {
+      const tag = tags.find(tag => tag.id === tagId);
+      tag.selected = !tag.selected;
+    };
+
+    const areAnySelected = () => {
+      return tags.filter(tag => tag.selected).length > 0;
+    };
+
+    return { tags, areAnySelected, selectTag };
   },
   components: { TagList, ChiButton },
 };
