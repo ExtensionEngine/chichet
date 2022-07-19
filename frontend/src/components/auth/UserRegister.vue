@@ -10,7 +10,7 @@ export default {
   setup() {
     const formInputs = [
       { label: 'Username', type: 'text' },
-      { label: 'Fist name', type: 'text' },
+      { label: 'First name', type: 'text' },
       { label: 'Last name', type: 'text' },
       { label: 'Password', type: 'password' },
     ];
