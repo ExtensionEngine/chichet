@@ -37,9 +37,7 @@ export default {
     },
     formSwitch: {
       type: Object,
-      default() {
-        return {};
-      },
+      default: () => ({}),
     },
   },
   components: { ChiField, ChiButton },
