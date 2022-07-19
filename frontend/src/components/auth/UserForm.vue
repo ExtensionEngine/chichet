@@ -27,18 +27,9 @@ import ChiField from '../common/ChiField.vue';
 export default {
   name: 'user-sign-in',
   props: {
-    inputs: {
-      type: Array,
-      required: true,
-    },
-    buttonLabel: {
-      type: String,
-      default: null,
-    },
-    formSwitch: {
-      type: Object,
-      default: () => ({}),
-    },
+    inputs: { type: Array, required: true },
+    buttonLabel: { type: String, default: null },
+    formSwitch: { type: Object, default: () => ({}) },
   },
   components: { ChiField, ChiButton },
 };
