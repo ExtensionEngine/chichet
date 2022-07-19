@@ -1,5 +1,6 @@
 import { IFields, IModels } from 'shared/database/types';
 import { IJwtOptions, IUser } from './types';
+import Audience from 'shared/auth/audience';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
@@ -100,13 +101,21 @@ class User extends Model implements IUser {
     return bcrypt.compare(password, this.password);
   }
 
-  generateAccessToken(options: IJwtOptions): string {
+  generateAccessToken(): string {
     const secret = process.env.ACCESS_TOKEN_SECRET || '';
+    const options = {
+      audience: Audience.Scope.Access,
+      expiresIn: process.env.ACCESS_TOKEN_DURATION,
+    };
     return this.generateToken(secret, options);
   }
 
-  generateRefreshToken(options: IJwtOptions): string {
+  generateRefreshToken(): string {
     const secret = process.env.REFRESH_TOKEN_SECRET || '';
+    const options = {
+      audience: Audience.Scope.Refresh,
+      expiresIn: process.env.REFRESH_TOKEN_DURATION,
+    };
     return this.generateToken(secret, options);
   }
 

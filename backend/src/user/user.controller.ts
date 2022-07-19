@@ -40,8 +40,8 @@ const register = async ({ body }: IRegisterRequest, res: Response) => {
 export { getAll, login, register };
 
 async function generateTokens(user: any): Promise<IGeneratedTokens> {
-  const accessToken = user.generateAccessToken({ expiresIn: process.env.ACCESS_TOKEN_DURATION });
-  const refreshToken = user.generateRefreshToken({ expiresIn: process.env.REFRESH_TOKEN_DURATION });
+  const accessToken = user.generateAccessToken();
+  const refreshToken = user.generateRefreshToken();
   user.refreshToken = refreshToken;
   await user.save();
   return { accessToken, refreshToken };
