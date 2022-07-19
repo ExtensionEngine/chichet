@@ -6,8 +6,8 @@
     </div>
 
     <tag-list @select-tag="selectTag" class="select-tags" :tags="tags"></tag-list>
-    <chi-button v-if="!areAnySelected()" class="select-skip" inline>Skip for now >></chi-button>
-    <chi-button v-else class="select-skip" inline>Continue >></chi-button>
+    <chi-button v-if="areAnySelected()" @click="handleSaveSelected" class="select-skip" inline>Continue >></chi-button>
+    <chi-button v-else @click="handleProceed" class="select-skip" inline>Skip for now >></chi-button>
   </main>
 </template>
 
@@ -16,10 +16,13 @@ import { onMounted, reactive } from 'vue';
 import ChiButton from '../common/ChiButton.vue';
 import { tag as tagApi } from '@/api';
 import TagList from './TagList.vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'tag-select',
   setup() {
+    const router = useRouter();
+
     const tags = reactive([]);
 
     onMounted(async () => {
@@ -38,7 +41,17 @@ export default {
       return tags.filter(tag => tag.selected).length > 0;
     };
 
-    return { tags, areAnySelected, selectTag };
+    const handleSaveSelected = () => {
+      // TODO: add saving userTags (waiting for Authorization PR)
+      handleProceed();
+    };
+
+    const handleProceed = () => {
+      // TODO: add correct location
+      router.push('/');
+    };
+
+    return { tags, areAnySelected, selectTag, handleSaveSelected, handleProceed };
   },
   components: { TagList, ChiButton },
 };
