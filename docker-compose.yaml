@@ -37,6 +37,8 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+    environment:
+      VITE_API_PATH: http://localhost:3001/
     ports:
       - 3000:3000
     depends_on:
