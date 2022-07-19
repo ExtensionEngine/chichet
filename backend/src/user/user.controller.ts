@@ -1,4 +1,4 @@
-import { IGeneratedTokens, ILoginRequest, IRegisterRequest, IUser } from './types';
+import { IGeneratedTokens, ILoginRequest, IRegisterRequest } from './types';
 import { LOGIN_ERROR, REGISTER_ERROR } from 'shared/constants/errorMessages';
 import { Request, Response } from 'express';
 import { UniqueConstraintError } from 'sequelize';
@@ -16,14 +16,14 @@ const login = async ({ body: { username, password } }: ILoginRequest, res: Respo
   const isPasswordCorrect = await user.passwordCompare(password);
   if (!isPasswordCorrect) return res.status(401).json({ message: LOGIN_ERROR });
 
-  const tokens = generateTokens(user);
+  const tokens = await generateTokens(user);
   return res.json(tokens);
 };
 
 const register = async ({ body }: IRegisterRequest, res: Response) => {
   try {
     const user = await User.create(body);
-    const tokens = generateTokens(user);
+    const tokens = await generateTokens(user);
     return res.status(201).json(tokens);
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
@@ -35,8 +35,10 @@ const register = async ({ body }: IRegisterRequest, res: Response) => {
 
 export { getAll, login, register };
 
-function generateTokens(user: IUser): IGeneratedTokens {
+async function generateTokens(user: any): Promise<IGeneratedTokens> {
   const accessToken = user.generateAccessToken({ expiresIn: process.env.ACCESS_TOKEN_DURATION });
   const refreshToken = user.generateRefreshToken({ expiresIn: process.env.REFRESH_TOKEN_DURATION });
+  user.refreshToken = refreshToken;
+  await user.save();
   return { accessToken, refreshToken };
 }
