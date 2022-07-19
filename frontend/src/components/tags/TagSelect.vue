@@ -4,11 +4,14 @@
     <h3>Tell us your favorite music genres so you see the rooms you want to visit first!</h3>
 
     <tag-list :tags="tags"></tag-list>
+    <chi-button inline>Skip for now >></chi-button>
   </main>
 </template>
 
 <script>
+import ChiButton from '../common/ChiButton.vue';
 import TagList from './TagList.vue';
+
 export default {
   name: 'tag-select',
   setup() {
@@ -26,7 +29,7 @@ export default {
 
     return { tags };
   },
-  components: { TagList },
+  components: { TagList, ChiButton },
 };
 </script>
 
