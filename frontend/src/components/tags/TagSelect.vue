@@ -1,10 +1,10 @@
 <template>
   <main>
-    <h1>Select your favorite music genres</h1>
-    <h3>Tell us your favorite music genres so you see the rooms you want to visit first!</h3>
+    <h1 class="select-title">Select your favorite music genres</h1>
+    <h3 class="select-subtitle">Tell us your favorite music genres so you see the rooms you want to visit first!</h3>
 
     <tag-list :tags="tags"></tag-list>
-    <chi-button inline>Skip for now >></chi-button>
+    <chi-button class="select-skip" inline>Skip for now >></chi-button>
   </main>
 </template>
 
@@ -33,4 +33,20 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.select-title {
+  font: var(--font-accent);
+  font-size: var(--font-size-huge);
+  color: var(--color-primary);
+}
+
+.select-subtitle {
+  width: 50%;
+  font: var(--font-accent);
+  font-size: var(--font-size-large);
+}
+
+.select-skip {
+  font: var(--font-accent);
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <chi-button v-for="{ id, label, selected } in tags" :key="id" :secondary="!selected" class="button-round">
+    <chi-button v-for="{ id, label, selected } in tags" :key="id" :secondary="!selected" class="tag-button">
       {{ label }}
     </chi-button>
   </section>
@@ -18,7 +18,8 @@ export default {
 </script>
 
 <style scoped>
-.button-round {
+.tag-button {
+  margin: 0 36px 36px 0;
   border-radius: 100px;
 }
 </style>
