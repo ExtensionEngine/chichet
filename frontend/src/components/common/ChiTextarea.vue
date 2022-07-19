@@ -49,5 +49,6 @@ export default {
   border-bottom: 2px solid var(--color-primary);
   padding: 16px 8px;
   color: var(--color-text);
+  letter-spacing: 0.1rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <button class="chi-button" :class="{ 'chi-button-secondary': secondary }">
+  <button class="chi-button" :class="{ 'chi-button-secondary': secondary, 'chi-button-inline': inline }">
     <slot></slot>
   </button>
 </template>
@@ -9,6 +9,7 @@ export default {
   name: 'chi-button',
   props: {
     secondary: { type: Boolean, default: false },
+    inline: { type: Boolean, default: false },
   },
 };
 </script>
@@ -25,9 +26,22 @@ export default {
   cursor: pointer;
 }
 
-.chi-button-secondary {
+.chi-button-secondary,
+.chi-button-inline {
   background: transparent;
-  border: 2px solid var(--color-primary);
   color: var(--color-primary);
+}
+
+.chi-button-secondary {
+  border: 2px solid var(--color-primary);
+}
+
+.chi-button-inline {
+  padding: 0;
+  text-transform: none;
+  border: none;
+  font: var(--font-default);
+  font-size: var(--font-size-small);
+  letter-spacing: 0.1rem;
 }
 </style>
