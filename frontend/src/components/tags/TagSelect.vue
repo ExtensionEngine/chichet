@@ -11,23 +11,22 @@
 </template>
 
 <script>
+import { onMounted, reactive } from 'vue';
 import ChiButton from '../common/ChiButton.vue';
+import { tag } from '@/api';
 import TagList from './TagList.vue';
 
 export default {
   name: 'tag-select',
   setup() {
-    const tags = [
-      { id: 1, label: 'Rock', selected: true },
-      { id: 2, label: 'Metal', selected: true },
-      { id: 3, label: 'Classical', selected: true },
-      { id: 4, label: 'Rock', selected: true },
-      { id: 5, label: 'Metal', selected: false },
-      { id: 6, label: 'Classical', selected: false },
-      { id: 7, label: 'Rock', selected: false },
-      { id: 8, label: 'Metal', selected: false },
-      { id: 9, label: 'Classical', selected: false },
-    ];
+    const tags = reactive([]);
+
+    onMounted(async () => {
+      const tagsArray = await tag.fetch();
+      tagsArray.forEach(el => {
+        tags.push({ ...el, selected: false });
+      });
+    });
 
     return { tags };
   },
@@ -65,8 +64,13 @@ export default {
 }
 
 .select-tags {
-  max-width: 80%;
+  max-width: 85%;
+  max-height: calc(88px * 2);
+  overflow-y: scroll;
   margin-bottom: 20px;
+  direction: rtl;
+  padding-left: 20px;
+  margin-left: -20px;
 }
 
 .select-skip {

@@ -1,8 +1,10 @@
 <template>
   <div>
-    <chi-button v-for="{ id, label, selected } in tags" :key="id" :secondary="!selected" class="tag-button">
-      {{ label }}
-    </chi-button>
+    <div class="tag-list">
+      <chi-button v-for="{ id, label, selected } in tags" :key="id" :secondary="!selected" class="tag-button">
+        {{ label }}
+      </chi-button>
+    </div>
   </div>
 </template>
 
@@ -18,6 +20,10 @@ export default {
 </script>
 
 <style scoped>
+.tag-list {
+  direction: ltr;
+}
+
 .tag-button {
   margin: 0 36px 36px 0;
   border-radius: 100px;
