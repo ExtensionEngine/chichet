@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import SelectTags from '@/components/tags/SelectTags.vue';
+import TagSelect from '@/components/tags/TagSelect.vue';
 import UserAuth from '@/components/auth/UserAuth.vue';
 
 const routes = [
@@ -11,7 +11,7 @@ const routes = [
   {
     path: '/tags',
     name: 'Tags',
-    component: SelectTags,
+    component: TagSelect,
   },
 ];
 
