@@ -1,9 +1,9 @@
 <template>
-  <section>
+  <div>
     <chi-button v-for="{ id, label, selected } in tags" :key="id" :secondary="!selected" class="tag-button">
       {{ label }}
     </chi-button>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -21,5 +21,7 @@ export default {
 .tag-button {
   margin: 0 36px 36px 0;
   border-radius: 100px;
+  padding: 20px 36px;
+  text-transform: capitalize;
 }
 </style>
