@@ -23,12 +23,4 @@ interface IGeneratedTokens {
   refreshToken: string;
 }
 
-interface IUser {
-  id: number;
-  username: string;
-  password: string;
-  refreshToken: string;
-  generateTokens(): Promise<IGeneratedTokens>;
-}
-
-export { ILoginRequest, IRegisterRequest, IJwtOptions, IGeneratedTokens, IUser };
+export { ILoginRequest, IRegisterRequest, IJwtOptions, IGeneratedTokens };

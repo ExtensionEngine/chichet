@@ -1,15 +1,18 @@
+import { CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { IFields, IModels } from 'shared/database/types';
-import { IJwtOptions, IUser } from './types';
+import { IGeneratedTokens, IJwtOptions } from './types';
 import Audience from 'shared/auth/audience';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { Model } from 'sequelize';
 
-class User extends Model implements IUser {
-  id!: number;
-  username!: string;
-  password!: string;
-  refreshToken!: string;
+// eslint-disable-next-line no-use-before-define
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreationOptional<number>;
+  declare firstName: string;
+  declare lastName: string;
+  declare username: string;
+  declare password: string;
+  declare refreshToken: CreationOptional<string>;
 
   static fields({ INTEGER, STRING }: IFields) {
     return {
@@ -101,7 +104,7 @@ class User extends Model implements IUser {
     return bcrypt.compare(password, this.password);
   }
 
-  async generateTokens() {
+  async generateTokens(): Promise<IGeneratedTokens> {
     const accessToken = this._generateAccessToken();
     const refreshToken = this._generateRefreshToken();
     this.refreshToken = refreshToken;
@@ -109,7 +112,7 @@ class User extends Model implements IUser {
     return { accessToken, refreshToken };
   }
 
-  private async _hashPassword() {
+  private async _hashPassword(): Promise<void> {
     const saltRounds = Number(process.env.SALT_ROUNDS as string);
     const hash = await bcrypt.hash(this.password, saltRounds);
     this.password = hash;
