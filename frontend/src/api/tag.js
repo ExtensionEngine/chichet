@@ -2,7 +2,7 @@ import { extractData } from './helpers';
 import request from './config';
 
 const urls = {
-  root: '/tags',
+  root: '/api/tags',
 };
 
 const fetchAll = () => {
