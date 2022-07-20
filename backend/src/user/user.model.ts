@@ -101,22 +101,12 @@ class User extends Model implements IUser {
     return bcrypt.compare(password, this.password);
   }
 
-  generateAccessToken(): string {
-    const secret = process.env.ACCESS_TOKEN_SECRET || '';
-    const options = {
-      audience: Audience.Scope.Access,
-      expiresIn: process.env.ACCESS_TOKEN_DURATION,
-    };
-    return this.generateToken(secret, options);
-  }
-
-  generateRefreshToken(): string {
-    const secret = process.env.REFRESH_TOKEN_SECRET || '';
-    const options = {
-      audience: Audience.Scope.Refresh,
-      expiresIn: process.env.REFRESH_TOKEN_DURATION,
-    };
-    return this.generateToken(secret, options);
+  async generateTokens() {
+    const accessToken = this._generateAccessToken();
+    const refreshToken = this._generateRefreshToken();
+    this.refreshToken = refreshToken;
+    await this.save();
+    return { accessToken, refreshToken };
   }
 
   private async _hashPassword() {
@@ -125,7 +115,25 @@ class User extends Model implements IUser {
     this.password = hash;
   }
 
-  private generateToken(secret: string, options: IJwtOptions): string {
+  private _generateAccessToken(): string {
+    const secret = process.env.ACCESS_TOKEN_SECRET || '';
+    const options = {
+      audience: Audience.Scope.Access,
+      expiresIn: process.env.ACCESS_TOKEN_DURATION,
+    };
+    return this._generateToken(secret, options);
+  }
+
+  private _generateRefreshToken(): string {
+    const secret = process.env.REFRESH_TOKEN_SECRET || '';
+    const options = {
+      audience: Audience.Scope.Refresh,
+      expiresIn: process.env.REFRESH_TOKEN_DURATION,
+    };
+    return this._generateToken(secret, options);
+  }
+
+  private _generateToken(secret: string, options: IJwtOptions): string {
     const { id, username } = this;
     const payload = { id, username };
     return jwt.sign(payload, secret, options);
