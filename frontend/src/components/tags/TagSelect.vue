@@ -104,5 +104,6 @@ export default {
 
 .select-skip:disabled {
   color: var(--color-primary-disabled);
+  cursor: initial;
 }
 </style>
