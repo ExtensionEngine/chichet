@@ -39,7 +39,7 @@ const register = async ({ body }: IRegisterRequest, res: Response) => {
 
 export { getAll, login, register };
 
-async function generateTokens(user: any): Promise<IGeneratedTokens> {
+async function generateTokens(user: User): Promise<IGeneratedTokens> {
   const accessToken = user.generateAccessToken();
   const refreshToken = user.generateRefreshToken();
   user.refreshToken = refreshToken;
