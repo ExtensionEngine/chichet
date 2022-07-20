@@ -1,3 +1,4 @@
+import createEndpoint from 'shared/utils/createEndpoint';
 import express from 'express';
 import sequelize from 'shared/database';
 
@@ -13,10 +14,10 @@ const port = process.env.PORT || 3001;
 
 app.use(express.json());
 
-app.use(message.path, message.router);
-app.use(room.path, room.router);
-app.use(tag.path, tag.router);
-app.use(user.path, user.router);
+app.use(createEndpoint(message.path), message.router);
+app.use(createEndpoint(room.path), room.router);
+app.use(createEndpoint(tag.path), tag.router);
+app.use(createEndpoint(user.path), user.router);
 
 // test database connection
 (async () => {
