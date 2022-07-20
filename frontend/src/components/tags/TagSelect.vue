@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import ChiButton from '../common/ChiButton.vue';
 import { tag as tagApi } from '@/api';
 import TagList from './TagList.vue';
@@ -37,9 +37,9 @@ export default {
       tag.selected = !tag.selected;
     };
 
-    const areAnySelected = () => {
+    const areAnySelected = computed(() => {
       return tags.filter(tag => tag.selected).length > 0;
-    };
+    });
 
     const handleSaveSelected = () => {
       // TODO: add saving userTags (waiting for Authorization PR)
