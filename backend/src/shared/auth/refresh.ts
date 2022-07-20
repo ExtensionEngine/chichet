@@ -1,16 +1,15 @@
-import { JsonWebTokenError, verify as jwtVerify } from 'jsonwebtoken';
+import { FORBIDDEN_ERROR, TOKEN_EXPIRED_ERROR } from 'shared/constants/errorMessages';
+import { JsonWebTokenError, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import Audience from './audience';
 import { IJwtPayloadDecoded } from './types';
 import { User } from '../database';
 
-const FORBIDDEN_MESSAGE = 'Your access to this resource is forbidden';
-
 export default async function refresh(req: Request, res: Response, next: NextFunction) {
   if (req.user) return next();
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
-    return res.status(403).json({ error: FORBIDDEN_MESSAGE });
+    return res.status(403).json({ error: FORBIDDEN_ERROR });
   }
   try {
     const user = await User.findOne({ where: { refreshToken } });
@@ -18,10 +17,10 @@ export default async function refresh(req: Request, res: Response, next: NextFun
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (!user || id !== user.id || username !== user.username) {
-      return res.status(403).json({ error: FORBIDDEN_MESSAGE });
+      return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
     if (aud !== Audience.Scope.Refresh) {
-      return res.status(403).json({ error: FORBIDDEN_MESSAGE });
+      return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -31,8 +30,11 @@ export default async function refresh(req: Request, res: Response, next: NextFun
     res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
     return next();
   } catch (err) {
+    if (err instanceof TokenExpiredError) {
+      return res.status(403).json({ error: TOKEN_EXPIRED_ERROR });
+    }
     if (err instanceof JsonWebTokenError) {
-      return res.status(403).json({ error: FORBIDDEN_MESSAGE });
+      return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
   }
 }
