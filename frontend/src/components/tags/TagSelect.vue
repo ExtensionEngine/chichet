@@ -26,7 +26,7 @@ export default {
     const tags = reactive([]);
 
     onMounted(async () => {
-      const tagsArray = await tagApi.fetch();
+      const tagsArray = await tagApi.fetchAll();
       tagsArray.forEach(tag => {
         tags.push({ ...tag, selected: false });
       });
