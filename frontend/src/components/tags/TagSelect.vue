@@ -6,7 +6,7 @@
     </div>
 
     <tag-list @select-tag="selectTag" class="select-tags" :tags="tags"></tag-list>
-    <chi-button v-if="areAnySelected()" @click="handleSaveSelected" class="select-skip" inline>Continue >></chi-button>
+    <chi-button v-if="areAnySelected" @click="handleSaveSelected" class="select-skip" inline>Continue >></chi-button>
     <chi-button v-else @click="handleProceed" class="select-skip" inline>Skip for now >></chi-button>
   </main>
 </template>
