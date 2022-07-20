@@ -16,10 +16,7 @@ export default async function refresh(req: Request, res: Response, next: NextFun
     const { id, username, aud } = jwtVerify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as IJwtPayloadDecoded;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    if (!user || id !== user.id || username !== user.username) {
-      return res.status(403).json({ error: FORBIDDEN_ERROR });
-    }
-    if (aud !== Audience.Scope.Refresh) {
+    if (!user || id !== user.id || username !== user.username || aud !== Audience.Scope.Refresh) {
       return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
