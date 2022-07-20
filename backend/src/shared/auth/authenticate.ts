@@ -12,11 +12,8 @@ export default async function authenticate(req: Request, res: Response, next: Ne
   }
   try {
     const { id, aud } = jwtVerify(accessToken, process.env.ACCESS_TOKEN_SECRET || '') as IJwtPayloadDecoded;
-    if (aud !== Audience.Scope.Access) {
-      return res.status(403).json({ error: FORBIDDEN_ERROR });
-    }
     const user = await User.findByPk(id);
-    if (!user) {
+    if (!user || aud !== Audience.Scope.Access) {
       return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
     req.user = user;
