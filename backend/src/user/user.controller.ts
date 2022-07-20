@@ -17,8 +17,8 @@ const login = async ({ body: { username, password } }: ILoginRequest, res: Respo
   if (!isPasswordCorrect) return res.status(401).json({ message: LOGIN_ERROR });
 
   const { accessToken, refreshToken } = await user.generateTokens();
-  res.cookie('access-token', accessToken);
-  res.cookie('refresh-token', refreshToken, { httpOnly: true });
+  res.cookie('accessToken', accessToken);
+  res.cookie('refreshToken', refreshToken, { httpOnly: true });
   return res.status(200).send();
 };
 
@@ -26,8 +26,8 @@ const register = async ({ body }: IRegisterRequest, res: Response) => {
   try {
     const user = await User.create(body);
     const { accessToken, refreshToken } = await user.generateTokens();
-    res.cookie('access-token', accessToken);
-    res.cookie('refresh-token', refreshToken, { httpOnly: true });
+    res.cookie('accessToken', accessToken);
+    res.cookie('refreshToken', refreshToken, { httpOnly: true });
     return res.status(201).send();
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
