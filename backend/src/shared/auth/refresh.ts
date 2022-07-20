@@ -19,10 +19,10 @@ export default async function refresh(req: Request, res: Response, next: NextFun
     if (!user || id !== user.id || username !== user.username || aud !== Audience.Scope.Refresh) {
       return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
+    req.user = user;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await user.generateTokens();
-    req.user = user;
     res.cookie('accessToken', newAccessToken);
     res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
     return next();
