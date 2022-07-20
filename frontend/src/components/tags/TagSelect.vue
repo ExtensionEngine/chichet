@@ -26,10 +26,8 @@ export default {
     const tags = reactive([]);
 
     onMounted(async () => {
-      const tagsArray = await tagApi.fetchAll();
-      tagsArray.forEach(tag => {
-        tags.push({ ...tag, selected: false });
-      });
+      tags.push(...(await tagApi.fetchAll()));
+      tags.map(tag => (tag.selected = false));
     });
 
     const selectTag = tagId => {
@@ -43,6 +41,7 @@ export default {
 
     const handleSaveSelected = () => {
       // TODO: add saving userTags (waiting for Authorization PR)
+      console.log(tags);
       handleProceed();
     };
 
