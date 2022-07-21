@@ -21,7 +21,7 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (!user || id !== user.id || username !== user.username || aud !== Audience.Scope.Refresh) {
-      return res.status(403).json({ error: errorMessages.FORBIDDEN_ERROR });
+      return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
     }
 
     req.user = user;
