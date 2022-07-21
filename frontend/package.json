@@ -19,7 +19,7 @@
     "@babel/eslint-parser": "^7.18.2",
     "@babel/eslint-plugin": "^7.17.7",
     "@extensionengine/eslint-config": "^3.0.1",
-    "@vitejs/plugin-vue": "^2.3.3",
+    "@vitejs/plugin-vue": "3",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-semistandard": "^16.0.0",
@@ -32,6 +32,6 @@
     "eslint-plugin-require-sort": "^1.2.2",
     "eslint-plugin-vue": "^9.2.0",
     "prettier": "^2.7.1",
-    "vite": "^2.9.9"
+    "vite": "3"
   }
 }
