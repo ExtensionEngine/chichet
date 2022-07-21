@@ -1,18 +1,15 @@
-import { CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { IFields, IModels } from 'shared/database/types';
+import { IJwtOptions, IUser } from './types';
 import Audience from 'shared/auth/audience';
 import bcrypt from 'bcrypt';
-import { IJwtOptions } from './types';
 import jwt from 'jsonwebtoken';
+import { Model } from 'sequelize';
 
-// eslint-disable-next-line no-use-before-define
-class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare id: CreationOptional<number>;
-  declare firstName: string;
-  declare lastName: string;
-  declare username: string;
-  declare password: string;
-  declare refreshToken: CreationOptional<string>;
+class User extends Model implements IUser {
+  id!: number;
+  username!: string;
+  password!: string;
+  refreshToken!: string;
 
   static fields({ INTEGER, STRING }: IFields) {
     return {

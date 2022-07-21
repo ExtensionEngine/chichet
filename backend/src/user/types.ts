@@ -18,4 +18,17 @@ interface IJwtOptions {
   expiresIn?: string;
 }
 
-export { ILoginRequest, IRegisterRequest, IJwtOptions };
+interface IGeneratedTokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
+interface IUser {
+  id: number;
+  username: string;
+  password: string;
+  refreshToken: string;
+  generateTokens(): Promise<IGeneratedTokens>;
+}
+
+export { ILoginRequest, IRegisterRequest, IJwtOptions, IUser };
