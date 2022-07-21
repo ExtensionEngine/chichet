@@ -19,15 +19,18 @@ const login = async ({ body: { username, password } }: ILoginRequest, res: Respo
   const { accessToken, refreshToken } = await user.generateTokens();
   res.cookie('accessToken', accessToken);
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
+
   return res.status(200).send();
 };
 
 const register = async ({ body }: IRegisterRequest, res: Response) => {
   try {
     const user = await User.create(body);
+
     const { accessToken, refreshToken } = await user.generateTokens();
     res.cookie('accessToken', accessToken);
     res.cookie('refreshToken', refreshToken, { httpOnly: true });
+
     return res.status(201).send();
   } catch (err) {
     if (err instanceof UniqueConstraintError) {

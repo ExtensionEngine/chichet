@@ -10,18 +10,21 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
   if (!accessToken) {
     return res.status(403).json({ error: FORBIDDEN_ERROR });
   }
+
   try {
     const { id, aud } = jwtVerify(accessToken, process.env.ACCESS_TOKEN_SECRET || '') as IJwtPayloadDecoded;
     const user = await User.findByPk(id);
+
     if (!user || aud !== Audience.Scope.Access) {
       return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
+
     req.user = user;
+
     return next();
   } catch (err) {
-    if (err instanceof TokenExpiredError) {
-      return next();
-    }
+    if (err instanceof TokenExpiredError) return next();
+
     if (err instanceof JsonWebTokenError) {
       return res.status(403).json({ error: FORBIDDEN_ERROR });
     }

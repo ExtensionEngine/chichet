@@ -107,8 +107,10 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   async generateTokens(): Promise<IGeneratedTokens> {
     const accessToken = this._generateAccessToken();
     const refreshToken = this._generateRefreshToken();
+
     this.refreshToken = refreshToken;
     await this.save();
+
     return { accessToken, refreshToken };
   }
 
@@ -124,6 +126,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
       audience: Audience.Scope.Access,
       expiresIn: process.env.ACCESS_TOKEN_DURATION,
     };
+
     return this._generateToken(secret, options);
   }
 
@@ -133,12 +136,14 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
       audience: Audience.Scope.Refresh,
       expiresIn: process.env.REFRESH_TOKEN_DURATION,
     };
+
     return this._generateToken(secret, options);
   }
 
   private _generateToken(secret: string, options: IJwtOptions): string {
     const { id, username } = this;
     const payload = { id, username };
+
     return jwt.sign(payload, secret, options);
   }
 }
