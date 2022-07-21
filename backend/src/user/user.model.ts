@@ -1,6 +1,6 @@
 import { IFields, IModels } from 'shared/database/types';
-import { IJwtOptions, IUser } from './types';
-import Audience from 'shared/auth/audience';
+import { ITokenType, IUser } from './types';
+import { authTokens } from 'config';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
@@ -102,8 +102,8 @@ class User extends Model implements IUser {
   }
 
   async generateTokens() {
-    const accessToken = this._generateAccessToken();
-    const refreshToken = this._generateRefreshToken();
+    const accessToken = this._generateToken(authTokens.type.ACCESS as ITokenType);
+    const refreshToken = this._generateToken(authTokens.type.REFRESH as ITokenType);
 
     this.refreshToken = refreshToken;
     await this.save();
@@ -117,29 +117,14 @@ class User extends Model implements IUser {
     this.password = hash;
   }
 
-  private _generateAccessToken() {
-    const secret = process.env.ACCESS_TOKEN_SECRET || '';
-    const options = {
-      audience: Audience.Scope.Access,
-      expiresIn: process.env.ACCESS_TOKEN_DURATION,
-    };
-
-    return this._generateToken(secret, options);
-  }
-
-  private _generateRefreshToken() {
-    const secret = process.env.REFRESH_TOKEN_SECRET || '';
-    const options = {
-      audience: Audience.Scope.Refresh,
-      expiresIn: process.env.REFRESH_TOKEN_DURATION,
-    };
-
-    return this._generateToken(secret, options);
-  }
-
-  private _generateToken(secret: string, options: IJwtOptions) {
+  private _generateToken(tokenType: ITokenType) {
     const { id, username } = this;
     const payload = { id, username };
+    const secret = authTokens.config[tokenType].secret;
+    const options = {
+      audience: authTokens.config[tokenType].audience,
+      expiresIn: authTokens.config[tokenType].duration,
+    };
 
     return jwt.sign(payload, secret, options);
   }

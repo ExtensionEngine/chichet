@@ -13,15 +13,12 @@ interface IRegisterRequest {
     password: string;
   };
 }
-
-interface IJwtOptions {
-  expiresIn?: string;
-}
-
 interface IGeneratedTokens {
   accessToken: string;
   refreshToken: string;
 }
+
+type ITokenType = 'ACCESS' | 'REFRESH';
 
 interface IUser {
   id: number;
@@ -31,4 +28,4 @@ interface IUser {
   generateTokens(): Promise<IGeneratedTokens>;
 }
 
-export { ILoginRequest, IRegisterRequest, IJwtOptions, IGeneratedTokens, IUser };
+export { ILoginRequest, IRegisterRequest, IGeneratedTokens, ITokenType, IUser };
