@@ -10,7 +10,7 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
 
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
-    return res.status(403).json({ error: FORBIDDEN_ERROR });
+    return res.status(403).json({ message: FORBIDDEN_ERROR });
   }
 
   try {
@@ -33,11 +33,11 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
     return next();
   } catch (err) {
     if (err instanceof TokenExpiredError) {
-      return res.status(403).json({ error: TOKEN_EXPIRED_ERROR });
+      return res.status(403).json({ message: TOKEN_EXPIRED_ERROR });
     }
 
     if (err instanceof JsonWebTokenError) {
-      return res.status(403).json({ error: FORBIDDEN_ERROR });
+      return res.status(403).json({ message: FORBIDDEN_ERROR });
     }
   }
 };
