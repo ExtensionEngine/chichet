@@ -1,7 +1,7 @@
-import { FORBIDDEN_ERROR, TOKEN_EXPIRED_ERROR } from 'shared/constants/errorMessages';
 import { JsonWebTokenError, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import Audience from './audience';
+import errorMessages from 'shared/constants/errorMessages';
 import { IJwtPayloadDecoded } from './types';
 import { User } from '../database';
 
@@ -10,7 +10,7 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
 
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
-    return res.status(403).json({ message: FORBIDDEN_ERROR });
+    return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
   }
 
   try {
@@ -20,7 +20,7 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (!user || id !== user.id || username !== user.username || aud !== Audience.Scope.Refresh) {
-      return res.status(403).json({ error: FORBIDDEN_ERROR });
+      return res.status(403).json({ error: errorMessages.FORBIDDEN_ERROR });
     }
 
     req.user = user;
@@ -33,11 +33,11 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
     return next();
   } catch (err) {
     if (err instanceof TokenExpiredError) {
-      return res.status(403).json({ message: TOKEN_EXPIRED_ERROR });
+      return res.status(403).json({ message: errorMessages.TOKEN_EXPIRED_ERROR });
     }
 
     if (err instanceof JsonWebTokenError) {
-      return res.status(403).json({ message: FORBIDDEN_ERROR });
+      return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
     }
   }
 };
