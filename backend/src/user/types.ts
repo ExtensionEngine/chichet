@@ -31,4 +31,4 @@ interface IUser {
   generateTokens(): Promise<IGeneratedTokens>;
 }
 
-export { ILoginRequest, IRegisterRequest, IJwtOptions, IUser };
+export { ILoginRequest, IRegisterRequest, IJwtOptions, IGeneratedTokens, IUser };

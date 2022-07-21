@@ -1,6 +1,7 @@
 import { ILoginRequest, IRegisterRequest } from './types';
 import { Request, Response } from 'express';
 import errorMessages from 'shared/constants/errorMessages';
+import { setAuthCookies } from 'shared/auth/helpers';
 import { UniqueConstraintError } from 'sequelize';
 import User from './user.model';
 
@@ -16,9 +17,8 @@ const login = async ({ body: { username, password } }: ILoginRequest, res: Respo
   const isPasswordCorrect = await user.passwordCompare(password);
   if (!isPasswordCorrect) return res.status(401).json({ message: errorMessages.LOGIN_ERROR });
 
-  const { accessToken, refreshToken } = await user.generateTokens();
-  res.cookie('accessToken', accessToken);
-  res.cookie('refreshToken', refreshToken, { httpOnly: true });
+  const tokens = await user.generateTokens();
+  setAuthCookies(tokens, res);
 
   return res.status(200).send();
 };
@@ -27,9 +27,8 @@ const register = async ({ body }: IRegisterRequest, res: Response) => {
   try {
     const user = await User.create(body);
 
-    const { accessToken, refreshToken } = await user.generateTokens();
-    res.cookie('accessToken', accessToken);
-    res.cookie('refreshToken', refreshToken, { httpOnly: true });
+    const tokens = await user.generateTokens();
+    setAuthCookies(tokens, res);
 
     return res.status(201).send();
   } catch (err) {

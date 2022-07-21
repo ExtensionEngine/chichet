@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
 import { IJwtPayloadDecoded } from './types';
+import { setAuthCookies } from './helpers';
 import { User } from '../database';
 
 const refresh = async (req: Request, res: Response, next: NextFunction) => {
@@ -26,9 +27,8 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
     req.user = user;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = await user.generateTokens();
-    res.cookie('accessToken', newAccessToken);
-    res.cookie('refreshToken', newRefreshToken, { httpOnly: true });
+    const tokens = await user.generateTokens();
+    setAuthCookies(tokens, res);
 
     return next();
   } catch (err) {
