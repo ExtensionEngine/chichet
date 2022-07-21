@@ -5,7 +5,7 @@ specifiers:
   '@babel/eslint-parser': ^7.18.2
   '@babel/eslint-plugin': ^7.17.7
   '@extensionengine/eslint-config': ^3.0.1
-  '@vitejs/plugin-vue': '3'
+  '@vitejs/plugin-vue': ^3.0.1
   axios: ^0.27.2
   eslint: ^8.19.0
   eslint-config-prettier: ^8.5.0
@@ -20,7 +20,7 @@ specifiers:
   eslint-plugin-vue: ^9.2.0
   normalize.css: ^8.0.1
   prettier: ^2.7.1
-  vite: '3'
+  vite: ^3.0.2
   vue: ^3.2.25
   vue-router: ^4.1.2
 
