@@ -5,7 +5,7 @@ import { FORBIDDEN_ERROR } from 'shared/constants/errorMessages';
 import { IJwtPayloadDecoded } from './types';
 import { User } from '../database';
 
-export default async function authenticate(req: Request, res: Response, next: NextFunction) {
+const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   const { accessToken } = req.cookies;
   if (!accessToken) {
     return res.status(403).json({ error: FORBIDDEN_ERROR });
@@ -26,4 +26,6 @@ export default async function authenticate(req: Request, res: Response, next: Ne
       return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
   }
-}
+};
+
+export default authenticate;

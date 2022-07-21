@@ -5,7 +5,7 @@ import Audience from './audience';
 import { IJwtPayloadDecoded } from './types';
 import { User } from '../database';
 
-export default async function refresh(req: Request, res: Response, next: NextFunction) {
+const refresh = async (req: Request, res: Response, next: NextFunction) => {
   if (req.user) return next();
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
@@ -34,4 +34,6 @@ export default async function refresh(req: Request, res: Response, next: NextFun
       return res.status(403).json({ error: FORBIDDEN_ERROR });
     }
   }
-}
+};
+
+export default refresh;
