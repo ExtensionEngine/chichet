@@ -31,7 +31,8 @@ const models: IModels = {
   UserTag: defineModel(UserTagModel),
 };
 
-function defineModel(Model: ModelStatic<Model>) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function defineModel(Model: any) {
   const fields = invoke(Model, 'fields', DataTypes, sequelize) || {};
   const dbOptions = invoke(Model, 'dbOptions', sequelize) || {};
   Object.assign(dbOptions, { sequelize });
