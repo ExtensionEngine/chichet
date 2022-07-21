@@ -1,8 +1,8 @@
 import { CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { IFields, IModels } from 'shared/database/types';
-import { IGeneratedTokens, IJwtOptions } from './types';
 import Audience from 'shared/auth/audience';
 import bcrypt from 'bcrypt';
+import { IJwtOptions } from './types';
 import jwt from 'jsonwebtoken';
 
 // eslint-disable-next-line no-use-before-define
@@ -104,7 +104,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     return bcrypt.compare(password, this.password);
   }
 
-  async generateTokens(): Promise<IGeneratedTokens> {
+  async generateTokens() {
     const accessToken = this._generateAccessToken();
     const refreshToken = this._generateRefreshToken();
 
@@ -114,13 +114,13 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     return { accessToken, refreshToken };
   }
 
-  private async _hashPassword(): Promise<void> {
+  private async _hashPassword() {
     const saltRounds = Number(process.env.SALT_ROUNDS as string);
     const hash = await bcrypt.hash(this.password, saltRounds);
     this.password = hash;
   }
 
-  private _generateAccessToken(): string {
+  private _generateAccessToken() {
     const secret = process.env.ACCESS_TOKEN_SECRET || '';
     const options = {
       audience: Audience.Scope.Access,
@@ -130,7 +130,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     return this._generateToken(secret, options);
   }
 
-  private _generateRefreshToken(): string {
+  private _generateRefreshToken() {
     const secret = process.env.REFRESH_TOKEN_SECRET || '';
     const options = {
       audience: Audience.Scope.Refresh,
@@ -140,7 +140,7 @@ class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
     return this._generateToken(secret, options);
   }
 
-  private _generateToken(secret: string, options: IJwtOptions): string {
+  private _generateToken(secret: string, options: IJwtOptions) {
     const { id, username } = this;
     const payload = { id, username };
 

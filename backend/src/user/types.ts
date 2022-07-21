@@ -18,9 +18,4 @@ interface IJwtOptions {
   expiresIn?: string;
 }
 
-interface IGeneratedTokens {
-  accessToken: string;
-  refreshToken: string;
-}
-
-export { ILoginRequest, IRegisterRequest, IJwtOptions, IGeneratedTokens };
+export { ILoginRequest, IRegisterRequest, IJwtOptions };
