@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
 import { IJwtPayloadDecoded } from './types';
-import { User } from '../database';
+import User from 'user/user.model';
 
 const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   const { accessToken } = req.cookies;

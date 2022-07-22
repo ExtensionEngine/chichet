@@ -4,7 +4,7 @@ import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
 import { IJwtPayloadDecoded } from './types';
 import { setAuthCookies } from './helpers';
-import { User } from '../database';
+import User from 'user/user.model';
 
 const refresh = async (req: Request, res: Response, next: NextFunction) => {
   if (req.user) return next();
@@ -18,15 +18,12 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.findOne({ where: { refreshToken } });
     const { id, username, aud } = jwtVerify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as IJwtPayloadDecoded;
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     if (!user || id !== user.id || username !== user.username || aud !== Audience.Scope.Refresh) {
       return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
     }
 
     req.user = user;
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     const tokens = await user.generateTokens();
     setAuthCookies(tokens, res);
 
