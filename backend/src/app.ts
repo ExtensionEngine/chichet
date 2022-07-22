@@ -1,23 +1,13 @@
-import createEndpoint from 'shared/utils/createEndpoint';
 import express from 'express';
+import router from 'router';
 import sequelize from 'shared/database';
-
-// eslint-disable-next-line sort-imports
-import message from 'message';
-import room from 'room';
-import tag from 'tag';
-import user from 'user';
 
 const app = express();
 
 const port = process.env.PORT || 3001;
 
 app.use(express.json());
-
-app.use(createEndpoint(message.path), message.router);
-app.use(createEndpoint(room.path), room.router);
-app.use(createEndpoint(tag.path), tag.router);
-app.use(createEndpoint(user.path), user.router);
+app.use('/api', router);
 
 // test database connection
 (async () => {
