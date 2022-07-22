@@ -1,8 +1,7 @@
-import { JsonWebTokenError, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
+import { JsonWebTokenError, JwtPayload, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
-import { IJwtPayloadDecoded } from './types';
 import { setAuthCookies } from './helpers';
 import User from 'user/user.model';
 
@@ -16,7 +15,7 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const user = await User.findOne({ where: { refreshToken } });
-    const { id, username, aud } = jwtVerify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as IJwtPayloadDecoded;
+    const { id, username, aud } = jwtVerify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as JwtPayload;
 
     if (!user || id !== user.id || username !== user.username || aud !== Audience.Scope.Refresh) {
       return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });

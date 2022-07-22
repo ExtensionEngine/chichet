@@ -1,8 +1,7 @@
-import { JsonWebTokenError, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
+import { JsonWebTokenError, JwtPayload, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
-import { IJwtPayloadDecoded } from './types';
 import User from 'user/user.model';
 
 const authenticate = async (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +11,7 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
   }
 
   try {
-    const { id, aud } = jwtVerify(accessToken, process.env.ACCESS_TOKEN_SECRET || '') as IJwtPayloadDecoded;
+    const { id, aud } = jwtVerify(accessToken, process.env.ACCESS_TOKEN_SECRET || '') as JwtPayload;
     const user = await User.findByPk(id);
 
     if (!user || aud !== Audience.Scope.Access) {
