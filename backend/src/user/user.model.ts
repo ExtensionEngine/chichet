@@ -102,8 +102,8 @@ class User extends Model implements IUser {
   }
 
   async generateTokens() {
-    const accessToken = this._generateToken(authTokens.type.ACCESS as ITokenType);
-    const refreshToken = this._generateToken(authTokens.type.REFRESH as ITokenType);
+    const accessToken = this._generateToken(authTokens.type.ACCESS);
+    const refreshToken = this._generateToken(authTokens.type.REFRESH);
 
     this.refreshToken = refreshToken;
     await this.save();

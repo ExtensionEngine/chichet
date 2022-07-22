@@ -1,9 +1,10 @@
 import Audience from 'shared/auth/audience';
+import { ITokenType } from 'user/types';
 
 const authTokens = {
   type: {
-    ACCESS: 'ACCESS',
-    REFRESH: 'REFRESH',
+    ACCESS: 'ACCESS' as ITokenType,
+    REFRESH: 'REFRESH' as ITokenType,
   },
   config: {
     ACCESS: {
