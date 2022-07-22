@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { tag as tagApi } from '@/api';
 import TagList from './TagList.vue';
 import { useRouter } from 'vue-router';
@@ -22,20 +22,20 @@ export default {
   setup() {
     const router = useRouter();
 
-    const tags = reactive([]);
+    const tags = ref([]);
 
     onMounted(async () => {
-      tags.push(...(await tagApi.fetchAll()));
-      tags.map(tag => (tag.selected = false));
+      const data = await tagApi.fetchAll();
+      tags.value = data.map(tag => ({ ...tag, selected: false }));
     });
 
     const selectTag = tagId => {
-      const tag = tags.find(tag => tag.id === tagId);
+      const tag = tags.value.find(tag => tag.id === tagId);
       tag.selected = !tag.selected;
     };
 
     const areAnySelected = computed(() => {
-      return tags.filter(tag => tag.selected).length > 0;
+      return tags.value.filter(tag => tag.selected).length > 0;
     });
 
     const handleSaveSelected = () => {
