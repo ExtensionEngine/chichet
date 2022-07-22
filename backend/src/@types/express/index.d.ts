@@ -1,4 +1,4 @@
-import { User } from 'shared/database';
+import User from 'user/user.model';
 
 declare global {
   namespace Express {
