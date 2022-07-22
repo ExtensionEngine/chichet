@@ -13,7 +13,6 @@
 
 <script>
 import { computed, onMounted, reactive } from 'vue';
-import ChiButton from '../common/ChiButton.vue';
 import { tag as tagApi } from '@/api';
 import TagList from './TagList.vue';
 import { useRouter } from 'vue-router';
@@ -52,7 +51,7 @@ export default {
 
     return { tags, areAnySelected, selectTag, handleSaveSelected, handleProceed };
   },
-  components: { TagList, ChiButton },
+  components: { TagList },
 };
 </script>
 

@@ -15,13 +15,11 @@
 </template>
 
 <script>
-import ChiButton from '../common/ChiButton.vue';
 export default {
   name: 'tag-list',
   props: {
     tags: { type: Array, required: true },
   },
-  components: { ChiButton },
 };
 </script>
 

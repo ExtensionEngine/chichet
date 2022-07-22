@@ -21,9 +21,6 @@
 </template>
 
 <script>
-import ChiButton from '../common/ChiButton.vue';
-import ChiField from '../common/ChiField.vue';
-
 export default {
   name: 'user-sign-in',
   props: {
@@ -31,7 +28,6 @@ export default {
     buttonLabel: { type: String, default: null },
     formSwitch: { type: Object, default: () => ({}) },
   },
-  components: { ChiField, ChiButton },
 };
 </script>
 
