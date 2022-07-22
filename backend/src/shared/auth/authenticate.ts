@@ -1,10 +1,11 @@
 import { JsonWebTokenError, JwtPayload, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
+import { IAuthRequest } from './types';
 import User from 'user/user.model';
 
-const authenticate = async (req: Request, res: Response, next: NextFunction) => {
+const authenticate = async (req: IAuthRequest, res: Response, next: NextFunction) => {
   const { accessToken } = req.cookies;
   if (!accessToken) {
     return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });

@@ -1,11 +1,12 @@
 import { JsonWebTokenError, JwtPayload, verify as jwtVerify, TokenExpiredError } from 'jsonwebtoken';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
+import { IAuthRequest } from './types';
 import { setAuthCookies } from 'shared/helpers/auth';
 import User from 'user/user.model';
 
-const refresh = async (req: Request, res: Response, next: NextFunction) => {
+const refresh = async (req: IAuthRequest, res: Response, next: NextFunction) => {
   if (req.user) return next();
 
   const { refreshToken } = req.cookies;
