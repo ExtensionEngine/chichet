@@ -12,9 +12,12 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
 
   try {
     const { id, aud } = jwtVerify(accessToken, process.env.ACCESS_TOKEN_SECRET || '') as JwtPayload;
-    const user = await User.findByPk(id);
+    if (aud !== Audience.Scope.Access) {
+      return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
+    }
 
-    if (!user || aud !== Audience.Scope.Access) {
+    const user = await User.findByPk(id);
+    if (!user) {
       return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
     }
 
