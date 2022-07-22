@@ -1,7 +1,7 @@
 import { ILoginRequest, IRegisterRequest } from './types';
 import { Request, Response } from 'express';
 import errorMessages from 'shared/constants/errorMessages';
-import { setAuthCookies } from 'shared/auth/helpers';
+import { setAuthCookies } from 'shared/helpers/auth';
 import { UniqueConstraintError } from 'sequelize';
 import User from './user.model';
 
