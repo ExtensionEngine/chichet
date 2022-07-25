@@ -1,6 +1,8 @@
+import { CONFLICT, CREATED, INTERNAL_SERVER_ERROR, OK, UNAUTHORIZED } from 'http-status';
 import { ILoginRequest, IRegisterRequest } from './types';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import errorMessages from 'shared/constants/errorMessages';
+import HttpError from 'shared/error/httpError';
 import { setAuthCookies } from 'shared/helpers/auth';
 import { UniqueConstraintError } from 'sequelize';
 import User from './user.model';
@@ -10,32 +12,32 @@ const getAll = async (req: Request, res: Response) => {
   return res.json(data);
 };
 
-const login = async ({ body: { username, password } }: ILoginRequest, res: Response) => {
+const login = async ({ body: { username, password } }: ILoginRequest, res: Response, next: NextFunction) => {
   const user = await User.unscoped().findOne({ where: { username } });
-  if (!user) return res.status(401).json({ message: errorMessages.LOGIN_ERROR });
+  if (!user) return next(new HttpError(UNAUTHORIZED, errorMessages.LOGIN_ERROR));
 
   const isPasswordCorrect = await user.passwordCompare(password);
-  if (!isPasswordCorrect) return res.status(401).json({ message: errorMessages.LOGIN_ERROR });
+  if (!isPasswordCorrect) return next(new HttpError(UNAUTHORIZED, errorMessages.LOGIN_ERROR));
 
   const tokens = await user.generateTokens();
   setAuthCookies(tokens, res);
 
-  return res.status(200).send();
+  return res.status(OK).send();
 };
 
-const register = async ({ body }: IRegisterRequest, res: Response) => {
+const register = async ({ body }: IRegisterRequest, res: Response, next: NextFunction) => {
   try {
     const user = await User.create(body);
 
     const tokens = await user.generateTokens();
     setAuthCookies(tokens, res);
 
-    return res.status(201).send();
+    return res.status(CREATED).send();
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
-      return res.status(409).json({ message: errorMessages.REGISTER_ERROR });
+      return next(new HttpError(CONFLICT, errorMessages.REGISTER_ERROR));
     }
-    return res.status(500).end();
+    return next(new HttpError(INTERNAL_SERVER_ERROR));
   }
 };
 
