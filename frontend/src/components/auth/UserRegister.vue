@@ -8,7 +8,9 @@
 </template>
 
 <script>
+import { setErrorToLastForm, validateAuthForm } from '@/utils/validation';
 import { auth as authApi } from '@/api';
+import { reactive } from 'vue';
 import { registerFormLabels } from './constants';
 import UserForm from './UserForm.vue';
 import { useRouter } from 'vue-router';
@@ -18,24 +20,26 @@ export default {
   setup() {
     const router = useRouter();
 
-    const formInputs = [
-      { label: 'Username', type: 'text', value: '' },
-      { label: 'First name', type: 'text', value: '' },
-      { label: 'Last name', type: 'text', value: '' },
-      { label: 'Password', type: 'password', value: '' },
-    ];
+    const formInputs = reactive({
+      username: { label: 'Username', type: 'text', value: '', error: '', required: true },
+      firstName: { label: 'First name', type: 'text', value: '', error: '', required: false },
+      lastName: { label: 'Last name', type: 'text', value: '', error: '', required: false },
+      password: { label: 'Password', type: 'password', value: '', error: '', required: true },
+    });
 
     const submit = async () => {
-      const username = formInputs[0].value;
-      const firstName = formInputs[1].value;
-      const lastName = formInputs[2].value;
-      const password = formInputs[3].value;
+      if (!validateAuthForm(formInputs)) return;
+
+      const username = formInputs.username.value;
+      const firstName = formInputs.firstName.value;
+      const lastName = formInputs.lastName.value;
+      const password = formInputs.password.value;
 
       try {
         await authApi.register({ username, firstName, lastName, password });
-        router.push('/tags');
+        router.push('/');
       } catch (err) {
-        console.log(err.response.data.message);
+        setErrorToLastForm(formInputs, err.response.data.message);
       }
     };
 
