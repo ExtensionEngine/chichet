@@ -7,10 +7,10 @@
           :key="input.label"
           v-model="input.value"
           :label="input.label"
+          :error="input.error"
           :type="input.type"
           :auto-focus="index === 0"
         ></chi-field>
-
         <chi-button class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
 
         <p class="user-info">
@@ -26,7 +26,7 @@
 export default {
   name: 'user-form',
   props: {
-    inputs: { type: Array, required: true },
+    inputs: { type: Object, required: true },
     buttonLabel: { type: String, default: null },
     formSwitch: { type: Object, default: () => ({}) },
   },
