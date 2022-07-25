@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import sequelize from 'shared/database';
 
@@ -11,6 +12,7 @@ const app = express();
 
 const port = process.env.PORT || 3001;
 
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(message.path, message.router);

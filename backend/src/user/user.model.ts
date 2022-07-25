@@ -1,6 +1,7 @@
 import { IFields, IModels } from 'shared/database/types';
+import { ITokenType, IUser } from './types';
+import { authTokens } from 'config';
 import bcrypt from 'bcrypt';
-import { IUser } from './types';
 import jwt from 'jsonwebtoken';
 import { Model } from 'sequelize';
 
@@ -8,6 +9,7 @@ class User extends Model implements IUser {
   id!: number;
   username!: string;
   password!: string;
+  refreshToken!: string;
 
   static fields({ INTEGER, STRING }: IFields) {
     return {
@@ -36,6 +38,11 @@ class User extends Model implements IUser {
       password: {
         type: STRING,
         allowNull: false,
+      },
+
+      refreshToken: {
+        type: STRING,
+        allowNull: true,
       },
     };
   }
@@ -94,19 +101,32 @@ class User extends Model implements IUser {
     return bcrypt.compare(password, this.password);
   }
 
-  generateAccessToken() {
-    const { id, username } = this;
-    const payload = { id, username };
-    const secret = process.env.ACCESS_TOKEN_SECRET || '';
-    const accessToken = jwt.sign(payload, secret);
+  async generateTokens() {
+    const accessToken = this._generateToken(authTokens.type.ACCESS);
+    const refreshToken = this._generateToken(authTokens.type.REFRESH);
 
-    return accessToken;
+    this.refreshToken = refreshToken;
+    await this.save();
+
+    return { accessToken, refreshToken };
   }
 
   private async _hashPassword() {
     const saltRounds = Number(process.env.SALT_ROUNDS as string);
     const hash = await bcrypt.hash(this.password, saltRounds);
     this.password = hash;
+  }
+
+  private _generateToken(tokenType: ITokenType) {
+    const { id, username } = this;
+    const payload = { id, username };
+    const secret = authTokens.config[tokenType].secret;
+    const options = {
+      audience: authTokens.config[tokenType].audience,
+      expiresIn: authTokens.config[tokenType].duration,
+    };
+
+    return jwt.sign(payload, secret, options);
   }
 }
 

@@ -1,6 +1,7 @@
 import { ILoginRequest, IRegisterRequest } from './types';
-import { LOGIN_ERROR, REGISTER_ERROR } from 'shared/constants/errorMessages';
 import { Request, Response } from 'express';
+import errorMessages from 'shared/constants/errorMessages';
+import { setAuthCookies } from 'shared/helpers/auth';
 import { UniqueConstraintError } from 'sequelize';
 import User from './user.model';
 
@@ -11,23 +12,28 @@ const getAll = async (req: Request, res: Response) => {
 
 const login = async ({ body: { username, password } }: ILoginRequest, res: Response) => {
   const user = await User.unscoped().findOne({ where: { username } });
-  if (!user) return res.status(401).json({ message: LOGIN_ERROR });
+  if (!user) return res.status(401).json({ message: errorMessages.LOGIN_ERROR });
 
   const isPasswordCorrect = await user.passwordCompare(password);
-  if (!isPasswordCorrect) return res.status(401).json({ message: LOGIN_ERROR });
+  if (!isPasswordCorrect) return res.status(401).json({ message: errorMessages.LOGIN_ERROR });
 
-  const token = { accessToken: user.generateAccessToken() };
-  return res.json(token);
+  const tokens = await user.generateTokens();
+  setAuthCookies(tokens, res);
+
+  return res.status(200).send();
 };
 
 const register = async ({ body }: IRegisterRequest, res: Response) => {
   try {
     const user = await User.create(body);
-    const token = { accessToken: user.generateAccessToken() };
-    return res.status(201).json(token);
+
+    const tokens = await user.generateTokens();
+    setAuthCookies(tokens, res);
+
+    return res.status(201).send();
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
-      return res.status(409).json({ message: REGISTER_ERROR });
+      return res.status(409).json({ message: errorMessages.REGISTER_ERROR });
     }
     return res.status(500).end();
   }
