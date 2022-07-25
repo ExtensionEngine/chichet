@@ -8,20 +8,18 @@
 </template>
 
 <script>
+import { signInFormLabels } from './constants';
 import UserForm from './UserForm.vue';
 
 export default {
   name: 'user-sign-in',
   setup() {
+    const { formButtonLabel, formSwitch } = signInFormLabels;
+
     const formInputs = [
       { label: 'Username', type: 'text', value: '' },
       { label: 'Password', type: 'password', value: '' },
     ];
-    const formButtonLabel = 'Sign in';
-    const formSwitch = {
-      label: "Don't have and account?",
-      buttonText: 'Click here to register!',
-    };
 
     const submit = () => {};
 
