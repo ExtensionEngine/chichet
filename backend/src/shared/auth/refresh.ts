@@ -6,7 +6,7 @@ import { FORBIDDEN } from 'http-status';
 import HttpError from 'shared/error/httpError';
 import { IAuthRequest } from './types';
 import { setAuthCookies } from 'shared/helpers/auth';
-import User from 'user/user.model';
+import { User } from 'shared/database';
 
 const refresh = async (req: IAuthRequest, res: Response, next: NextFunction) => {
   if (req.user) return next();

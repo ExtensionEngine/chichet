@@ -5,7 +5,7 @@ import errorMessages from 'shared/constants/errorMessages';
 import { FORBIDDEN } from 'http-status';
 import HttpError from 'shared/error/httpError';
 import { IAuthRequest } from './types';
-import User from 'user/user.model';
+import { User } from 'shared/database';
 
 const authenticate = async (req: IAuthRequest, res: Response, next: NextFunction) => {
   const { accessToken } = req.cookies;
