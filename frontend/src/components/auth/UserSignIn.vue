@@ -8,7 +8,9 @@
 </template>
 
 <script>
+import { setErrorToLastForm, validateAuthForm } from '@/utils/validation';
 import { auth as authApi } from '@/api';
+import { reactive } from 'vue';
 import { signInFormLabels } from './constants';
 import UserForm from './UserForm.vue';
 import { useRouter } from 'vue-router';
@@ -18,20 +20,22 @@ export default {
   setup() {
     const router = useRouter();
 
-    const formInputs = [
-      { label: 'Username', type: 'text', value: '' },
-      { label: 'Password', type: 'password', value: '' },
-    ];
+    const formInputs = reactive({
+      username: { label: 'Username', type: 'text', value: '', error: '' },
+      password: { label: 'Password', type: 'password', value: '', error: '' },
+    });
 
     const submit = async () => {
-      const username = formInputs[0].value;
-      const password = formInputs[1].value;
+      if (!validateAuthForm(formInputs)) return;
+
+      const username = formInputs.username.value;
+      const password = formInputs.password.value;
 
       try {
         await authApi.signIn({ username, password });
         router.push('/');
       } catch (err) {
-        console.log(err.response.data.message);
+        setErrorToLastForm(formInputs, err.response.data.message);
       }
     };
 

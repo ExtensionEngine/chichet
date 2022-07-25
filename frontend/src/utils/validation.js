@@ -13,4 +13,9 @@ const validateAuthForm = formInputs => {
   return isValid;
 };
 
-export { validateAuthForm };
+const setErrorToLastForm = (formInputs, error) => {
+  const keys = Object.keys(formInputs);
+  formInputs[keys[keys.length - 1]].error = error;
+};
+
+export { validateAuthForm, setErrorToLastForm };
