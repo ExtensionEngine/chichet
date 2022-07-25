@@ -4,7 +4,7 @@ const validateAuthForm = formInputs => {
   for (const key in formInputs) {
     formInputs[key].error = '';
 
-    if (formInputs[key].value.length === 0) {
+    if (formInputs[key].value.length === 0 && formInputs[key].required) {
       formInputs[key].error = 'This field is required';
       isValid = false;
     }

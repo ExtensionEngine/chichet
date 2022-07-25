@@ -21,8 +21,8 @@ export default {
     const router = useRouter();
 
     const formInputs = reactive({
-      username: { label: 'Username', type: 'text', value: '', error: '' },
-      password: { label: 'Password', type: 'password', value: '', error: '' },
+      username: { label: 'Username', type: 'text', value: '', error: '', required: true },
+      password: { label: 'Password', type: 'password', value: '', error: '', required: true },
     });
 
     const submit = async () => {
