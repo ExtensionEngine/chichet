@@ -35,6 +35,13 @@ export default {
   color: var(--color-text-light);
 }
 
+.chi-field-error {
+  font-size: var(--font-size-small);
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: var(--color-error);
+}
+
 .chi-field-error::after {
   content: ' ';
   font-size: 0;
