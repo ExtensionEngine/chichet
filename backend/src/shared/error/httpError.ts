@@ -4,7 +4,7 @@ class HttpError extends Error implements IHttpError {
   name!: string;
   status!: number;
 
-  constructor(status: number, ...params: any) {
+  constructor(status: number, ...params: string[]) {
     super(...params);
 
     this.name = 'HttpError';
