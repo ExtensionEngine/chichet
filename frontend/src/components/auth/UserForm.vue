@@ -3,12 +3,14 @@
     <form @submit="handleSubmit" class="user-form">
       <fieldset>
         <chi-field
-          v-for="({ label, type }, index) in inputs"
-          :key="label"
-          :label="label"
-          :type="type"
+          v-for="(input, index) in inputs"
+          :key="input.label"
+          v-model="input.value"
+          :label="input.label"
+          :type="input.type"
           :auto-focus="index === 0"
         ></chi-field>
+
         <chi-button class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
 
         <p class="user-info">

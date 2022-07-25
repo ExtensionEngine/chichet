@@ -14,8 +14,8 @@ export default {
   name: 'user-sign-in',
   setup() {
     const formInputs = [
-      { label: 'Username', type: 'text' },
-      { label: 'Password', type: 'password' },
+      { label: 'Username', type: 'text', value: '' },
+      { label: 'Password', type: 'password', value: '' },
     ];
     const formButtonLabel = 'Sign in';
     const formSwitch = {
@@ -23,9 +23,7 @@ export default {
       buttonText: 'Click here to register!',
     };
 
-    const submit = () => {
-      console.log('submit');
-    };
+    const submit = () => {};
 
     return { formInputs, formButtonLabel, formSwitch, submit };
   },
