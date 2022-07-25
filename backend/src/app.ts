@@ -1,12 +1,7 @@
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import router from 'router';
 import sequelize from 'shared/database';
-
-// eslint-disable-next-line sort-imports
-import message from 'message';
-import room from 'room';
-import tag from 'tag';
-import user from 'user';
 
 const app = express();
 
@@ -14,11 +9,7 @@ const port = process.env.PORT || 3001;
 
 app.use(cookieParser());
 app.use(express.json());
-
-app.use(message.path, message.router);
-app.use(room.path, room.router);
-app.use(tag.path, tag.router);
-app.use(user.path, user.router);
+app.use('/api', router);
 
 // test database connection
 (async () => {
