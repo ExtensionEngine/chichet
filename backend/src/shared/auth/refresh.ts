@@ -4,7 +4,7 @@ import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
 import { IAuthRequest } from './types';
 import { setAuthCookies } from 'shared/helpers/auth';
-import User from 'user/user.model';
+import { User } from 'shared/database';
 
 const refresh = async (req: IAuthRequest, res: Response, next: NextFunction) => {
   if (req.user) return next();
