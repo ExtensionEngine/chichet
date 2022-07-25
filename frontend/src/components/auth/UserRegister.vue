@@ -14,8 +14,6 @@ import UserForm from './UserForm.vue';
 export default {
   name: 'user-register',
   setup() {
-    const { formButtonLabel, formSwitch } = registerFormLabels;
-
     const formInputs = [
       { label: 'Username', type: 'text' },
       { label: 'First name', type: 'text' },
@@ -23,10 +21,9 @@ export default {
       { label: 'Password', type: 'password' },
     ];
 
-    const submit = () => {
-      console.log('submit');
-    };
+    const submit = () => {};
 
+    const { formButtonLabel, formSwitch } = registerFormLabels;
     return { formInputs, formButtonLabel, formSwitch, submit };
   },
   components: { UserForm },
