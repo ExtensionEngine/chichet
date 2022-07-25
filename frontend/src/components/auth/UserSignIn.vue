@@ -19,11 +19,7 @@ export default {
   name: 'user-sign-in',
   setup() {
     const router = useRouter();
-
-    const formInputs = reactive({
-      username: { label: 'Username', type: 'text', value: '', error: '', required: true },
-      password: { label: 'Password', type: 'password', value: '', error: '', required: true },
-    });
+    const formInputs = reactive(signInFormLabels.formInputs);
 
     const submit = async () => {
       if (!validateAuthForm(formInputs)) return;

@@ -19,13 +19,7 @@ export default {
   name: 'user-register',
   setup() {
     const router = useRouter();
-
-    const formInputs = reactive({
-      username: { label: 'Username', type: 'text', value: '', error: '', required: true },
-      firstName: { label: 'First name', type: 'text', value: '', error: '', required: false },
-      lastName: { label: 'Last name', type: 'text', value: '', error: '', required: false },
-      password: { label: 'Password', type: 'password', value: '', error: '', required: true },
-    });
+    const formInputs = reactive(registerFormLabels.formInputs);
 
     const submit = async () => {
       if (!validateAuthForm(formInputs)) return;
