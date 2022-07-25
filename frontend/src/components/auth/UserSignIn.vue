@@ -1,5 +1,10 @@
 <template>
-  <user-form :inputs="formInputs" :button-label="formButtonLabel" :form-switch="formSwitch"></user-form>
+  <user-form
+    @submit-data="submit"
+    :inputs="formInputs"
+    :button-label="formButtonLabel"
+    :form-switch="formSwitch"
+  ></user-form>
 </template>
 
 <script>
@@ -17,7 +22,12 @@ export default {
       label: "Don't have and account?",
       buttonText: 'Click here to register!',
     };
-    return { formInputs, formButtonLabel, formSwitch };
+
+    const submit = () => {
+      console.log('submit');
+    };
+
+    return { formInputs, formButtonLabel, formSwitch, submit };
   },
   components: { UserForm },
 };

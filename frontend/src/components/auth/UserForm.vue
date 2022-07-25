@@ -1,6 +1,6 @@
 <template>
   <section class="user-section">
-    <form class="user-form">
+    <form @submit="handleSubmit" class="user-form">
       <fieldset>
         <chi-field
           v-for="({ label, type }, index) in inputs"
@@ -22,11 +22,19 @@
 
 <script>
 export default {
-  name: 'user-sign-in',
+  name: 'user-form',
   props: {
     inputs: { type: Array, required: true },
     buttonLabel: { type: String, default: null },
     formSwitch: { type: Object, default: () => ({}) },
+  },
+  setup(_props, { emit }) {
+    const handleSubmit = e => {
+      e.preventDefault();
+      emit('submit-data');
+    };
+
+    return { handleSubmit };
   },
 };
 </script>
