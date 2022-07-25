@@ -1,4 +1,5 @@
 import cookieParser from 'cookie-parser';
+import errorHandler from 'shared/error/errorHandler';
 import express from 'express';
 import router from 'router';
 import sequelize from 'shared/database';
@@ -24,3 +25,5 @@ app.use('/api', router);
 app.listen(port, function () {
   console.log(`App is listening on port ${port} !`);
 });
+
+app.use(errorHandler);
