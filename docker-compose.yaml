@@ -25,7 +25,6 @@ services:
       ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET?err}
       REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET?err}
       SALT_ROUNDS: ${SALT_ROUNDS?err}
-
       PORT: 3001
     ports:
       - 3001:3001
@@ -37,8 +36,6 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    environment:
-      VITE_API_PATH: ${VITE_API_PATH?err}
     ports:
       - 3000:3000
     depends_on:
