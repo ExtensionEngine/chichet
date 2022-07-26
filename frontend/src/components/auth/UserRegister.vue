@@ -31,7 +31,7 @@ export default {
 
       try {
         await authApi.register({ username, firstName, lastName, password });
-        router.push('/');
+        router.push({ name: 'Tags' });
       } catch (err) {
         setErrorToLastForm(formInputs, err.response.data.message);
       }

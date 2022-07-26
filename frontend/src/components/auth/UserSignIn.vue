@@ -29,7 +29,7 @@ export default {
 
       try {
         await authApi.signIn({ username, password });
-        router.push('/');
+        router.push({ name: 'Home' });
       } catch (err) {
         setErrorToLastForm(formInputs, err.response.data.message);
       }
