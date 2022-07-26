@@ -1,4 +1,4 @@
-import { ILoginRequest, IRegisterRequest } from './types';
+import { IRegisterRequest, ISignInRequest } from './types';
 import { Request, Response } from 'express';
 import errorMessages from 'shared/constants/errorMessages';
 import { setAuthCookies } from 'shared/helpers/auth';
@@ -10,12 +10,12 @@ const getAll = async (req: Request, res: Response) => {
   return res.json(data);
 };
 
-const login = async ({ body: { username, password } }: ILoginRequest, res: Response) => {
+const signIn = async ({ body: { username, password } }: ISignInRequest, res: Response) => {
   const user = await User.unscoped().findOne({ where: { username } });
-  if (!user) return res.status(401).json({ message: errorMessages.LOGIN_ERROR });
+  if (!user) return res.status(401).json({ message: errorMessages.SIGN_IN_ERROR });
 
   const isPasswordCorrect = await user.passwordCompare(password);
-  if (!isPasswordCorrect) return res.status(401).json({ message: errorMessages.LOGIN_ERROR });
+  if (!isPasswordCorrect) return res.status(401).json({ message: errorMessages.SIGN_IN_ERROR });
 
   const tokens = await user.generateTokens();
   setAuthCookies(tokens, res);
@@ -39,4 +39,4 @@ const register = async ({ body }: IRegisterRequest, res: Response) => {
   }
 };
 
-export { getAll, login, register };
+export { getAll, signIn, register };
