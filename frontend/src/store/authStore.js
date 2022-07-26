@@ -1,8 +1,9 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
+import { useStorage } from '@vueuse/core';
 
-export const useAuthStore = defineStore('user', () => {
-  const user = ref({});
+export const useAuthStore = defineStore('auth', () => {
+  const user = ref(useStorage('user', {}));
 
   const getUser = computed(() => {
     return user.value;
