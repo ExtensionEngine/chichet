@@ -1,4 +1,4 @@
-import { CONFLICT, CREATED, INTERNAL_SERVER_ERROR, OK, UNAUTHORIZED } from 'http-status';
+import { CONFLICT, CREATED, OK, UNAUTHORIZED } from 'http-status';
 import { ILoginRequest, IRegisterRequest } from './types';
 import { NextFunction, Request, Response } from 'express';
 import errorMessages from 'shared/constants/errorMessages';
@@ -37,7 +37,7 @@ const register = async ({ body }: IRegisterRequest, res: Response, next: NextFun
     if (err instanceof UniqueConstraintError) {
       return next(new HttpError(CONFLICT, errorMessages.REGISTER_ERROR));
     }
-    return next(new HttpError(INTERNAL_SERVER_ERROR));
+    return next(new Error());
   }
 };
 
