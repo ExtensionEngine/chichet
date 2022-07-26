@@ -2,6 +2,8 @@ import { JsonWebTokenError, JwtPayload, verify as jwtVerify, TokenExpiredError }
 import { NextFunction, Response } from 'express';
 import Audience from './audience';
 import errorMessages from 'shared/constants/errorMessages';
+import { FORBIDDEN } from 'http-status';
+import HttpError from 'shared/error/httpError';
 import { IAuthRequest } from './types';
 import { setAuthCookies } from 'shared/helpers/auth';
 import { User } from 'shared/database';
@@ -11,7 +13,7 @@ const refresh = async (req: IAuthRequest, res: Response, next: NextFunction) => 
 
   const { refreshToken } = req.cookies;
   if (!refreshToken) {
-    return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
+    return next(new HttpError(FORBIDDEN, errorMessages.FORBIDDEN_ERROR));
   }
 
   try {
@@ -19,7 +21,7 @@ const refresh = async (req: IAuthRequest, res: Response, next: NextFunction) => 
     const { id, username, aud } = jwtVerify(refreshToken, process.env.REFRESH_TOKEN_SECRET || '') as JwtPayload;
 
     if (!user || id !== user.id || username !== user.username || aud !== Audience.Scope.Refresh) {
-      return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
+      return next(new HttpError(FORBIDDEN, errorMessages.FORBIDDEN_ERROR));
     }
 
     req.user = user;
@@ -30,11 +32,11 @@ const refresh = async (req: IAuthRequest, res: Response, next: NextFunction) => 
     return next();
   } catch (err) {
     if (err instanceof TokenExpiredError) {
-      return res.status(403).json({ message: errorMessages.TOKEN_EXPIRED_ERROR });
+      return next(new HttpError(FORBIDDEN, errorMessages.TOKEN_EXPIRED_ERROR));
     }
 
     if (err instanceof JsonWebTokenError) {
-      return res.status(403).json({ message: errorMessages.FORBIDDEN_ERROR });
+      return next(new HttpError(FORBIDDEN, errorMessages.FORBIDDEN_ERROR));
     }
   }
 };
