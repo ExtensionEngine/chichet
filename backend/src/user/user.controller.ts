@@ -43,4 +43,11 @@ const register = async ({ body }: IRegisterRequest, res: Response, next: NextFun
   }
 };
 
-export { getAll, signIn, register };
+const signOut = (req: Request, res: Response) => {
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
+
+  res.status(OK).send();
+};
+
+export { getAll, signIn, register, signOut };
