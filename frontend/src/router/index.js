@@ -28,8 +28,14 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from) => {
-  if (!useAuthStore().getUser.id && to.name !== 'Auth') {
+  const user = useAuthStore().getUser;
+
+  if (!user.id && to.name !== 'Auth') {
     return { name: 'Auth' };
+  }
+
+  if (!!user.id && to.name === 'Auth') {
+    return { name: 'Home' };
   }
 });
 
