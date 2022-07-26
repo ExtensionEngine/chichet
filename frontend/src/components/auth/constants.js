@@ -5,7 +5,7 @@ const signInFormLabels = {
   },
   formButtonLabel: 'Sign in',
   formSwitch: {
-    label: "Don't have and account?",
+    label: "Don't have an account?",
     buttonText: 'Click here to register!',
   },
 };
