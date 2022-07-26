@@ -1,6 +1,6 @@
 <template>
   <section class="user-section">
-    <form @submit="handleSubmit" class="user-form">
+    <form @submit.prevent="$emit('submit-data')" class="user-form">
       <fieldset>
         <chi-field
           v-for="(input, index) in inputs"
@@ -29,14 +29,6 @@ export default {
     inputs: { type: Object, required: true },
     buttonLabel: { type: String, default: null },
     formSwitch: { type: Object, default: () => ({}) },
-  },
-  setup(_props, { emit }) {
-    const handleSubmit = e => {
-      e.preventDefault();
-      emit('submit-data');
-    };
-
-    return { handleSubmit };
   },
 };
 </script>
