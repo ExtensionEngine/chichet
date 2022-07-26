@@ -4,10 +4,10 @@ import request from './request';
 const urls = {
   root: '/users',
   get signIn() {
-    return urls.root + '/sign-in';
+    return this.root + '/sign-in';
   },
   get register() {
-    return urls.root + '/register';
+    return this.root + '/register';
   },
 };
 
