@@ -22,7 +22,8 @@ const signIn = async ({ body: { username, password } }: ISignInRequest, res: Res
   const tokens = await user.generateTokens();
   setAuthCookies(tokens, res);
 
-  return res.status(OK).send();
+  const { id, firstName, lastName } = user;
+  return res.status(OK).json({ id, username, firstName, lastName });
 };
 
 const register = async ({ body }: IRegisterRequest, res: Response, next: NextFunction) => {
@@ -32,7 +33,8 @@ const register = async ({ body }: IRegisterRequest, res: Response, next: NextFun
     const tokens = await user.generateTokens();
     setAuthCookies(tokens, res);
 
-    return res.status(CREATED).send();
+    const { id, username, firstName, lastName } = user;
+    return res.status(CREATED).json({ id, username, firstName, lastName });
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
       return next(new HttpError(CONFLICT, errorMessages.REGISTER_ERROR));

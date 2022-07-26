@@ -23,6 +23,8 @@ type ITokenType = 'ACCESS' | 'REFRESH';
 interface IUser {
   id: number;
   username: string;
+  firstName: string;
+  lastName: string;
   password: string;
   refreshToken: string;
   generateTokens(): Promise<IGeneratedTokens>;
