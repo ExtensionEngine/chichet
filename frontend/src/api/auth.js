@@ -1,5 +1,5 @@
 import { extractData } from './helpers';
-import request from './config';
+import request from './request';
 
 const urls = {
   root: '/users',
