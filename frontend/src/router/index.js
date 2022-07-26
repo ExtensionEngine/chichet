@@ -1,8 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import Home from '@/components/HomeTemp.vue';
 import TagSelect from '@/components/tags/TagSelect.vue';
 import UserAuth from '@/components/auth/UserAuth.vue';
 
 const routes = [
+  {
+    path: '/',
+    name: 'Home',
+    component: Home,
+  },
   {
     path: '/auth',
     name: 'UserAuth',

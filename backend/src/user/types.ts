@@ -1,4 +1,4 @@
-interface ILoginRequest {
+interface ISignInRequest {
   body: {
     username: string;
     password: string;
@@ -28,4 +28,4 @@ interface IUser {
   generateTokens(): Promise<IGeneratedTokens>;
 }
 
-export { ILoginRequest, IRegisterRequest, IGeneratedTokens, ITokenType, IUser };
+export { ISignInRequest, IRegisterRequest, IGeneratedTokens, ITokenType, IUser };

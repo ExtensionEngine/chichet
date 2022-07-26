@@ -1,25 +1,44 @@
 <template>
-  <user-form :inputs="formInputs" :button-label="formButtonLabel" :form-switch="formSwitch"></user-form>
+  <user-form
+    @submit-data="submit"
+    :inputs="formInputs"
+    :button-label="formButtonLabel"
+    :form-switch="formSwitch"
+  ></user-form>
 </template>
 
 <script>
+import { setErrorToLastForm, validateAuthForm } from '@/utils/validation';
+import { auth as authApi } from '@/api';
+import { reactive } from 'vue';
+import { registerFormLabels } from './constants';
 import UserForm from './UserForm.vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'user-register',
   setup() {
-    const formInputs = [
-      { label: 'Username', type: 'text' },
-      { label: 'First name', type: 'text' },
-      { label: 'Last name', type: 'text' },
-      { label: 'Password', type: 'password' },
-    ];
-    const formButtonLabel = 'Register';
-    const formSwitch = {
-      label: 'Already have an account?',
-      buttonText: 'Click here to sign in!',
+    const router = useRouter();
+    const formInputs = reactive(registerFormLabels.formInputs);
+
+    const submit = async () => {
+      if (!validateAuthForm(formInputs)) return;
+
+      const username = formInputs.username.value;
+      const firstName = formInputs.firstName.value;
+      const lastName = formInputs.lastName.value;
+      const password = formInputs.password.value;
+
+      try {
+        await authApi.register({ username, firstName, lastName, password });
+        router.push({ name: 'Tags' });
+      } catch (err) {
+        setErrorToLastForm(formInputs, err.response.data.message);
+      }
     };
-    return { formInputs, formButtonLabel, formSwitch };
+
+    const { formButtonLabel, formSwitch } = registerFormLabels;
+    return { formInputs, formButtonLabel, formSwitch, submit };
   },
   components: { UserForm },
 };

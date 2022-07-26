@@ -1,5 +1,5 @@
 import { CONFLICT, CREATED, OK, UNAUTHORIZED } from 'http-status';
-import { ILoginRequest, IRegisterRequest } from './types';
+import { IRegisterRequest, ISignInRequest } from './types';
 import { NextFunction, Request, Response } from 'express';
 import errorMessages from 'shared/constants/errorMessages';
 import HttpError from 'shared/error/httpError';
@@ -12,12 +12,12 @@ const getAll = async (req: Request, res: Response) => {
   return res.json(data);
 };
 
-const login = async ({ body: { username, password } }: ILoginRequest, res: Response, next: NextFunction) => {
+const signIn = async ({ body: { username, password } }: ISignInRequest, res: Response, next: NextFunction) => {
   const user = await User.unscoped().findOne({ where: { username } });
-  if (!user) return next(new HttpError(UNAUTHORIZED, errorMessages.LOGIN_ERROR));
+  if (!user) return next(new HttpError(UNAUTHORIZED, errorMessages.SIGN_IN_ERROR));
 
   const isPasswordCorrect = await user.passwordCompare(password);
-  if (!isPasswordCorrect) return next(new HttpError(UNAUTHORIZED, errorMessages.LOGIN_ERROR));
+  if (!isPasswordCorrect) return next(new HttpError(UNAUTHORIZED, errorMessages.SIGN_IN_ERROR));
 
   const tokens = await user.generateTokens();
   setAuthCookies(tokens, res);
@@ -41,4 +41,4 @@ const register = async ({ body }: IRegisterRequest, res: Response, next: NextFun
   }
 };
 
-export { getAll, login, register };
+export { getAll, signIn, register };

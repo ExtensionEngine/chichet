@@ -1,12 +1,14 @@
 <template>
   <section class="user-section">
-    <form class="user-form">
+    <form @submit.prevent="$emit('submit-data')" class="user-form">
       <fieldset>
         <chi-field
-          v-for="({ label, type }, index) in inputs"
-          :key="label"
-          :label="label"
-          :type="type"
+          v-for="(input, index) in inputs"
+          :key="input.label"
+          v-model="input.value"
+          :label="input.label"
+          :error="input.error"
+          :type="input.type"
           :auto-focus="index === 0"
         ></chi-field>
         <chi-button class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
@@ -22,9 +24,9 @@
 
 <script>
 export default {
-  name: 'user-sign-in',
+  name: 'user-form',
   props: {
-    inputs: { type: Array, required: true },
+    inputs: { type: Object, required: true },
     buttonLabel: { type: String, default: null },
     formSwitch: { type: Object, default: () => ({}) },
   },
