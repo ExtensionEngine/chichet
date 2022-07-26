@@ -1,19 +1,16 @@
+import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 
-export const useAuthStore = defineStore({
-  state: () => ({
-    user: {},
-  }),
+export const useAuthStore = defineStore('user', () => {
+  const user = ref({});
 
-  getters: {
-    getUser() {
-      return this.user;
-    },
-  },
+  const getUser = computed(() => {
+    return user.value;
+  });
 
-  actions: {
-    setUser(user) {
-      this.user = user;
-    },
-  },
+  const setUser = userToSet => {
+    user.value = userToSet;
+  };
+
+  return { user, getUser, setUser };
 });
