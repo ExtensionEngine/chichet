@@ -5,10 +5,10 @@ const urls = {
   root: '/tags',
 };
 
-const fetchAll = () => {
+const getAll = () => {
   return request.get(urls.root).then(extractData);
 };
 
 export default {
-  fetchAll,
+  getAll,
 };

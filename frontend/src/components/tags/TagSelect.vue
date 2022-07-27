@@ -25,7 +25,7 @@ export default {
     const tags = ref([]);
 
     onMounted(async () => {
-      const data = await tagApi.fetchAll();
+      const data = await tagApi.getAll();
       tags.value = data.map(tag => ({ ...tag, selected: false }));
     });
 
@@ -39,14 +39,11 @@ export default {
     });
 
     const handleSaveSelected = () => {
-      // TODO: add saving userTags (waiting for Authorization PR)
-      console.log(tags);
       handleProceed();
     };
 
     const handleProceed = () => {
-      // TODO: add correct location
-      router.push('/');
+      router.push({ name: 'Home' });
     };
 
     return { tags, areAnySelected, selectTag, handleSaveSelected, handleProceed };
