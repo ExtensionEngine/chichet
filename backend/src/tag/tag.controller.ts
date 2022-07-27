@@ -1,7 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { Tag, User } from 'shared/database';
+import { IAuthRequest } from 'shared/auth/types';
 
-const getAll = async ({ body: { userId } }: Request, res: Response, next: NextFunction) => {
+const getAll = async (req: IAuthRequest, res: Response, next: NextFunction) => {
+  const userId = req.user?.id;
+
   try {
     const tags = await Tag.findAll({
       include: {
