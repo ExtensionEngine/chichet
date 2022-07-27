@@ -27,14 +27,15 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from) => {
-  const user = useAuthStore().getUser;
+router.beforeEach((to, from) => {
+  const isLoggedIn = useAuthStore().isLoggedIn;
+  const isAuthRoute = to.name === 'Auth';
 
-  if (!user.id && to.name !== 'Auth') {
+  if (!isLoggedIn && !isAuthRoute) {
     return { name: 'Auth' };
   }
 
-  if (!!user.id && to.name === 'Auth') {
+  if (isLoggedIn && isAuthRoute) {
     return { name: 'Home' };
   }
 });

@@ -11,9 +11,14 @@ export const useAuthStore = defineStore('auth', () => {
     return user.value;
   });
 
+  const isLoggedIn = computed(() => {
+    return !!user.value.id;
+  });
+
   const setUser = userToSet => {
     user.value = userToSet;
   };
+
 
   const signOut = async router => {
     await authApi.signOut();
@@ -21,5 +26,5 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = {};
   };
 
-  return { user, getUser, setUser, signOut };
+  return { user, getUser, isLoggedIn, setUser, signOut };
 });

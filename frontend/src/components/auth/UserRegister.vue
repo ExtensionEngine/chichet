@@ -22,8 +22,6 @@ export default {
     const router = useRouter();
     const userStore = useAuthStore();
 
-    console.log(userStore.getUser);
-
     const formInputs = reactive(registerFormLabels.formInputs);
 
     const submit = async () => {
