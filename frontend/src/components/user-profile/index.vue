@@ -1,9 +1,10 @@
 <template>
   <div :class="{ active }" class="user-profile">
-    <user-form :inputs="formInputs" disabled />
+    <div class="user-profile-container">
+      <user-form :inputs="formInputs" disabled />
+    </div>
+    <div @click="$emit('close-profile')" class="user-profile-overlay"></div>
   </div>
-  <!-- eslint-disable-next-line vue/no-multiple-template-root -->
-  <div @click="$emit('close-profile')" :class="{ active }" class="user-profile-overlay"></div>
 </template>
 
 <script>
@@ -33,6 +34,16 @@ export default {
 <style scoped>
 .user-profile {
   z-index: var(--z-user-profile);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  visibility: hidden;
+}
+
+.user-profile-container {
+  z-index: var(--z-user-profile-container);
   background-color: var(--color-secondary);
   border-radius: 0 0 120px 0;
   width: 50vw;
@@ -55,11 +66,12 @@ export default {
   visibility: hidden;
 }
 
-.user-profile.active {
-  left: 0;
+.user-profile.active,
+.active .user-profile-overlay {
+  visibility: visible;
 }
 
-.user-profile-overlay.active {
-  visibility: visible;
+.active .user-profile-container {
+  left: 0;
 }
 </style>
