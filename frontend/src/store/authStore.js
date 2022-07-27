@@ -9,9 +9,13 @@ export const useAuthStore = defineStore('auth', () => {
     return user.value;
   });
 
+  const isLoggedIn = computed(() => {
+    return !!user.value.id;
+  });
+
   const setUser = userToSet => {
     user.value = userToSet;
   };
 
-  return { user, getUser, setUser };
+  return { user, getUser, isLoggedIn, setUser };
 });
