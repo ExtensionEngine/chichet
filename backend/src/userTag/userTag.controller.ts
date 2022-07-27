@@ -9,6 +9,7 @@ const add = async ({ body: { userId, tagIds } }: Request, res: Response, next: N
         userId,
         tagId,
       })),
+      { ignoreDuplicates: true },
     );
 
     res.status(OK).json();

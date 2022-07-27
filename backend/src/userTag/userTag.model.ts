@@ -37,6 +37,11 @@ class UserTag extends Model {
       modelName: 'userTag',
       tableName: 'userTags',
       timestamps: false,
+      uniqueKeys: {
+        user_tags_unique: {
+          fields: ['userId', 'tagId'],
+        },
+      },
     };
   }
 }
