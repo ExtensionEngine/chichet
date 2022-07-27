@@ -10,10 +10,11 @@ class User extends Model implements IUser {
   username!: string;
   firstName!: string;
   lastName!: string;
+  fullName!: string;
   password!: string;
   refreshToken!: string;
 
-  static fields({ INTEGER, STRING }: IFields) {
+  static fields({ INTEGER, STRING, VIRTUAL }: IFields) {
     return {
       id: {
         type: INTEGER,
@@ -29,6 +30,13 @@ class User extends Model implements IUser {
       lastName: {
         type: STRING,
         allowNull: true,
+      },
+
+      fullName: {
+        type: VIRTUAL,
+        get(this: IUser): string {
+          return `${this.firstName} ${this.lastName}`;
+        },
       },
 
       username: {

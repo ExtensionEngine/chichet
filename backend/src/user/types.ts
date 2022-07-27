@@ -25,6 +25,7 @@ interface IUser {
   username: string;
   firstName: string;
   lastName: string;
+  fullName: string;
   password: string;
   refreshToken: string;
   generateTokens(): Promise<IGeneratedTokens>;
