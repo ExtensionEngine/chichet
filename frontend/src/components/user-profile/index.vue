@@ -1,7 +1,8 @@
 <template>
   <div :class="{ active }" class="user-profile">
     <div class="user-profile-container">
-      <user-form :inputs="formInputs" disabled />
+      <img src="@/assets/user.png" alt="user" class="user-profile-image" />
+      <user-form :inputs="formInputs" class="user-profile-form" disabled />
     </div>
     <div @click="$emit('close-profile')" class="user-profile-overlay"></div>
   </div>
@@ -54,8 +55,18 @@ export default {
   transition: 0.6s ease;
   transition-property: left;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.user-profile-image {
+  height: 150px;
+  width: auto;
+}
+
+.user-profile-form {
+  padding-top: 20px;
 }
 
 .user-profile-overlay {
