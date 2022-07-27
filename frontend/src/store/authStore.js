@@ -19,12 +19,15 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = userToSet;
   };
 
-
-  const signOut = async router => {
-    await authApi.signOut();
-    router.push({ name: 'Auth' });
+  const removeUser = () => {
     user.value = {};
   };
 
-  return { user, getUser, isLoggedIn, setUser, signOut };
+  const signOut = async router => {
+    await authApi.signOut();
+    removeUser();
+    router.push({ name: 'Auth' });
+  };
+
+  return { user, getUser, isLoggedIn, setUser, removeUser, signOut };
 });
