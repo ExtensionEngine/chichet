@@ -8,6 +8,8 @@ import { Model } from 'sequelize';
 class User extends Model implements IUser {
   id!: number;
   username!: string;
+  firstName!: string;
+  lastName!: string;
   password!: string;
   refreshToken!: string;
 

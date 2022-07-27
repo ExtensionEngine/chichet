@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/components/HomeTemp.vue';
 import TagSelect from '@/components/tags/TagSelect.vue';
+import { useAuthStore } from '@/store/authStore';
 import UserAuth from '@/components/auth/UserAuth.vue';
 
 const routes = [
@@ -11,7 +12,7 @@ const routes = [
   },
   {
     path: '/auth',
-    name: 'UserAuth',
+    name: 'Auth',
     component: UserAuth,
   },
   {
@@ -24,6 +25,19 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to, from) => {
+  const isLoggedIn = useAuthStore().isLoggedIn;
+  const isAuthRoute = to.name === 'Auth';
+
+  if (!isLoggedIn && !isAuthRoute) {
+    return { name: 'Auth' };
+  }
+
+  if (isLoggedIn && isAuthRoute) {
+    return { name: 'Home' };
+  }
 });
 
 export default router;

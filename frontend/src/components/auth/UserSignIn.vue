@@ -12,6 +12,7 @@ import { setErrorToLastForm, validateAuthForm } from '@/utils/validation';
 import { auth as authApi } from '@/api';
 import { reactive } from 'vue';
 import { signInFormLabels } from './constants';
+import { useAuthStore } from '@/store/authStore';
 import UserForm from './UserForm.vue';
 import { useRouter } from 'vue-router';
 
@@ -19,6 +20,8 @@ export default {
   name: 'user-sign-in',
   setup() {
     const router = useRouter();
+    const authStore = useAuthStore();
+
     const formInputs = reactive(signInFormLabels.formInputs);
 
     const submit = async () => {
@@ -28,7 +31,8 @@ export default {
       const password = formInputs.password.value;
 
       try {
-        await authApi.signIn({ username, password });
+        const user = await authApi.signIn({ username, password });
+        authStore.setUser(user);
         router.push({ name: 'Home' });
       } catch (err) {
         setErrorToLastForm(formInputs, err.response.data.message);
