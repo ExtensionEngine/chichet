@@ -1,9 +1,9 @@
+import { clearAuthCookies, setAuthCookies } from 'shared/helpers/auth';
 import { CONFLICT, CREATED, OK, UNAUTHORIZED } from 'http-status';
 import { IRegisterRequest, ISignInRequest } from './types';
 import { NextFunction, Request, Response } from 'express';
 import errorMessages from 'shared/constants/errorMessages';
 import HttpError from 'shared/error/httpError';
-import { setAuthCookies } from 'shared/helpers/auth';
 import { UniqueConstraintError } from 'sequelize';
 import { User } from 'shared/database';
 
@@ -44,9 +44,7 @@ const register = async ({ body }: IRegisterRequest, res: Response, next: NextFun
 };
 
 const signOut = (req: Request, res: Response) => {
-  res.clearCookie('accessToken');
-  res.clearCookie('refreshToken');
-
+  clearAuthCookies(res);
   res.status(OK).send();
 };
 
