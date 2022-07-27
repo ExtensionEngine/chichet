@@ -12,7 +12,7 @@ import { setErrorToLastForm, validateAuthForm } from '@/utils/validation';
 import { auth as authApi } from '@/api';
 import { reactive } from 'vue';
 import { signInFormLabels } from './constants';
-import { useAuthStore } from '../../store/authStore';
+import { useAuthStore } from '@/store/authStore';
 import UserForm from './UserForm.vue';
 import { useRouter } from 'vue-router';
 
