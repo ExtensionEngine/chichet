@@ -27,8 +27,7 @@ export default {
     const tags = ref([]);
 
     onMounted(async () => {
-      const data = await tagApi.getAll();
-      tags.value = data.map(tag => ({ ...tag, selected: false }));
+      tags.value = await tagApi.getAll();
     });
 
     const selectTag = tagId => {
