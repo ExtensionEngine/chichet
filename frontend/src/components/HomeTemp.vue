@@ -1,12 +1,16 @@
 <template>
   <div>
     <button @click="authStore.signOut(router)">Sign out</button>
+    <button @click="toggleProfileActive">Toggle User Profile</button>
+    <user-profile @close-profile="toggleProfileActive" :active="isProfileActive" />
   </div>
 </template>
 
 <script>
 import { useAuthStore } from '../store/authStore';
 import { useRouter } from 'vue-router';
+import UserProfile from './user-profile/index.vue';
+import useToggle from '@/composables/useToggle';
 
 export default {
   name: 'home-temp',
@@ -14,7 +18,10 @@ export default {
     const authStore = useAuthStore();
     const router = useRouter();
 
-    return { authStore, router };
+    const { isTrue: isProfileActive, toggle: toggleProfileActive } = useToggle();
+
+    return { authStore, router, isProfileActive, toggleProfileActive };
   },
+  components: { UserProfile },
 };
 </script>

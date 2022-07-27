@@ -1,16 +1,32 @@
 <template>
-  <div :class="{ active }" class="user-profile"></div>
+  <div :class="{ active }" class="user-profile">
+    <user-form :inputs="formInputs" disabled />
+  </div>
   <!-- eslint-disable-next-line vue/no-multiple-template-root -->
   <div @click="$emit('close-profile')" :class="{ active }" class="user-profile-overlay"></div>
 </template>
 
 <script>
+import { reactive } from 'vue';
+import { useAuthStore } from '@/store/authStore';
+import UserForm from '../auth/UserForm.vue';
+import { userProfileFormLabels } from './constants';
+
 export default {
   name: 'user-profile',
   emits: ['close-profile'],
   props: {
     active: { type: Boolean, default: false },
   },
+  setup() {
+    const { username, fullName } = useAuthStore().getUserProfile;
+    const formInputs = reactive(userProfileFormLabels.formInputs);
+    formInputs.username.value = username;
+    formInputs.fullName.value = fullName;
+
+    return { formInputs };
+  },
+  components: { UserForm },
 };
 </script>
 
@@ -26,6 +42,9 @@ export default {
   left: -100%;
   transition: 0.6s ease;
   transition-property: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .user-profile-overlay {
