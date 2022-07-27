@@ -7,4 +7,9 @@ const setAuthCookies = (tokens: IGeneratedTokens, res: Response) => {
   res.cookie('refreshToken', refreshToken, { httpOnly: true });
 };
 
-export { setAuthCookies };
+const clearAuthCookies = (res: Response) => {
+  res.clearCookie('accessToken');
+  res.clearCookie('refreshToken');
+};
+
+export { setAuthCookies, clearAuthCookies };

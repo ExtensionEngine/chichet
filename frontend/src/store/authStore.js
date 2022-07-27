@@ -1,5 +1,7 @@
 import { computed, ref } from 'vue';
+import { auth as authApi } from '@/api';
 import { defineStore } from 'pinia';
+
 import { useStorage } from '@vueuse/core';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -17,5 +19,12 @@ export const useAuthStore = defineStore('auth', () => {
     user.value = userToSet;
   };
 
-  return { user, getUser, isLoggedIn, setUser };
+
+  const signOut = async router => {
+    await authApi.signOut();
+    router.push({ name: 'Auth' });
+    user.value = {};
+  };
+
+  return { user, getUser, isLoggedIn, setUser, signOut };
 });
