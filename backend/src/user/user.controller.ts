@@ -7,11 +7,6 @@ import HttpError from 'shared/error/httpError';
 import { UniqueConstraintError } from 'sequelize';
 import { User } from 'shared/database';
 
-const getAll = async (req: Request, res: Response) => {
-  const data = await User.findAll();
-  return res.json(data);
-};
-
 const signIn = async ({ body: { username, password } }: ISignInRequest, res: Response, next: NextFunction) => {
   const user = await User.unscoped().findOne({ where: { username } });
   if (!user) return next(new HttpError(UNAUTHORIZED, errorMessages.SIGN_IN_ERROR));
@@ -48,4 +43,4 @@ const signOut = (req: Request, res: Response) => {
   res.status(OK).send();
 };
 
-export { getAll, signIn, register, signOut };
+export { signIn, register, signOut };
