@@ -1,7 +1,7 @@
 <template>
   <section class="user-section">
     <form @submit.prevent="$emit('submit-data')" class="user-form">
-      <fieldset>
+      <fieldset :disabled="disabled">
         <chi-field
           v-for="(input, index) in inputs"
           :key="input.label"
@@ -11,7 +11,7 @@
           :type="input.type"
           :auto-focus="index === 0"
         ></chi-field>
-        <chi-button class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
+        <chi-button v-if="buttonLabel" class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
 
         <p class="user-info">
           {{ formSwitch.label }}
@@ -29,6 +29,7 @@ export default {
     inputs: { type: Object, required: true },
     buttonLabel: { type: String, default: null },
     formSwitch: { type: Object, default: () => ({}) },
+    disabled: { type: Boolean, default: false },
   },
 };
 </script>
