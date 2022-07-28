@@ -19,7 +19,7 @@
     </div>
 
     <section class="sidebar-footer">
-      <span class="sidebar-switch">
+      <span @click="$emit('switch-sections')" class="sidebar-switch">
         <h3 class="sidebar-header--last">{{ footer }}</h3>
         <img src="@/assets/img/arrow.svg" alt="arrow" />
       </span>
@@ -96,5 +96,6 @@ export default {
   margin: 0;
   margin-right: 8px;
   font-size: var(--font-size-large);
+  cursor: pointer;
 }
 </style>

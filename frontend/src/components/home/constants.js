@@ -284,7 +284,7 @@ const roomsSectionsDefault = {
 const usersSectionsDefault = {
   content: [
     {
-      label: `textRight (${7})`,
+      label: `Online (7)`,
       elements: [
         {
           iconLeft: 'profile_darker.svg',
