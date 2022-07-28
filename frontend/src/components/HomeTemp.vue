@@ -9,7 +9,7 @@
 <script>
 import { useAuthStore } from '../store/authStore';
 import { useRouter } from 'vue-router';
-import UserProfile from './user-profile/index.vue';
+import UserProfile from './userProfile/index.vue';
 import useToggle from '@/composables/useToggle';
 
 export default {
