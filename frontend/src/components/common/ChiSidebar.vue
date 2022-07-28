@@ -8,6 +8,7 @@
           <article
             v-for="{ iconLeft, name, online, iconRight, selected } in elements"
             :key="name"
+            @click="handleSelect"
             class="sidebar-article"
             :class="{ 'sidebar-article--selected': selected }"
           >
@@ -27,7 +28,7 @@
 
     <section class="sidebar-switch">
       <span @click="$emit('switch-sections')" class="sidebar-button">
-        <h2 class="sidebar-title sidebar-title--last">Users online</h2>
+        <h2 class="sidebar-title sidebar-title--last">{{ sections[sections.length - 1].label }}</h2>
         <img class="article-icon--right" src="@/assets/img/arrow.svg" />
       </span>
     </section>
@@ -41,11 +42,16 @@ export default {
   name: 'room-list',
   props: {
     sections: { type: Object, required: true },
+    switchTitle: { type: Object, required: true },
   },
-  setup() {
-    return { getIconUrl };
+  setup(_props, { emit }) {
+    const handleSelect = () => {
+      emit('select', name);
+    };
+
+    return { getIconUrl, handleSelect };
   },
-  emits: ['switch-sections'],
+  emits: ['switch-sections', 'select'],
 };
 </script>
 
@@ -63,6 +69,10 @@ export default {
 
 .sidebar-section {
   margin-bottom: 36px;
+}
+
+.sidebar-section:last-of-type {
+  display: none;
 }
 
 .sidebar-title {

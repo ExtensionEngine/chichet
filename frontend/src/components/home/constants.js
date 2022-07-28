@@ -1,4 +1,4 @@
-const roomsSections = [
+const roomsSectionsDefault = [
   {
     label: 'Recommended rooms',
     elements: [
@@ -59,9 +59,10 @@ const roomsSections = [
       { iconLeft: 'globe.svg', name: 'Room #9', online: 0, iconRight: 'profile_darker.svg', selected: false },
     ],
   },
+  { label: 'Users online' },
 ];
 
-const usersSections = [
+const usersSectionsDefault = [
   {
     label: `Online (${7})`,
     elements: [
@@ -85,6 +86,7 @@ const usersSections = [
       { iconLeft: 'profile_darker.svg', name: 'Room #6' },
     ],
   },
+  { label: 'Rooms' },
 ];
 
-export { roomsSections, usersSections };
+export { roomsSectionsDefault, usersSectionsDefault };
