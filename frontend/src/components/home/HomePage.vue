@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <main class="home-main">
     <button @click="authStore.signOut(router)">Sign out</button>
-  </div>
+  </main>
 </template>
 
 <script>
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
 
 export default {
-  name: 'home-temp',
+  name: 'home-page',
   setup() {
     const authStore = useAuthStore();
     const router = useRouter();
@@ -18,3 +18,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.home-main {
+  height: 100%;
+}
+</style>
