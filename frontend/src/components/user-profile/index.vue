@@ -1,7 +1,7 @@
 <template>
   <div :class="{ active }" class="user-profile">
-    <div class="user-profile-wrapper">
-      <div class="user-profile-container">
+    <div class="user-profile-container">
+      <div class="user-profile-wrapper">
         <img src="@/assets/user.png" alt="user" class="user-profile-image" />
         <user-form :inputs="formInputs" class="user-profile-form" disabled />
         <tag-list @select-tag="selectTag" class="user-profile-tags" :tags="tags" centred small />
@@ -61,7 +61,7 @@ export default {
   visibility: hidden;
 }
 
-.user-profile-wrapper {
+.user-profile-container {
   z-index: var(--z-user-profile-container);
   background-color: var(--color-secondary);
   border-radius: 0 0 120px 0;
@@ -77,7 +77,7 @@ export default {
   place-items: center;
 }
 
-.user-profile-container {
+.user-profile-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -111,7 +111,7 @@ export default {
   visibility: visible;
 }
 
-.active .user-profile-wrapper {
+.active .user-profile-container {
   left: 0;
 }
 </style>
