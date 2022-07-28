@@ -4,7 +4,7 @@
       <div class="user-profile-wrapper">
         <img src="@/assets/profile.svg" alt="profile" class="user-profile-avatar" />
         <user-form :inputs="formInputs" class="user-profile-form" disabled />
-        <tag-list @select-tag="selectTag" class="user-profile-tags" :tags="tags" centred small />
+        <tag-list @select-tag="selectTag" :tags="tags" class="user-profile-tags" centred small />
       </div>
     </div>
     <div @click="$emit('close-profile')" class="user-profile-overlay"></div>
@@ -70,7 +70,6 @@ export default {
   position: fixed;
   top: 0;
   left: -100%;
-  overflow-y: auto;
   transition: 0.6s ease;
   transition-property: left;
   display: grid;
@@ -83,6 +82,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 30px;
+  width: 100%;
 }
 
 .user-profile-avatar {
@@ -94,7 +94,13 @@ export default {
 }
 
 .user-profile-tags {
-  max-width: 60%;
+  max-width: 30%;
+  max-height: calc(44px * 2);
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  direction: rtl;
+  padding-left: 10px;
+  margin-left: -10px;
 }
 
 .user-profile-overlay {
