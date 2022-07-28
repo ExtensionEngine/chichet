@@ -1,14 +1,18 @@
 <template>
   <main class="home-main">
-    <chi-sidebar @switch-sections="switchSections" :sections="sections[sectionsIndex]"></chi-sidebar>
+    <chi-sidebar
+      @switch-sections="switchSections"
+      @select="handleSelect"
+      :sections="sections[sectionsIndex]"
+    ></chi-sidebar>
     <button @click="authStore.signOut(router)">Sign out</button>
   </main>
 </template>
 
 <script>
-import { roomsSections, usersSections } from './constants';
+import { reactive, ref } from 'vue';
+import { roomsSectionsDefault, usersSectionsDefault } from './constants';
 import ChiSidebar from '../common/ChiSidebar.vue';
-import { ref } from 'vue';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
 
@@ -18,6 +22,9 @@ export default {
     const authStore = useAuthStore();
     const router = useRouter();
 
+    const roomsSections = reactive(roomsSectionsDefault);
+    const usersSections = reactive(usersSectionsDefault);
+
     const sectionsIndex = ref(0);
     const sections = [roomsSections, usersSections];
 
@@ -25,7 +32,16 @@ export default {
       sectionsIndex.value = (sectionsIndex.value + 1) % sections.length;
     };
 
-    return { authStore, router, sections, sectionsIndex, switchSections };
+    const handleSelect = roomName => {
+      if (sectionsIndex.value !== 0) return;
+
+      roomsSections[1].elements.forEach(room => {
+        if (room.selected === true) room.selected = false;
+        if (room.name === roomName) room.selected = true;
+      });
+    };
+
+    return { authStore, router, sections, sectionsIndex, switchSections, handleSelect };
   },
   components: { ChiSidebar },
 };

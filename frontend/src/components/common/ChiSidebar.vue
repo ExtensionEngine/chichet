@@ -8,7 +8,7 @@
           <article
             v-for="{ iconLeft, name, online, iconRight, selected } in elements"
             :key="name"
-            @click="handleSelect"
+            @click="$emit('select', name)"
             class="sidebar-article"
             :class="{ 'sidebar-article--selected': selected }"
           >
@@ -42,14 +42,9 @@ export default {
   name: 'room-list',
   props: {
     sections: { type: Object, required: true },
-    switchTitle: { type: Object, required: true },
   },
-  setup(_props, { emit }) {
-    const handleSelect = () => {
-      emit('select', name);
-    };
-
-    return { getIconUrl, handleSelect };
+  setup() {
+    return { getIconUrl };
   },
   emits: ['switch-sections', 'select'],
 };
