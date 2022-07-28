@@ -3,13 +3,16 @@
     <div class="user-profile-container">
       <img src="@/assets/user.png" alt="user" class="user-profile-image" />
       <user-form :inputs="formInputs" class="user-profile-form" disabled />
+      <tag-list @select-tag="selectTag" class="user-profile-tags" :tags="tags" centred small />
     </div>
     <div @click="$emit('close-profile')" class="user-profile-overlay"></div>
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
+import { tag as tagApi } from '@/api';
+import TagList from '../tags/TagList.vue';
 import { useAuthStore } from '@/store/authStore';
 import UserForm from '../auth/UserForm.vue';
 import { userProfileFormLabels } from './constants';
@@ -26,9 +29,22 @@ export default {
     formInputs.username.value = username;
     formInputs.fullName.value = fullName;
 
-    return { formInputs };
+    // Replace with composables
+    const tags = ref([]);
+
+    onMounted(async () => {
+      const data = await tagApi.fetchAll();
+      tags.value = data.map(tag => ({ ...tag, selected: false }));
+    });
+
+    const selectTag = tagId => {
+      const tag = tags.value.find(tag => tag.id === tagId);
+      tag.selected = !tag.selected;
+    };
+
+    return { formInputs, tags, selectTag };
   },
-  components: { UserForm },
+  components: { TagList, UserForm },
 };
 </script>
 
@@ -52,6 +68,7 @@ export default {
   position: fixed;
   top: 0;
   left: -100%;
+  overflow-y: auto;
   transition: 0.6s ease;
   transition-property: left;
   display: flex;
@@ -67,6 +84,10 @@ export default {
 
 .user-profile-form {
   padding-top: 20px;
+}
+
+.user-profile-tags {
+  max-width: 40%;
 }
 
 .user-profile-overlay {
