@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar-wrapper">
-    <div>
-      <section v-for="{ label, elements } in sections" :key="label" class="sidebar-section">
+    <div class="sidebar-content">
+      <section v-for="{ label, elements } in sections.content" :key="label" class="sidebar-section">
         <h3 class="sidebar-title">{{ label }}</h3>
 
         <section class="sidebar-list">
@@ -28,7 +28,7 @@
 
     <section class="sidebar-switch">
       <span @click="$emit('switch-sections')" class="sidebar-button">
-        <h2 class="sidebar-title sidebar-title--last">{{ sections[sections.length - 1].label }}</h2>
+        <h2 class="sidebar-title sidebar-title--last">{{ sections.footer }}</h2>
         <img class="article-icon--right" src="@/assets/img/arrow.svg" />
       </span>
     </section>
@@ -60,14 +60,16 @@ export default {
   height: 100%;
   padding: 24px;
   border-bottom-right-radius: 120px;
+  /* overflow: hidden; */
+}
+
+.sidebar-content {
+  height: 100%;
 }
 
 .sidebar-section {
   margin-bottom: 36px;
-}
-
-.sidebar-section:last-of-type {
-  display: none;
+  max-height: 40%;
 }
 
 .sidebar-title {
@@ -81,7 +83,6 @@ export default {
 
 .sidebar-list {
   padding-right: 8px;
-  max-height: 40vh;
   overflow: scroll;
 }
 

@@ -35,7 +35,7 @@ export default {
     const handleSelect = roomName => {
       if (sectionsIndex.value !== 0) return;
 
-      roomsSections[1].elements.forEach(room => {
+      roomsSections.content[1].elements.forEach(room => {
         if (room.selected === true) room.selected = false;
         if (room.name === roomName) room.selected = true;
       });
