@@ -6,19 +6,19 @@
 
         <section class="sidebar-list">
           <article
-            v-for="{ name, online, selected } in elements"
+            v-for="{ iconLeft, name, online, iconRight, selected } in elements"
             :key="name"
             class="sidebar-article"
             :class="{ 'sidebar-article--selected': selected }"
           >
             <span class="article-span">
-              <span class="article-icon--left"></span>
+              <img class="article-icon--left" :src="getIconUrl(iconLeft)" />
               <p class="article-text">{{ name }}</p>
             </span>
 
-            <span class="article-span">
+            <span v-if="online !== undefined" class="article-span">
               <p class="article-text">{{ online }}</p>
-              <span class="article-icon--right"></span>
+              <img class="article-icon--right icon-shadow" :src="getIconUrl(iconRight)" />
             </span>
           </article>
         </section>
@@ -27,19 +27,21 @@
 
     <section class="sidebar-switch">
       <h2 class="sidebar-title sidebar-title--last">Users online</h2>
-      <span class="article-icon--right"></span>
+      <img class="article-icon--right" src="@/assets/img/arrow.svg" />
     </section>
   </aside>
 </template>
 
 <script>
+import getIconUrl from '@/utils/getIconUrl';
+
 export default {
   name: 'room-list',
   props: {
     sections: { type: Object, required: true },
   },
-  setup(props) {
-    console.log(props);
+  setup() {
+    return { getIconUrl };
   },
 };
 </script>
@@ -53,6 +55,7 @@ export default {
   width: 33%;
   height: 100%;
   padding: 24px;
+  border-bottom-right-radius: 120px;
 }
 
 .sidebar-section {
@@ -103,6 +106,7 @@ export default {
   display: inline-block;
   width: 32px;
   height: 32px;
+  border: 6px solid var(--color-secondary);
   background-color: var(--color-secondary);
   margin-right: 16px;
   border-radius: 50%;
@@ -117,8 +121,11 @@ export default {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: var(--color-secondary);
   margin-left: 4px;
+}
+
+.icon-shadow {
+  filter: var(--shadow);
 }
 
 .sidebar-switch {
@@ -127,6 +134,7 @@ export default {
   width: inherit;
   border-top: 1px solid var(--color-secondary);
   padding-top: 16px;
+  cursor: pointer;
 }
 
 .sidebar-title--last {
