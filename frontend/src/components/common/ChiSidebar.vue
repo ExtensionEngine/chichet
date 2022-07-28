@@ -1,20 +1,20 @@
 <template>
   <aside class="sidebar-wrapper">
-    <section v-for="{ label, elements } in sections" :key="label" class="section-wrapper">
-      <h3 class="section-title">{{ label }}</h3>
+    <section v-for="{ label, elements } in sections" :key="label" class="sidebar-section">
+      <h3 class="sidebar-title">{{ label }}</h3>
 
-      <section class="elements-wrapper">
-        <span v-for="{ name, online } in elements" :key="name" class="elements-item">
-          <span class="elements-title">
-            <span class="elements-circle"></span>
-            <p class="elements-name">{{ name }}</p>
+      <section class="sidebar-list">
+        <article v-for="{ name, online } in elements" :key="name" class="sidebar-article">
+          <span class="article-span">
+            <span class="article-icon--left"></span>
+            <p class="article-text">{{ name }}</p>
           </span>
 
-          <span class="elements-title">
-            <span class="elements-online-amount">{{ online }}</span>
-            <span class="elements-online-profile"></span>
+          <span class="article-span">
+            <p class="article-text">{{ online }}</p>
+            <span class="article-icon--right"></span>
           </span>
-        </span>
+        </article>
       </section>
     </section>
   </aside>
@@ -40,11 +40,11 @@ export default {
   padding: 24px;
 }
 
-.section-wrapper {
+.sidebar-section {
   margin-bottom: 36px;
 }
 
-.section-title {
+.sidebar-title {
   font: var(--font-accent);
   font-size: var(--font-size-large);
   color: var(--color-secondary);
@@ -53,38 +53,40 @@ export default {
   border-bottom: 1px solid var(--color-secondary);
 }
 
-.elements-wrapper {
-  margin: 0 12px;
+.sidebar-list {
+  padding: 0 16px 0 12px;
+  max-height: 40vh;
+  overflow: scroll;
 }
 
-.elements-item {
+.sidebar-article {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 24px;
   font: var(--font-accent);
   color: var(--color-secondary);
+  margin-top: 24px;
 }
 
-.elements-title {
+.article-span {
   display: flex;
   align-items: center;
 }
 
-.elements-circle {
+.article-icon--left {
   display: inline-block;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
   background-color: var(--color-secondary);
   margin-right: 16px;
+  border-radius: 50%;
 }
 
-.elements-name {
+.article-text {
   margin: 0;
 }
 
-.elements-online-profile {
+.article-icon--right {
   display: inline-block;
   width: 16px;
   height: 16px;
