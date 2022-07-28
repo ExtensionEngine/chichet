@@ -1,24 +1,26 @@
 <template>
   <aside class="sidebar-aside">
     <div>
-      <section class="sidebar-section">
-        <h2 class="sidebar-header">Recomended Rooms</h2>
-        <section class="sidebar-list" :style="{ maxHeight: '30vh' }">
-          <chi-card class="sidebar-card"></chi-card>
-        </section>
-      </section>
-
-      <section class="sidebar-section">
-        <h2 class="sidebar-header">Recomended Rooms</h2>
-        <section class="sidebar-list" :style="{ maxHeight: '30vh' }">
-          <chi-card class="sidebar-card"></chi-card>
+      <section v-for="{ label, maxHeight, elements } in sections" :key="label" class="sidebar-section">
+        <h2 class="sidebar-header">{{ label }}</h2>
+        <section class="sidebar-list" :style="{ maxHeight: maxHeight || '42vh' }">
+          <chi-card
+            v-for="{ iconLeft, textLeft, iconRight, textRight, selected } in elements"
+            :key="textLeft"
+            :icon-left="iconLeft"
+            :text-left="textLeft"
+            :icon-right="iconRight"
+            :text-right="textRight"
+            :selected="selected"
+            class="sidebar-card"
+          ></chi-card>
         </section>
       </section>
     </div>
 
     <section class="sidebar-footer">
       <span class="sidebar-switch">
-        <h3 class="sidebar-header--last">Users online</h3>
+        <h3 class="sidebar-header--last">{{ footer }}</h3>
         <img src="@/assets/img/arrow.svg" alt="arrow" />
       </span>
     </section>
@@ -32,6 +34,7 @@ export default {
   name: 'room-list',
   props: {
     sections: { type: Object, required: true },
+    footer: { type: String, required: true },
   },
 
   emits: ['switch-sections', 'select'],
@@ -67,7 +70,6 @@ export default {
 .sidebar-list {
   width: 100%;
   display: inline-block;
-  max-height: initial;
   overflow-y: scroll;
 }
 

@@ -3,7 +3,8 @@
     <chi-sidebar
       @switch-sections="switchSections"
       @select="handleSelect"
-      :sections="sections[sectionsIndex]"
+      :sections="sections[sectionsIndex].content"
+      :footer="sections[sectionsIndex].footer"
     ></chi-sidebar>
     <button @click="authStore.signOut(router)">Sign out</button>
   </main>

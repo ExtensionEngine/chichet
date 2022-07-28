@@ -1,13 +1,13 @@
 <template>
-  <article class="card-article" :class="{ 'card-article--selected': false }">
+  <article class="card-article" :class="{ 'card-article--selected': selected }">
     <span class="card-group">
-      <img class="card-icon--left" :src="getIconUrl('../../assets/img/globe.svg')" alt="icon-left" />
-      <p class="card-text">Room #1</p>
+      <img class="card-icon--left" :src="getIconUrl(iconLeft)" alt="icon-left" />
+      <p class="card-text">{{ textLeft }}</p>
     </span>
 
-    <span class="card-group">
-      <p class="card-text">3</p>
-      <img class="card-icon--right" :src="getIconUrl('../../assets/img/profile_darker.svg')" alt="icon-right" />
+    <span v-if="!!textRight" class="card-group">
+      <p class="card-text">{{ textRight }}</p>
+      <img class="card-icon--right" :src="getIconUrl(iconRight)" alt="icon-right" />
     </span>
   </article>
 </template>
@@ -17,6 +17,13 @@ import getIconUrl from '@/utils/getIconUrl';
 
 export default {
   name: 'chi-card',
+  props: {
+    iconLeft: { type: String, required: true },
+    textLeft: { type: String, required: true },
+    iconRight: { type: String, default: null },
+    textRight: { type: String, default: null },
+    selected: { type: Boolean, default: false },
+  },
   setup() {
     return { getIconUrl };
   },
