@@ -1,21 +1,28 @@
 <template>
   <aside class="sidebar-wrapper">
-    <section v-for="{ label, elements } in sections" :key="label" class="sidebar-section">
-      <h3 class="sidebar-title">{{ label }}</h3>
+    <div>
+      <section v-for="{ label, elements } in sections" :key="label" class="sidebar-section">
+        <h3 class="sidebar-title">{{ label }}</h3>
 
-      <section class="sidebar-list">
-        <article v-for="{ name, online } in elements" :key="name" class="sidebar-article">
-          <span class="article-span">
-            <span class="article-icon--left"></span>
-            <p class="article-text">{{ name }}</p>
-          </span>
+        <section class="sidebar-list">
+          <article v-for="{ name, online } in elements" :key="name" class="sidebar-article">
+            <span class="article-span">
+              <span class="article-icon--left"></span>
+              <p class="article-text">{{ name }}</p>
+            </span>
 
-          <span class="article-span">
-            <p class="article-text">{{ online }}</p>
-            <span class="article-icon--right"></span>
-          </span>
-        </article>
+            <span class="article-span">
+              <p class="article-text">{{ online }}</p>
+              <span class="article-icon--right"></span>
+            </span>
+          </article>
+        </section>
       </section>
+    </div>
+
+    <section class="sidebar-switch">
+      <h2 class="sidebar-title sidebar-title--last">Users online</h2>
+      <span class="article-icon--right"></span>
     </section>
   </aside>
 </template>
@@ -34,6 +41,9 @@ export default {
 
 <style scoped>
 .sidebar-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--color-primary);
   width: 33%;
   height: 100%;
@@ -93,5 +103,18 @@ export default {
   border-radius: 50%;
   background-color: var(--color-secondary);
   margin-left: 4px;
+}
+
+.sidebar-switch {
+  display: flex;
+  align-items: center;
+  width: inherit;
+  border-top: 1px solid var(--color-secondary);
+  padding-top: 16px;
+}
+
+.sidebar-title--last {
+  border-bottom: none;
+  padding: 0;
 }
 </style>
