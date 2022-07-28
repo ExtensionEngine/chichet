@@ -5,7 +5,12 @@
         <h3 class="sidebar-title">{{ label }}</h3>
 
         <section class="sidebar-list">
-          <article v-for="{ name, online } in elements" :key="name" class="sidebar-article">
+          <article
+            v-for="{ name, online, selected } in elements"
+            :key="name"
+            class="sidebar-article"
+            :class="{ 'sidebar-article--selected': selected }"
+          >
             <span class="article-span">
               <span class="article-icon--left"></span>
               <p class="article-text">{{ name }}</p>
@@ -64,18 +69,29 @@ export default {
 }
 
 .sidebar-list {
-  padding: 0 16px 0 12px;
+  padding-right: 8px;
   max-height: 40vh;
   overflow: scroll;
 }
 
 .sidebar-article {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font: var(--font-accent);
   color: var(--color-secondary);
-  margin-top: 24px;
+  padding: 8px;
+  margin: 8px 0;
+}
+
+.sidebar-article:first-of-type {
+  margin-top: 16px;
+}
+
+.sidebar-article--selected {
+  background-color: var(--color-primary-subdued);
+  border-radius: 12px;
 }
 
 .article-span {
