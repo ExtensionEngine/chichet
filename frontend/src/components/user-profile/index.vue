@@ -2,7 +2,7 @@
   <div :class="{ active }" class="user-profile">
     <div class="user-profile-container">
       <div class="user-profile-wrapper">
-        <img src="@/assets/user.png" alt="user" class="user-profile-image" />
+        <img src="@/assets/profile.svg" alt="profile" class="user-profile-avatar" />
         <user-form :inputs="formInputs" class="user-profile-form" disabled />
         <tag-list @select-tag="selectTag" class="user-profile-tags" :tags="tags" centred small />
       </div>
@@ -85,9 +85,8 @@ export default {
   padding: 30px;
 }
 
-.user-profile-image {
-  height: 150px;
-  width: auto;
+.user-profile-avatar {
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .user-profile-form {
