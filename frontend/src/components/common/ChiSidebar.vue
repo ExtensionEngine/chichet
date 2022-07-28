@@ -1,17 +1,26 @@
 <template>
   <aside class="sidebar-aside">
-    <section class="sidebar-section">
-      <h2 class="sidebar-header">Recomended Rooms</h2>
-      <section class="sidebar-list" :style="{ maxHeight: '30vh' }">
-        <chi-card class="sidebar-card"></chi-card>
+    <div>
+      <section class="sidebar-section">
+        <h2 class="sidebar-header">Recomended Rooms</h2>
+        <section class="sidebar-list" :style="{ maxHeight: '30vh' }">
+          <chi-card class="sidebar-card"></chi-card>
+        </section>
       </section>
-    </section>
 
-    <section class="sidebar-section">
-      <h2 class="sidebar-header">Recomended Rooms</h2>
-      <section class="sidebar-list" :style="{ maxHeight: '30vh' }">
-        <chi-card class="sidebar-card"></chi-card>
+      <section class="sidebar-section">
+        <h2 class="sidebar-header">Recomended Rooms</h2>
+        <section class="sidebar-list" :style="{ maxHeight: '30vh' }">
+          <chi-card class="sidebar-card"></chi-card>
+        </section>
       </section>
+    </div>
+
+    <section class="sidebar-footer">
+      <span class="sidebar-switch">
+        <h3 class="sidebar-header--last">Users online</h3>
+        <img src="@/assets/img/arrow.svg" alt="arrow" />
+      </span>
     </section>
   </aside>
 </template>
@@ -32,6 +41,9 @@ export default {
 
 <style scoped>
 .sidebar-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 33%;
   height: 100%;
   padding: 24px;
@@ -49,6 +61,7 @@ export default {
   margin: 0;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--color-secondary);
+  font-size: var(--font-size-large);
 }
 
 .sidebar-list {
@@ -65,5 +78,21 @@ export default {
 
 .sidebar-card:first-of-type {
   padding-top: 24px;
+}
+
+.sidebar-footer {
+  width: 50%;
+  border-top: 1px solid var(--color-secondary);
+}
+
+.sidebar-switch {
+  display: flex;
+  margin-top: 16px;
+}
+
+.sidebar-header--last {
+  margin: 0;
+  margin-right: 8px;
+  font-size: var(--font-size-large);
 }
 </style>

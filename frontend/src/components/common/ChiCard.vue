@@ -1,13 +1,13 @@
 <template>
   <article class="card-article">
     <span class="card-group">
-      <img class="card-icon--left" :src="getIconUrl('../../assets/img/globe.svg')" />
+      <img class="card-icon--left" :src="getIconUrl('../../assets/img/globe.svg')" alt="icon-left" />
       <p class="card-text">Room #1</p>
     </span>
 
     <span class="card-group">
       <p class="card-text">3</p>
-      <img class="card-icon--right" :src="getIconUrl('../../assets/img/profile_darker.svg')" />
+      <img class="card-icon--right" :src="getIconUrl('../../assets/img/profile_darker.svg')" alt="icon-right" />
     </span>
   </article>
 </template>
