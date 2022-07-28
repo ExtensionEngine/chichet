@@ -1,9 +1,11 @@
 <template>
   <div :class="{ active }" class="user-profile">
-    <div class="user-profile-container">
-      <img src="@/assets/user.png" alt="user" class="user-profile-image" />
-      <user-form :inputs="formInputs" class="user-profile-form" disabled />
-      <tag-list @select-tag="selectTag" class="user-profile-tags" :tags="tags" centred small />
+    <div class="user-profile-wrapper">
+      <div class="user-profile-container">
+        <img src="@/assets/user.png" alt="user" class="user-profile-image" />
+        <user-form :inputs="formInputs" class="user-profile-form" disabled />
+        <tag-list @select-tag="selectTag" class="user-profile-tags" :tags="tags" centred small />
+      </div>
     </div>
     <div @click="$emit('close-profile')" class="user-profile-overlay"></div>
   </div>
@@ -59,7 +61,7 @@ export default {
   visibility: hidden;
 }
 
-.user-profile-container {
+.user-profile-wrapper {
   z-index: var(--z-user-profile-container);
   background-color: var(--color-secondary);
   border-radius: 0 0 120px 0;
@@ -71,10 +73,16 @@ export default {
   overflow-y: auto;
   transition: 0.6s ease;
   transition-property: left;
+  display: grid;
+  place-items: center;
+}
+
+.user-profile-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 30px;
 }
 
 .user-profile-image {
@@ -83,11 +91,11 @@ export default {
 }
 
 .user-profile-form {
-  padding-top: 20px;
+  padding-top: 20px 40px;
 }
 
 .user-profile-tags {
-  max-width: 40%;
+  max-width: 60%;
 }
 
 .user-profile-overlay {
@@ -103,7 +111,7 @@ export default {
   visibility: visible;
 }
 
-.active .user-profile-container {
+.active .user-profile-wrapper {
   left: 0;
 }
 </style>
