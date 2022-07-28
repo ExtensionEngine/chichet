@@ -21,7 +21,6 @@ import { userProfileFormLabels } from './constants';
 
 export default {
   name: 'user-profile',
-  emits: ['close-profile'],
   props: {
     active: { type: Boolean, default: false },
   },
