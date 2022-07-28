@@ -90,7 +90,7 @@ export default {
 }
 
 .user-profile-form {
-  padding-top: 20px 40px;
+  padding-top: 40px;
 }
 
 .user-profile-tags {
