@@ -26,8 +26,10 @@
     </div>
 
     <section class="sidebar-switch">
-      <h2 class="sidebar-title sidebar-title--last">Users online</h2>
-      <img class="article-icon--right" src="@/assets/img/arrow.svg" />
+      <span @click="$emit('switch-sections')" class="sidebar-button">
+        <h2 class="sidebar-title sidebar-title--last">Users online</h2>
+        <img class="article-icon--right" src="@/assets/img/arrow.svg" />
+      </span>
     </section>
   </aside>
 </template>
@@ -43,6 +45,7 @@ export default {
   setup() {
     return { getIconUrl };
   },
+  emits: ['switch-sections'],
 };
 </script>
 
@@ -129,11 +132,14 @@ export default {
 }
 
 .sidebar-switch {
-  display: flex;
-  align-items: center;
   width: inherit;
   border-top: 1px solid var(--color-secondary);
   padding-top: 16px;
+}
+
+.sidebar-button {
+  display: flex;
+  align-items: center;
   cursor: pointer;
 }
 
