@@ -77,7 +77,7 @@ export default {
 }
 
 .sidebar-card:first-of-type {
-  padding-top: 24px;
+  margin-top: 12px;
 }
 
 .sidebar-footer {

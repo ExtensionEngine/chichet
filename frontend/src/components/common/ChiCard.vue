@@ -1,5 +1,5 @@
 <template>
-  <article class="card-article">
+  <article class="card-article" :class="{ 'card-article--selected': false }">
     <span class="card-group">
       <img class="card-icon--left" :src="getIconUrl('../../assets/img/globe.svg')" alt="icon-left" />
       <p class="card-text">Room #1</p>
@@ -27,6 +27,17 @@ export default {
 .card-article {
   display: flex;
   justify-content: space-between;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.card-article--selected {
+  background-color: var(--color-primary-subdued);
+}
+
+.card-article:hover {
+  border-color: var(--color-primary-subdued);
 }
 
 .card-group {
