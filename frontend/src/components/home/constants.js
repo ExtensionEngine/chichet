@@ -2,6 +2,7 @@ const roomsSectionsDefault = {
   content: [
     {
       label: 'Recommended rooms',
+      maxHeight: '30%',
       elements: [
         { iconLeft: 'globe.svg', name: 'Room name', online: 0, iconRight: 'profile_darker.svg' },
         { iconLeft: 'globe.svg', name: 'Room #1', online: 0, iconRight: 'profile_darker.svg' },
