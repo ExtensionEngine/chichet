@@ -38,7 +38,7 @@ export default {
 
       roomsSections.content[1].elements.forEach(room => {
         if (room.selected === true) room.selected = false;
-        if (room.name === roomName) room.selected = true;
+        if (room.textLeft === roomName) room.selected = true;
       });
     };
 

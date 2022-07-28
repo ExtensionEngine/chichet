@@ -7,6 +7,7 @@
           <chi-card
             v-for="{ iconLeft, textLeft, iconRight, textRight, selected } in elements"
             :key="textLeft"
+            @click="$emit('select', textLeft)"
             :icon-left="iconLeft"
             :text-left="textLeft"
             :icon-right="iconRight"
