@@ -15,7 +15,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { tag as tagApi, userTag as userTagApi } from '@/api';
 import TagList from './TagList.vue';
-import { useAuthStore } from '../../store/authStore';
+import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
 
 export default {
