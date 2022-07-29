@@ -50,6 +50,7 @@ const roomsSectionsDefault = {
     },
     {
       label: 'All rooms',
+      maxHeight: 'calc(100vh - 30vh - 6 * 24px - 1.5rem - 1.5rem - 2px - 5vh)',
       elements: [
         {
           iconLeft: 'globe.svg',

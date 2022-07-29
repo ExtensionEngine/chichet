@@ -1,9 +1,9 @@
 <template>
   <aside class="sidebar-aside">
-    <div>
+    <div class="sidebar-wrapper">
       <section v-for="{ label, maxHeight, elements } in sections" :key="label" class="sidebar-section">
         <h2 class="sidebar-header">{{ label }}</h2>
-        <section class="sidebar-list" :style="{ maxHeight: maxHeight || '42vh' }">
+        <section class="sidebar-list" :style="{ maxHeight }">
           <chi-card
             v-for="{ iconLeft, textLeft, iconRight, textRight, selected } in elements"
             :key="textLeft"
@@ -55,6 +55,11 @@ export default {
   background-color: var(--color-primary);
   font: var(--font-accent);
   color: var(--color-secondary);
+  overflow-y: scroll;
+}
+
+.sidebar-wrapper {
+  height: 90%;
 }
 
 .sidebar-section {
@@ -72,6 +77,7 @@ export default {
   width: 100%;
   display: inline-block;
   overflow-y: scroll;
+  max-height: 80vh;
 }
 
 .sidebar-card {
@@ -85,12 +91,15 @@ export default {
 
 .sidebar-footer {
   width: 50%;
-  border-top: 1px solid var(--color-secondary);
+  /* height: 7vh; */
+  display: flex;
+  align-items: flex-end;
 }
 
 .sidebar-switch {
+  border-top: 1px solid var(--color-secondary);
   display: flex;
-  margin-top: 16px;
+  padding-top: 16px;
 }
 
 .sidebar-header--last {
