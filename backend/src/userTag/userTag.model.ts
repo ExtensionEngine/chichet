@@ -13,11 +13,13 @@ class UserTag extends Model {
       userId: {
         type: INTEGER,
         allowNull: false,
+        unique: 'unique_user_id_tag_id',
       },
 
       tagId: {
         type: INTEGER,
         allowNull: false,
+        unique: 'unique_user_id_tag_id',
       },
     };
   }
@@ -37,11 +39,6 @@ class UserTag extends Model {
       modelName: 'userTag',
       tableName: 'userTags',
       timestamps: false,
-      uniqueKeys: {
-        user_tags_unique: {
-          fields: ['userId', 'tagId'],
-        },
-      },
     };
   }
 }
