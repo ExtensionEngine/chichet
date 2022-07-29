@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
+import sequelize, { UserTag } from 'shared/database';
 import { OK } from 'http-status';
-import { UserTag } from 'shared/database';
 
 const add = async ({ body: { userId, tagIds } }: Request, res: Response, next: NextFunction) => {
+  const transaction = await sequelize.transaction();
+
   try {
     await UserTag.destroy({ where: { userId } });
 
@@ -14,8 +16,10 @@ const add = async ({ body: { userId, tagIds } }: Request, res: Response, next: N
       { ignoreDuplicates: true },
     );
 
-    res.status(OK).json();
+    transaction.commit();
+    return res.status(OK).json();
   } catch (err) {
+    transaction.rollback();
     next(err);
   }
 };
