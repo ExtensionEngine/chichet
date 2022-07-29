@@ -11,9 +11,10 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { roomsSectionsDefault, usersSectionsDefault } from './constants';
 import ChiSidebar from '../common/ChiSidebar.vue';
+import { room as roomApi } from '@/api';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
 
@@ -30,6 +31,17 @@ export default {
     const sections = [roomsSections, usersSections];
 
     const currentSections = computed(() => sections[sectionsIndex.value]);
+
+    onMounted(async () => {
+      const rooms = await roomApi.getAll();
+      roomsSections.content[1].elements = rooms.map(({ title }) => ({
+        iconLeft: 'globe.svg',
+        textLeft: title,
+        textRight: '0',
+        iconRight: 'profile_darker.svg',
+        selected: false,
+      }));
+    });
 
     const switchSections = () => {
       sectionsIndex.value = (sectionsIndex.value + 1) % sections.length;

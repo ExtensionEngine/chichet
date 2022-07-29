@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar-aside">
     <div class="sidebar-wrapper">
-      <section v-for="{ label, maxHeight, elements } in sections" :key="label" class="sidebar-section">
+      <section v-for="{ label, maxHeight, elements } in filteredSections" :key="label" class="sidebar-section">
         <h2 class="sidebar-header">{{ label }}</h2>
         <section class="sidebar-list" :style="{ maxHeight }">
           <chi-card
@@ -26,6 +26,7 @@
 
 <script>
 import ChiCard from './ChiCard.vue';
+import { computed } from 'vue';
 
 export default {
   name: 'room-list',
@@ -33,8 +34,10 @@ export default {
     sections: { type: Object, required: true },
     footer: { type: String, required: true },
   },
-
-  emits: ['switch-sections', 'select'],
+  setup(props) {
+    const filteredSections = computed(() => props.sections.filter(({ elements }) => elements.length > 0));
+    return { filteredSections };
+  },
   components: { ChiCard },
 };
 </script>
