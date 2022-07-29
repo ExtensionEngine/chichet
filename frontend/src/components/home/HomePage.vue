@@ -7,7 +7,7 @@
       :footer="currentSections.footer"
     ></chi-sidebar>
 
-    <home-chat></home-chat>
+    <chat-layout></chat-layout>
     <!-- <button @click="authStore.signOut(router)">Sign out</button> -->
   </main>
 </template>
@@ -18,7 +18,7 @@ import { roomsSectionsDefault, usersSectionsDefault } from './constants';
 import ChiSidebar from '../common/ChiSidebar.vue';
 import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
-import HomeChat from './HomeChat.vue';
+import ChatLayout from '../chat/ChatLayout.vue';
 
 export default {
   name: 'home-page',
@@ -49,7 +49,7 @@ export default {
 
     return { authStore, router, currentSections, switchSections, handleSelect };
   },
-  components: { ChiSidebar, HomeChat },
+  components: { ChiSidebar, ChatLayout },
 };
 </script>
 
