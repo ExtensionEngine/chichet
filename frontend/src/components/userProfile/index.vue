@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ active }" class="user-profile">
+  <aside :class="{ active }" class="user-profile">
     <div class="user-profile-container">
       <div class="user-profile-wrapper">
         <img src="@/assets/img/profile.svg" alt="profile" class="user-profile-avatar" />
@@ -8,7 +8,7 @@
       </div>
     </div>
     <div @click="$emit('close-profile')" class="user-profile-overlay"></div>
-  </div>
+  </aside>
 </template>
 
 <script>
