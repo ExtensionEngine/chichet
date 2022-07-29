@@ -1,7 +1,13 @@
 import { IFields, IModels } from 'shared/database/types';
+import { ITag } from './types';
 import { Model } from 'sequelize';
+import { User } from 'shared/database';
 
-class Tag extends Model {
+class Tag extends Model implements ITag {
+  id!: number;
+  label!: string;
+  users!: typeof User[];
+
   static fields({ INTEGER, STRING }: IFields) {
     return {
       id: {

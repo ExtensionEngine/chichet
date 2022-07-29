@@ -13,20 +13,21 @@
 
 <script>
 import { computed, onMounted, ref } from 'vue';
-import { tag as tagApi } from '@/api';
+import { tag as tagApi, userTag as userTagApi } from '@/api';
 import TagList from './TagList.vue';
+import { useAuthStore } from '@/store/authStore';
 import { useRouter } from 'vue-router';
 
 export default {
   name: 'tag-select',
   setup() {
     const router = useRouter();
+    const userStore = useAuthStore();
 
     const tags = ref([]);
 
     onMounted(async () => {
-      const data = await tagApi.fetchAll();
-      tags.value = data.map(tag => ({ ...tag, selected: false }));
+      tags.value = await tagApi.getAll();
     });
 
     const selectTag = tagId => {
@@ -38,15 +39,16 @@ export default {
       return tags.value.filter(tag => tag.selected).length > 0;
     });
 
-    const handleSaveSelected = () => {
-      // TODO: add saving userTags (waiting for Authorization PR)
-      console.log(tags);
+    const handleSaveSelected = async () => {
+      const userId = userStore.getUser.id;
+      const tagIds = tags.value.filter(tag => tag.selected).map(tag => tag.id);
+
+      await userTagApi.add({ userId, tagIds });
       handleProceed();
     };
 
     const handleProceed = () => {
-      // TODO: add correct location
-      router.push('/');
+      router.push({ name: 'Home' });
     };
 
     return { tags, areAnySelected, selectTag, handleSaveSelected, handleProceed };

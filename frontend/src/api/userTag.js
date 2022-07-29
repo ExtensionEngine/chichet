@@ -2,13 +2,13 @@ import { extractData } from './helpers';
 import request from './request';
 
 const urls = {
-  root: '/tags',
+  root: '/user-tags',
 };
 
-const getAll = () => {
-  return request.get(urls.root).then(extractData);
+const add = params => {
+  return request.post(urls.root, params).then(extractData);
 };
 
 export default {
-  getAll,
+  add,
 };
