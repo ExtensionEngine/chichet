@@ -1,6 +1,6 @@
 <template>
   <section class="user-section">
-    <form @submit.prevent="$emit('submit-data')" class="user-form">
+    <form @submit.prevent="$emit('submit-data')" :class="{ disabled }" class="user-form">
       <fieldset :disabled="disabled">
         <chi-field
           v-for="(input, index) in inputs"
@@ -11,9 +11,9 @@
           :type="input.type"
           :auto-focus="index === 0"
         ></chi-field>
-        <chi-button v-if="buttonLabel" class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
+        <chi-button v-if="!disabled" class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
 
-        <p v-if="formSwitch.label" class="user-info">
+        <p v-if="!disabled" class="user-info">
           {{ formSwitch.label }}
           <chi-button @click="$emit('swap-active')" type="button" inline>{{ formSwitch.buttonText }}</chi-button>
         </p>
@@ -56,5 +56,9 @@ export default {
   font-size: var(--font-size-small);
   color: var(--color-text-light);
   text-align: center;
+}
+
+.user-form.disabled {
+  opacity: 60%;
 }
 </style>
