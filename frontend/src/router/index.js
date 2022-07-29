@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '@/components/HomeTemp.vue';
+import Home from '@/components/home/HomePage.vue';
 import TagSelect from '@/components/tags/TagSelect.vue';
 import { useAuthStore } from '@/store/authStore';
 import UserAuth from '@/components/auth/UserAuth.vue';
