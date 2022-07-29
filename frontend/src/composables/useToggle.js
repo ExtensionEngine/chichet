@@ -1,9 +1,9 @@
 import { ref } from 'vue';
 
 export default function useToggle() {
-  const isTrue = ref(false);
+  const isToggled = ref(false);
   const toggle = () => {
-    isTrue.value = !isTrue.value;
+    isToggled.value = !isToggled.value;
   };
-  return { isTrue, toggle };
+  return { isToggled, toggle };
 }

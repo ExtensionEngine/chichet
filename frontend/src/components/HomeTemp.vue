@@ -18,7 +18,7 @@ export default {
     const authStore = useAuthStore();
     const router = useRouter();
 
-    const { isTrue: isProfileActive, toggle: toggleProfileActive } = useToggle();
+    const { isToggled: isProfileActive, toggle: toggleProfileActive } = useToggle();
 
     return { authStore, router, isProfileActive, toggleProfileActive };
   },
