@@ -6,20 +6,20 @@ const add = async ({ body: { userId, tagIds } }: Request, res: Response, next: N
   const transaction = await sequelize.transaction();
 
   try {
-    await UserTag.destroy({ where: { userId } });
+    await UserTag.destroy({ where: { userId }, transaction });
 
     await UserTag.bulkCreate(
       tagIds.map((tagId: number) => ({
         userId,
         tagId,
       })),
-      { ignoreDuplicates: true },
+      { ignoreDuplicates: true, transaction },
     );
 
-    transaction.commit();
+    await transaction.commit();
     return res.status(OK).json();
   } catch (err) {
-    transaction.rollback();
+    await transaction.rollback();
     next(err);
   }
 };
