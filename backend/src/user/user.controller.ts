@@ -17,8 +17,8 @@ const signIn = async ({ body: { username, password } }: ISignInRequest, res: Res
   const tokens = await user.generateTokens();
   setAuthCookies(tokens, res);
 
-  const { id, firstName, lastName } = user;
-  return res.status(OK).json({ id, username, firstName, lastName });
+  const { id, firstName, lastName, fullName } = user;
+  return res.status(OK).json({ id, username, firstName, lastName, fullName });
 };
 
 const register = async ({ body }: IRegisterRequest, res: Response, next: NextFunction) => {
@@ -28,8 +28,8 @@ const register = async ({ body }: IRegisterRequest, res: Response, next: NextFun
     const tokens = await user.generateTokens();
     setAuthCookies(tokens, res);
 
-    const { id, username, firstName, lastName } = user;
-    return res.status(CREATED).json({ id, username, firstName, lastName });
+    const { id, username, firstName, lastName, fullName } = user;
+    return res.status(CREATED).json({ id, username, firstName, lastName, fullName });
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
       return next(new HttpError(CONFLICT, errorMessages.REGISTER_ERROR));
