@@ -90,10 +90,11 @@ export default {
 
 .user-profile-form {
   padding-top: 40px;
+  width: 100%;
 }
 
 .user-profile-tags {
-  max-width: 30%;
+  max-width: 65%;
   max-height: calc(44px * 2);
   overflow-y: scroll;
   margin-bottom: 10px;
