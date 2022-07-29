@@ -3,15 +3,15 @@
     <chi-sidebar
       @switch-sections="switchSections"
       @select="handleSelect"
-      :sections="sections[sectionsIndex].content"
-      :footer="sections[sectionsIndex].footer"
+      :sections="currentSections.content"
+      :footer="currentSections.footer"
     ></chi-sidebar>
     <button @click="authStore.signOut(router)">Sign out</button>
   </main>
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { roomsSectionsDefault, usersSectionsDefault } from './constants';
 import ChiSidebar from '../common/ChiSidebar.vue';
 import { useAuthStore } from '@/store/authStore';
@@ -29,6 +29,8 @@ export default {
     const sectionsIndex = ref(0);
     const sections = [roomsSections, usersSections];
 
+    const currentSections = computed(() => sections[sectionsIndex.value]);
+
     const switchSections = () => {
       sectionsIndex.value = (sectionsIndex.value + 1) % sections.length;
     };
@@ -42,7 +44,7 @@ export default {
       });
     };
 
-    return { authStore, router, sections, sectionsIndex, switchSections, handleSelect };
+    return { authStore, router, currentSections, switchSections, handleSelect };
   },
   components: { ChiSidebar },
 };
