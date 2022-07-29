@@ -63,14 +63,13 @@ export default {
 .user-profile-container {
   z-index: var(--z-user-profile-container);
   background-color: var(--color-secondary);
-  border-radius: 0 0 120px 0;
-  width: 50vw;
-  height: 100vh;
+  border-bottom-right-radius: 120px;
+  width: 50%;
+  height: 100%;
   position: fixed;
   top: 0;
   left: -100%;
-  transition: 0.6s ease;
-  transition-property: left;
+  transition: left 0.6s ease;
   display: grid;
   place-items: center;
 }
