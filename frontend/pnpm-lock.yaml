@@ -14,6 +14,7 @@ specifiers:
   eslint-config-standard: ^17.0.0
   eslint-plugin-import: ^2.26.0
   eslint-plugin-n: ^15.2.4
+  eslint-plugin-no-relative-import-paths: ^1.4.0
   eslint-plugin-node: ^11.1.0
   eslint-plugin-prettier: ^4.2.1
   eslint-plugin-promise: ^6.0.0
@@ -48,6 +49,7 @@ devDependencies:
   eslint-config-standard: 17.0.0_3y77imf4oat3akor274t4exgn4
   eslint-plugin-import: 2.26.0_eslint@8.19.0
   eslint-plugin-n: 15.2.4_eslint@8.19.0
+  eslint-plugin-no-relative-import-paths: 1.4.0
   eslint-plugin-node: 11.1.0_eslint@8.19.0
   eslint-plugin-prettier: 4.2.1_7uxdfn2xinezdgvmbammh6ev5i
   eslint-plugin-promise: 6.0.0_eslint@8.19.0
@@ -1170,6 +1172,10 @@ packages:
       minimatch: 3.1.2
       resolve: 1.22.1
       semver: 7.3.7
+    dev: true
+
+  /eslint-plugin-no-relative-import-paths/1.4.0:
+    resolution: {integrity: sha512-J/ok26KqJM+20VsxNEcHc9kyW0dcFHBlihOO5FFv/GQqwcW+G1UngbHLpnPAdOQ1dJg5Ljk/40csqfZ3mnneUw==}
     dev: true
 
   /eslint-plugin-node/11.1.0_eslint@8.19.0:
