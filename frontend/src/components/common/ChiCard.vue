@@ -1,18 +1,19 @@
 <template>
   <article class="card-article" :class="{ 'card-article--selected': selected }">
     <span class="card-group">
-      <img class="card-icon--left" :src="getIconUrl(iconLeft)" alt="icon-left" />
+      <img class="card-icon--left" :src="iconLeftUrl" alt="icon-left" />
       <p class="card-text">{{ textLeft }}</p>
     </span>
 
     <span v-if="!!textRight" class="card-group">
       <p class="card-text">{{ textRight }}</p>
-      <img class="card-icon--right" :src="getIconUrl(iconRight)" alt="icon-right" />
+      <img class="card-icon--right" :src="iconRightUrl" alt="icon-right" />
     </span>
   </article>
 </template>
 
 <script>
+import { computed } from 'vue';
 import getIconUrl from '@/utils/getIconUrl';
 
 export default {
@@ -24,8 +25,11 @@ export default {
     textRight: { type: String, default: null },
     selected: { type: Boolean, default: false },
   },
-  setup() {
-    return { getIconUrl };
+  setup(props) {
+    const iconLeftUrl = computed(() => getIconUrl(props.iconLeft));
+    const iconRightUrl = computed(() => getIconUrl(props.iconRight));
+
+    return { iconLeftUrl, iconRightUrl };
   },
 };
 </script>
