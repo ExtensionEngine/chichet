@@ -2,7 +2,7 @@
   <div :class="{ active }" class="user-profile">
     <div class="user-profile-container">
       <div class="user-profile-wrapper">
-        <img src="@/assets/profile.svg" alt="profile" class="user-profile-avatar" />
+        <img src="@/assets/img/profile.svg" alt="profile" class="user-profile-avatar" />
         <user-form :inputs="formInputs" class="user-profile-form" disabled />
         <tag-list @select-tag="selectTag" :tags="tags" class="user-profile-tags" centred small />
       </div>
