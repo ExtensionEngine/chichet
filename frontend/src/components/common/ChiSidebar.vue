@@ -91,7 +91,6 @@ export default {
 
 .sidebar-footer {
   width: 50%;
-  /* height: 7vh; */
   display: flex;
   align-items: flex-end;
 }
