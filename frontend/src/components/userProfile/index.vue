@@ -4,7 +4,7 @@
       <div class="user-profile-wrapper">
         <img src="@/assets/img/profile.svg" alt="profile" class="user-profile-avatar" />
         <user-form :inputs="formInputs" class="user-profile-form" disabled />
-        <tag-list @select-tag="selectTag" :tags="tags" class="user-profile-tags" centred small />
+        <tag-list @select-tag="selectTag" :tags="tags" class="user-profile-tags" centered small />
       </div>
     </div>
     <div @click="$emit('close-profile')" class="user-profile-overlay"></div>

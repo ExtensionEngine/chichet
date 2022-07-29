@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="{ centred }" class="tag-list">
+    <div :class="{ centered }" class="tag-list">
       <chi-button
         v-for="{ id, label, selected } in tags"
         :key="id"
@@ -20,7 +20,7 @@ export default {
   name: 'tag-list',
   props: {
     tags: { type: Array, required: true },
-    centred: { type: Boolean, default: false },
+    centered: { type: Boolean, default: false },
     small: { type: Boolean, default: false },
   },
 };
@@ -39,7 +39,7 @@ export default {
   text-transform: capitalize;
 }
 
-.tag-list.centred {
+.tag-list.centered {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
