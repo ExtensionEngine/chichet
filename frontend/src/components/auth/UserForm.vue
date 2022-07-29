@@ -13,7 +13,7 @@
         ></chi-field>
         <chi-button v-if="buttonLabel" class="user-submit" type="submit">{{ buttonLabel }}</chi-button>
 
-        <p class="user-info">
+        <p v-if="formSwitch.label" class="user-info">
           {{ formSwitch.label }}
           <chi-button @click="$emit('swap-active')" type="button" inline>{{ formSwitch.buttonText }}</chi-button>
         </p>
