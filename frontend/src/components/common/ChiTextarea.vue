@@ -41,13 +41,13 @@ export default {
 <style scoped>
 .chi-textarea {
   font-size: inherit;
-  background: none;
+  background: var(--color-secondary);
   border: none;
   outline: none;
   resize: none;
   max-height: 200px;
-  border-bottom: 2px solid var(--color-primary);
-  padding: 16px 8px;
+  padding: 24px 32px;
+  border-radius: 40px;
   color: var(--color-text);
   letter-spacing: 0.1rem;
 }
