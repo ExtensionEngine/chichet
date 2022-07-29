@@ -5,14 +5,10 @@
         <h2 class="sidebar-header">{{ label }}</h2>
         <section class="sidebar-list" :style="{ maxHeight }">
           <chi-card
-            v-for="{ iconLeft, textLeft, iconRight, textRight, selected } in elements"
-            :key="textLeft"
-            @click="$emit('select', textLeft)"
-            :icon-left="iconLeft"
-            :text-left="textLeft"
-            :icon-right="iconRight"
-            :text-right="textRight"
-            :selected="selected"
+            v-for="element in elements"
+            :key="element.textLeft"
+            @click="$emit('select', element.textLeft)"
+            v-bind="element"
             class="sidebar-card"
           ></chi-card>
         </section>
